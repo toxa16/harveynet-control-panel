@@ -7,7 +7,7 @@ export default function App() {
     <div className="App" data-cy="homepage">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>v0.0.2</p>
+        <p>v0.0.3</p>
       </header>
     </div>
   );

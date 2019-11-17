@@ -23,6 +23,11 @@ export default function LoginForm({ onSubmit }) {
           <br />
 
           <div className="form-group">
+            <label>Username:</label>
+            <input type="text" name="username" className="form-control" />
+          </div>
+
+          <div className="form-group">
             <label>Email:</label>
             <input type="email" name="email" className="form-control" />
           </div>

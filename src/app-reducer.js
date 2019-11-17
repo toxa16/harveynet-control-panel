@@ -1,7 +1,13 @@
 import ActionType from './action-type.enum';
 
+const machines0 = [
+  { id: 'machine1' },
+  { id: 'machine2' },
+];
+
 const initialState = {
   username: null,
+  machines: [],
 };
 
 export default function appReducer(state = initialState, action) {

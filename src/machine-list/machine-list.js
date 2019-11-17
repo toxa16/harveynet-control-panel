@@ -1,6 +1,6 @@
 import React from 'react';
 
-const machines = [
+const machines0 = [
   { id: 'machine1' },
   { id: 'machine2' },
 ];
@@ -8,7 +8,7 @@ const machines = [
 /**
  * Machile list page component. 
  */
-export default function MachineList() {
+export default function MachineList({ machines = machines0 }) {
   function renderMachines() {
     return machines.map((x, i) => {
       return <li key={i} className="mb-3">

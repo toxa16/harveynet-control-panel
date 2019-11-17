@@ -18,23 +18,13 @@ export default function LoginForm({ onSubmit }) {
           id="login-form"
           onSubmit={handleSubmit}
         >
-          <h1>Login Form</h1>
+          <h1>Login</h1>
 
           <br />
 
           <div className="form-group">
             <label>Username:</label>
-            <input type="text" name="username" className="form-control" />
-          </div>
-
-          <div className="form-group">
-            <label>Email:</label>
-            <input type="email" name="email" className="form-control" />
-          </div>
-
-          <div className="form-group">
-            <label>Password:</label>
-            <input type="password" name="password" className="form-control" />
+            <input name="username" className="form-control" required />
           </div>
 
           <br />

@@ -5,9 +5,9 @@ import ConnectedNavbar from './navbar/connected-navbar';
 import MachineList from './machine-list/machine-list';
 import ConnectedLoginForm from './login-form/connected-login-form';
 
-export default function App({ isLoggedIn }) {
+export default function App({ username }) {
   function renderBody() {
-    if (isLoggedIn) {
+    if (username) {
       return <div id="restricted-page">
         <MachineList />
       </div>;

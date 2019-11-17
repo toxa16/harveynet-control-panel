@@ -5,7 +5,6 @@ import ActionType from '../action-type.enum';
 
 function mapStateToProps(state) {
   return {
-    isLoggedIn: state.isLoggedIn,
     username: state.username,
   };
 }

@@ -3,9 +3,9 @@ import React from 'react';
 /**
  * Navbar component.
  */
-export default function Navbar({ isLoggedIn, username, onLogout }) {
+export default function Navbar({ username, onLogout }) {
   function renderLogoutButton() {
-    return isLoggedIn &&
+    return username &&
       <button
         id="logout-button"
         className="btn btn-link text-white"

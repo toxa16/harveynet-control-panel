@@ -16,8 +16,8 @@ describe('Happy Path', () => {
     // submit form
     cy.get('#login-form').submit();
 
-    // see machine list
-    cy.get('#machine-list');
+    // see restricted area
+    cy.get('#restricted-page');
 
     // find the logout button and click it
     cy.get('#logout-button').click();

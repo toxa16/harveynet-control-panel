@@ -8,7 +8,9 @@ import ConnectedLoginForm from './login-form/connected-login-form';
 export default function App({ isLoggedIn }) {
   function renderBody() {
     if (isLoggedIn) {
-      return <MachineList />;
+      return <div id="restricted-page">
+        <MachineList />
+      </div>;
     } else {
       return <ConnectedLoginForm />;
     }

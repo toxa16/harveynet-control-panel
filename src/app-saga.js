@@ -1,12 +1,27 @@
 import { put, take } from 'redux-saga/effects';
+import qs from 'qs';
 
 import ActionType from './action-type.enum';
 
 export default function* appSaga() {
-  while (true) {
-    yield take(ActionType.LOGIN_REQUEST);
+  const query = qs.parse(
+    window.location.search,
+    { ignoreQueryPrefix: true },
+  );
+
+  if (query.username) {
     yield put({ type: ActionType.LOGIN_SUCCESS });
     yield take(ActionType.LOGOUT_REQUEST);
+    window.history.pushState({}, '', '/');
+    yield put({ type: ActionType.LOGOUT_SUCCESS });
+  }
+
+  while (true) {
+    yield take(ActionType.LOGIN_REQUEST);
+    window.history.pushState({}, '', '/?username=me');
+    yield put({ type: ActionType.LOGIN_SUCCESS });
+    yield take(ActionType.LOGOUT_REQUEST);
+    window.history.pushState({}, '', '/');
     yield put({ type: ActionType.LOGOUT_SUCCESS });
   }
 }

@@ -3,13 +3,14 @@ describe('Machine List', () => {
     // visit the app as alice
     cy.visit('/?username=alice');
 
-    const myMachines = ['machine1', 'machine2'];  // fixture
+    const machinesFixture = ['machine1', 'machine2'];  // fixture
 
     // see machine list containing user machines
     cy.get('[data-cy="machine-list"]')
       .children()
+      .should('have.length', machinesFixture.length)
       .each(($el, i) => {
-        cy.wrap($el).contains(myMachines[i])
+        cy.wrap($el).contains(machinesFixture[i])
       });
   });
 });

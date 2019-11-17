@@ -3,11 +3,6 @@ import qs from 'qs';
 
 import ActionType from './action-type.enum';
 
-const machinesFixture = [
-  { id: 'machine1' },
-  { id: 'machine2' },
-];
-
 /**
  * Logout saga.
  */

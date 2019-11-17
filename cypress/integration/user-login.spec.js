@@ -8,7 +8,7 @@ describe('User Login', () => {
     cy.visit('/');
 
     // enter username
-    cy.get('#login-form')
+    cy.get('#login-form', { timeout: 10000 })
       .find('[name="username"]')
       .type('alice');
 
@@ -25,7 +25,7 @@ describe('User Login', () => {
     cy.get('#logout-button').contains('alice').click();
 
     // see the login form
-    cy.get('#login-form');
+    cy.get('#login-form', { timeout: 10000 });
     // see no username query parameter in url
     cy.url().should('not.include', 'username=');
   });

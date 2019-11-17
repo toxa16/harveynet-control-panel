@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * Navbar component.
  */
-export default function Navbar({ isLoggedIn, onLogout }) {
+export default function Navbar({ isLoggedIn, username, onLogout }) {
   function renderLogoutButton() {
     return isLoggedIn &&
       <button
@@ -11,7 +11,7 @@ export default function Navbar({ isLoggedIn, onLogout }) {
         className="btn btn-link text-white"
         onClick={ e => onLogout && onLogout() }
       >
-        Log out
+        Log out ({ username })
       </button>;
   }
 

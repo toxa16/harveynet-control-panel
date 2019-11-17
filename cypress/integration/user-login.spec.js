@@ -19,5 +19,8 @@ describe('User Login', () => {
     cy.get('#restricted-page');
     // see username is query parameter
     cy.url().should('include', '?username=alice');
+
+    // find the logout button and see it contains the username
+    cy.get('#logout-button').contains('alice');
   });
 });

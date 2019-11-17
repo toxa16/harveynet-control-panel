@@ -3,40 +3,48 @@ import qs from 'qs';
 
 import ActionType from './action-type.enum';
 
+/**
+ * Logout saga.
+ */
 function* logout() {
   yield take(ActionType.LOGOUT_REQUEST);
   window.history.pushState({}, '', '/');
   yield put({ type: ActionType.LOGOUT_SUCCESS });
 }
 
+/**
+ * Login saga.
+ * @param {string} username
+ */
+function* login(username) {
+  yield put({
+    type: ActionType.LOGIN_SUCCESS,
+    payload: { username },
+  });
+}
+
+/**
+ * App (root) saga.
+ */
 export default function* appSaga() {
   const query = qs.parse(
     window.location.search,
     { ignoreQueryPrefix: true },
   );
 
-  if (query.username) {
-    yield put({
-      type: ActionType.LOGIN_SUCCESS,
-      payload: {
-        username: query.username,
-      }
-    });
+  const queryUsername = query.username;
+  if (queryUsername) {
+    yield login(queryUsername);
     yield call(logout);
   }
 
   while (true) {
     const loginRequest = yield take(ActionType.LOGIN_REQUEST);
-    const username2 = loginRequest.payload.username;
+    const actionUsername = loginRequest.payload.username;
     window.history.pushState(
-      {}, '', `/?username=${username2}`,
+      {}, '', `/?username=${actionUsername}`,
     );
-    yield put({
-      type: ActionType.LOGIN_SUCCESS,
-      payload: {
-        username: username2,
-      },
-    });
+    yield login(actionUsername)
     yield call(logout);
   }
 }

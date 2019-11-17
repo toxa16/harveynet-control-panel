@@ -5,13 +5,29 @@ import React from 'react';
  */
 export default function MachineList() {
   return (
-    <div>
+    <section>
       <h2>Machine List</h2>
 
-      <ul id="machine-list">
-        <li>MACHINE 1</li>
-        <li>MACHINE 2</li>
-      </ul>
-    </div>
+      <div className="row mt-5">
+        <div className="col-12 col-lg-8">
+          <ul id="machine-list" className="list-unstyled">
+            <li className="mb-3">
+              <div className="card">
+                <div className="card-body">
+                  machine1
+                </div>
+              </div>
+            </li>
+            <li className="mb-3">
+              <div className="card">
+                <div className="card-body">
+                  machine2
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
   );
 }

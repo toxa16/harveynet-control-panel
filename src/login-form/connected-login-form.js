@@ -9,7 +9,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmit: () => dispatch({ type: ActionType.LOGIN_REQUEST }),
+    onSubmit: e => dispatch({
+      type: ActionType.LOGIN_REQUEST,
+      payload: {
+        username: e.target.username.value,
+      }
+    }),
   };
 }
 

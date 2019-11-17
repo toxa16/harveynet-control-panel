@@ -18,6 +18,6 @@ describe('User Login', () => {
     // see restricted area
     cy.get('#restricted-page');
     // see username is query parameter
-    //cy.url().should('include', '?username=alice');
+    cy.url().should('include', '?username=alice');
   });
 });

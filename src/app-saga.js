@@ -17,9 +17,12 @@ export default function* appSaga() {
   }
 
   while (true) {
-    yield take(ActionType.LOGIN_REQUEST);
-    window.history.pushState({}, '', '/?username=me');
+    const loginRequest = yield take(ActionType.LOGIN_REQUEST);
+    window.history.pushState(
+      {}, '', `/?username=${loginRequest.payload.username}`,
+    );
     yield put({ type: ActionType.LOGIN_SUCCESS });
+    
     yield take(ActionType.LOGOUT_REQUEST);
     window.history.pushState({}, '', '/');
     yield put({ type: ActionType.LOGOUT_SUCCESS });

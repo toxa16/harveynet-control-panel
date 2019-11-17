@@ -1,13 +1,8 @@
 import ActionType from './action-type.enum';
 
-const machines0 = [
-  { id: 'machine1' },
-  { id: 'machine2' },
-];
-
 const initialState = {
   username: null,
-  machines: machines0,
+  machines: [],
 };
 
 export default function appReducer(state = initialState, action) {
@@ -20,6 +15,12 @@ export default function appReducer(state = initialState, action) {
     case ActionType.LOGOUT_SUCCESS: {
       return Object.assign({}, state, {
         username: null,
+        machines: [],
+      });
+    }
+    case ActionType.MACHINES_FETCH_SUCCESS: {
+      return Object.assign({}, state, {
+        machines: action.payload.machines,
       });
     }
     default: return state;

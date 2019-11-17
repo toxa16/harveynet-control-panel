@@ -3,6 +3,11 @@ import qs from 'qs';
 
 import ActionType from './action-type.enum';
 
+const machinesFixture = [
+  { id: 'machine1' },
+  { id: 'machine2' },
+];
+
 /**
  * Logout saga.
  */
@@ -20,6 +25,10 @@ function* login(username) {
   yield put({
     type: ActionType.LOGIN_SUCCESS,
     payload: { username },
+  });
+  yield put({
+    type: ActionType.MACHINES_FETCH_SUCCESS,
+    payload: { machines: machinesFixture },
   });
 }
 

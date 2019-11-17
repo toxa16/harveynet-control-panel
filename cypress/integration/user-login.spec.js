@@ -17,10 +17,16 @@ describe('User Login', () => {
 
     // see restricted area
     cy.get('#restricted-page');
-    // see username is query parameter
-    cy.url().should('include', '?username=alice');
+    // see username in query parameter
+    cy.url().should('include', 'username=alice');
 
     // find the logout button and see it contains the username
-    cy.get('#logout-button').contains('alice');
+    // then click on it
+    cy.get('#logout-button').contains('alice').click();
+
+    // see the login form
+    cy.get('#login-form');
+    // see no username query parameter in url
+    cy.url().should('not.include', 'username=');
   });
 });

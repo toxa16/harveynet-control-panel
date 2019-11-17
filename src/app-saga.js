@@ -1,7 +1,13 @@
-import { put, take } from 'redux-saga/effects';
+import { call, put, take } from 'redux-saga/effects';
 import qs from 'qs';
 
 import ActionType from './action-type.enum';
+
+function* logout() {
+  yield take(ActionType.LOGOUT_REQUEST);
+  window.history.pushState({}, '', '/');
+  yield put({ type: ActionType.LOGOUT_SUCCESS });
+}
 
 export default function* appSaga() {
   const query = qs.parse(
@@ -16,9 +22,7 @@ export default function* appSaga() {
         username: query.username,
       }
     });
-    yield take(ActionType.LOGOUT_REQUEST);
-    window.history.pushState({}, '', '/');
-    yield put({ type: ActionType.LOGOUT_SUCCESS });
+    yield call(logout);
   }
 
   while (true) {
@@ -33,9 +37,6 @@ export default function* appSaga() {
         username: username2,
       },
     });
-
-    yield take(ActionType.LOGOUT_REQUEST);
-    window.history.pushState({}, '', '/');
-    yield put({ type: ActionType.LOGOUT_SUCCESS });
+    yield call(logout);
   }
 }

@@ -7,7 +7,7 @@ const machines0 = [
 
 const initialState = {
   username: null,
-  machines: [],
+  machines: machines0,
 };
 
 export default function appReducer(state = initialState, action) {

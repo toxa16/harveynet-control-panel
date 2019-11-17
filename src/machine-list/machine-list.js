@@ -1,14 +1,9 @@
 import React from 'react';
 
-const machines0 = [
-  { id: 'machine1' },
-  { id: 'machine2' },
-];
-
 /**
- * Machile list page component. 
+ * Machine list page component. 
  */
-export default function MachineList({ machines = machines0 }) {
+export default function MachineList({ machines }) {
   function renderMachines() {
     return machines.map((x, i) => {
       return <li key={i} className="mb-3">
@@ -24,7 +19,6 @@ export default function MachineList({ machines = machines0 }) {
   return (
     <section>
       <h2>Machine List</h2>
-
       <div className="row mt-5">
         <div className="col-12 col-lg-8">
           <ul className="list-unstyled" data-cy="machine-list">

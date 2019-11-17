@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import MachineList from './machine-list';
 
 function mapsStateToProps(state) {
-  return {};
+  return {
+    machines: state.machines,
+  };
 }
 
 function maspDispatchToProps(dispatch) {

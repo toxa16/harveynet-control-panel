@@ -26,9 +26,13 @@ function* login(username) {
     type: ActionType.LOGIN_SUCCESS,
     payload: { username },
   });
+  const ownershipServerUrl = 'http://localhost:3001'; // env
+  const url = `${ownershipServerUrl}/me/machines?username=${username}`;
+  const response = yield call(fetch, url);
+  const machines = yield response.json();
   yield put({
     type: ActionType.MACHINES_FETCH_SUCCESS,
-    payload: { machines: machinesFixture },
+    payload: { machines },
   });
 }
 

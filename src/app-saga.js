@@ -26,10 +26,12 @@ function* login(username) {
     type: ActionType.LOGIN_SUCCESS,
     payload: { username },
   });
-  const ownershipServerUrl = 'http://localhost:3001'; // env
+  const ownershipServerUrl = process.env.REACT_APP_OWNERSHIP_SERVER_URL ||
+    'https://harveynet-ownership-server.herokuapp.com';
   const url = `${ownershipServerUrl}/me/machines?username=${username}`;
   const response = yield call(fetch, url);
-  const machines = yield response.json();
+  const data = yield response.json();
+  const machines = data.data;
   yield put({
     type: ActionType.MACHINES_FETCH_SUCCESS,
     payload: { machines },

@@ -1,6 +1,6 @@
 {
   "name": "harveynet-control-panel",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "qs": "^6.9.1",

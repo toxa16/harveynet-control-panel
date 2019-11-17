@@ -6,7 +6,7 @@ describe('Machine List', () => {
     const myMachines = ['machine1', 'machine2'];  // fixture
 
     // see machine list containing user machines
-    cy.get('#machine-list')
+    cy.get('[data-cy="machine-list"]')
       .children()
       .each(($el, i) => {
         cy.wrap($el).contains(myMachines[i])

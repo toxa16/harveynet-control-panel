@@ -10,7 +10,7 @@ export default function MachineList() {
 
       <div className="row mt-5">
         <div className="col-12 col-lg-8">
-          <ul id="machine-list" className="list-unstyled">
+          <ul className="list-unstyled" data-cy="machine-list">
             <li className="mb-3">
               <div className="card">
                 <div className="card-body">

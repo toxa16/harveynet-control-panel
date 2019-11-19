@@ -38,9 +38,12 @@ export default function MachineList({ machines, onMachineSelect }) {
         </div>
       </div>
 
-      <div className="text-secondary">
-        <p className="mt-5">This is machine list view.</p>
-        <p>Here we can see machines owned by current user.</p>
+      <div className="text-secondary mt-5">
+        <p>
+          This is <b>machine list view</b>. 
+          Here we can see machines owned by current user.
+        </p>
+        <p>Click on a machine to navigate to the machine control screen.</p>
       </div>
     </section>
   );

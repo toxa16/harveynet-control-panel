@@ -4,7 +4,9 @@ import MachineControl from './machine-control';
 import ActionType from '../action-type.enum';
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    currentMachine: state.currentMachine,
+  };
 }
 
 function mapDispatchToProps(dispatch) {

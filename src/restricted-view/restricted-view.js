@@ -1,12 +1,12 @@
 import React from 'react';
 
 import ConnectedMachineList from '../machine-list/connected-machine-list';
-import MachineControl from '../machine-control/machine-control';
+import ConnectedMachineControl from '../machine-control/connected-machine-control';
 
 export default function RestrictedView({ currentMachine }) {
   function renderBody() {
     if (currentMachine) {
-      return <MachineControl />;
+      return <ConnectedMachineControl />;
     } else {
       return <ConnectedMachineList />
     }

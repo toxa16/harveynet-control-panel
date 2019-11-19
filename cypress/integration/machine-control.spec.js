@@ -10,6 +10,12 @@ describe('Machine Control', () => {
       .click();
 
     // see the machine control screen
-    cy.get('[data-cy="machine-control"]');
+    // find and click the "back" link
+    cy.get('[data-cy="machine-control"]')
+      .find('[data-cy="machine-control__back-link"]')
+      .click();
+
+    // see the machine list
+    cy.get('[data-cy="machine-list"]');
   });
 });

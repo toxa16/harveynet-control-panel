@@ -30,6 +30,11 @@ export default function appReducer(state = initialState, action) {
         currentMachine: action.payload.machine,
       });
     }
+    case ActionType.MACHINE_CONTROL_EXIT: {
+      return Object.assign({}, state, {
+        currentMachine: null,
+      });
+    }
     default: return state;
   }
 }

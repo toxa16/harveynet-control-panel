@@ -3,14 +3,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ConnectedNavbar from './navbar/connected-navbar';
 import ConnectedLoginForm from './login-form/connected-login-form';
-import ConnectedMachineList from './machine-list/connected-machine-list';
+import RestrictedView from './restricted-view/restricted-view';
 
 export default function App({ username }) {
   function renderBody() {
     if (username) {
-      return <div id="restricted-page">
-        <ConnectedMachineList />
-      </div>;
+      return <RestrictedView />
     } else {
       return <ConnectedLoginForm />;
     }

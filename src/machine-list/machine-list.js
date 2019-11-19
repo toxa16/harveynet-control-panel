@@ -1,12 +1,16 @@
 import React from 'react';
 
+const machineCardStyle = {
+  cursor: 'pointer',
+};
+
 /**
  * Machine list page component. 
  */
 export default function MachineList({ machines }) {
   function renderMachines() {
     return machines.map((x, i) => {
-      return <li key={i} className="mb-3">
+      return <li key={i} className="mb-3" style={machineCardStyle}>
         <div className="card">
           <div className="card-body">
             { x.id }

@@ -1,4 +1,5 @@
-import { call, cancel, delay, fork, put, putResolve, take } from 'redux-saga/effects';
+import { call, cancel, cancelled, fork, put, take } from 'redux-saga/effects';
+import { eventChannel } from 'redux-saga';
 import qs from 'qs';
 
 import ActionType from './action-type.enum';
@@ -50,9 +51,39 @@ function* machineControl() {
   }
 }
 
+function timerChannel() {
+  return eventChannel(emit => {
+    let i = 0;
+    const iv = setInterval(() => {
+      emit(i);
+      i++
+    }, 1000);
+    return () => {
+      clearInterval(iv);
+    }
+  });
+}
+function* machineListSaga() {
+  const channel = yield call(timerChannel);
+  try {
+    while (true) {
+      const i = yield take(channel);
+      console.log({ i });
+    }
+  } finally {
+    if (yield cancelled()) {
+      channel.close();
+    }
+  }
+}
+
+/**
+ * Auth saga.
+ */
 function* authSaga() {
   console.log('calling auth saga');
   while (true) {
+    // logging in
     const loginRequest = yield take(ActionType.LOGIN_REQUEST);
     const username = loginRequest.payload.username;
     window.history.replaceState(
@@ -62,8 +93,13 @@ function* authSaga() {
       type: ActionType.LOGIN_SUCCESS,
       payload: { username },
     });
+
+    // forking machine list saga
+    const machineListTask = yield fork(machineListSaga);
     
+    // logging out
     yield take(ActionType.LOGOUT_REQUEST);
+    yield cancel(machineListTask);  // cancelling machine list saga
     window.history.replaceState({}, '', '/');
     yield put({ type: ActionType.LOGOUT_SUCCESS });
   }
@@ -88,20 +124,5 @@ export default function* appSaga() {
         username: queryUsername,
       }
     });
-    console.log('login request')
-    //yield login(queryUsername);
-    //yield call(logout);
   }
-
-  
-
-  /*while (true) {
-    const loginRequest = yield take(ActionType.LOGIN_REQUEST);
-    const actionUsername = loginRequest.payload.username;
-    window.history.replaceState(
-      {}, '', `/?username=${actionUsername}`,
-    );
-    yield login(actionUsername)
-    yield call(logout);
-  }*/
 }

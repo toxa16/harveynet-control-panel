@@ -1,4 +1,4 @@
-import { call, put, take } from 'redux-saga/effects';
+import { call, cancel, fork, put, take } from 'redux-saga/effects';
 import qs from 'qs';
 
 import ActionType from './action-type.enum';
@@ -7,7 +7,7 @@ import ActionType from './action-type.enum';
  * Logout saga.
  */
 function* logout() {
-  yield take(ActionType.LOGOUT_REQUEST);
+  //yield take(ActionType.LOGOUT_REQUEST);
   window.history.pushState({}, '', '/');
   yield put({ type: ActionType.LOGOUT_SUCCESS });
 }
@@ -21,6 +21,7 @@ function* login(username) {
     type: ActionType.LOGIN_SUCCESS,
     payload: { username },
   });
+  // fetching user's owned machines
   const ownershipServerUrl = process.env.REACT_APP_OWNERSHIP_SERVER_URL ||
     'https://harveynet-ownership-server.herokuapp.com';
   const url = `${ownershipServerUrl}/me/machines?username=${username}`;
@@ -31,6 +32,22 @@ function* login(username) {
     type: ActionType.MACHINES_FETCH_SUCCESS,
     payload: { machines },
   });
+  // opening machine control screen
+  const machineControlTask = yield fork(machineControl);
+  yield take(ActionType.LOGOUT_REQUEST);
+  yield cancel(machineControlTask);
+}
+
+/**
+ * Machine control screen saga.
+ */
+function* machineControl() {
+  while (true) {
+    const machineSelect = yield take(ActionType.MACHINE_SELECT);
+    const machineId = machineSelect.payload.machine.id;
+    console.log({machineId});
+    yield take(ActionType.MACHINE_CONTROL_EXIT);
+  }
 }
 
 /**

@@ -5,6 +5,7 @@ import App from './app';
 function mapStateToProps(state) {
   return {
     username: state.username,
+    currentMachine: state.currentMachine,
   };
 }
 

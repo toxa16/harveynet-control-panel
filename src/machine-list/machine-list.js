@@ -1,18 +1,29 @@
 import React from 'react';
 
+const machineCardStyle = {
+  cursor: 'pointer',
+};
+
 /**
  * Machine list page component. 
  */
-export default function MachineList({ machines }) {
+export default function MachineList({ machines, onMachineSelect }) {
   function renderMachines() {
     return machines.map((x, i) => {
-      return <li key={i} className="mb-3">
-        <div className="card">
-          <div className="card-body">
-            { x.id }
+      return (
+        <li
+          key={i}
+          className="mb-3"
+          style={machineCardStyle}
+          onClick={ e => onMachineSelect(x) }
+        >
+          <div className="card">
+            <div className="card-body">
+              { x.id }
+            </div>
           </div>
-        </div>
-      </li>;
+        </li>
+      );
     });
   }
 
@@ -27,9 +38,12 @@ export default function MachineList({ machines }) {
         </div>
       </div>
 
-      <div className="text-secondary">
-        <p className="mt-5">This is machine list view.</p>
-        <p>Here we can see machines owned by current user.</p>
+      <div className="text-secondary mt-5">
+        <p>
+          This is <b>machine list view</b>. 
+          Here we can see machines owned by current user.
+        </p>
+        <p>Click on a machine to navigate to the machine control screen.</p>
       </div>
     </section>
   );

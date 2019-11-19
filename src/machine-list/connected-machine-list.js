@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import MachineList from './machine-list';
+import ActionType from '../action-type.enum';
 
 function mapsStateToProps(state) {
   return {
@@ -8,13 +9,20 @@ function mapsStateToProps(state) {
   };
 }
 
-function maspDispatchToProps(dispatch) {
-  return {};
+function mapDispatchToProps(dispatch) {
+  return {
+    onMachineSelect: machine => {
+      dispatch({
+        type: ActionType.MACHINE_SELECT,
+        payload: { machine },
+      });
+    },
+  };
 }
 
 const ConnectedMachineList = connect(
   mapsStateToProps,
-  maspDispatchToProps,
+  mapDispatchToProps,
 )(MachineList);
 
 export default ConnectedMachineList;

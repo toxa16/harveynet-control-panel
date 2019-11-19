@@ -5,6 +5,7 @@ describe('Machine Control', () => {
 
     // click the first machine
     cy.get('[data-cy="machine-list"]')
+      .children()
       .first()
       .click();
 

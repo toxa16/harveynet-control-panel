@@ -25,6 +25,11 @@ export default function appReducer(state = initialState, action) {
         machines: action.payload.machines,
       });
     }
+    case ActionType.MACHINE_SELECT: {
+      return Object.assign({}, state, {
+        currentMachine: action.payload.machine,
+      });
+    }
     default: return state;
   }
 }

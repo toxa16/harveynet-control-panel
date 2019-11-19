@@ -7,16 +7,23 @@ const machineCardStyle = {
 /**
  * Machine list page component. 
  */
-export default function MachineList({ machines }) {
+export default function MachineList({ machines, onMachineSelect }) {
   function renderMachines() {
     return machines.map((x, i) => {
-      return <li key={i} className="mb-3" style={machineCardStyle}>
-        <div className="card">
-          <div className="card-body">
-            { x.id }
+      return (
+        <li
+          key={i}
+          className="mb-3"
+          style={machineCardStyle}
+          onClick={ e => onMachineSelect(x) }
+        >
+          <div className="card">
+            <div className="card-body">
+              { x.id }
+            </div>
           </div>
-        </div>
-      </li>;
+        </li>
+      );
     });
   }
 

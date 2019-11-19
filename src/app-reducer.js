@@ -21,9 +21,13 @@ export default function appReducer(state = initialState, action) {
       });
     }
     case ActionType.MACHINES_FETCH_SUCCESS: {
-      return Object.assign({}, state, {
-        machines: action.payload.machines,
+      const machines = action.payload.machines.map(x => {
+        return {
+          id: x.id,
+          isOnline: false,
+        }
       });
+      return Object.assign({}, state, { machines });
     }
     case ActionType.MACHINE_SELECT: {
       return Object.assign({}, state, {

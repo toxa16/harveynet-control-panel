@@ -6,6 +6,14 @@ export default function MachineControl({ currentMachine, onExit }) {
     onExit();
   }
 
+  function renderMachineStatus() {
+    if (currentMachine.isOnline) {
+      return <b className="text-success">Online</b>;
+    } else {
+      return <b>Offline</b>;
+    }
+  }
+
   return (
     <div data-cy="machine-control">
       <div className="mb-4">
@@ -22,7 +30,7 @@ export default function MachineControl({ currentMachine, onExit }) {
 
       <div className="mt-5">
         <p>Machine ID: <b>{ currentMachine.id }</b></p>
-        <p>Status: <b className="text-secondary">Offline</b></p>
+        <p>Status: { renderMachineStatus() }</p>
       </div>
 
       <div className="text-secondary mt-5">

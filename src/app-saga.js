@@ -3,6 +3,7 @@ import { eventChannel, END } from 'redux-saga';
 import qs from 'qs';
 
 import ActionType from './action-type.enum';
+import machineListSaga from './machine-list-saga';
 
 const ownershipServerUrl = process.env.REACT_APP_OWNERSHIP_SERVER_URL ||
   'https://harveynet-ownership-server.herokuapp.com';
@@ -87,7 +88,7 @@ function ownershipRequestChannel(username) {
  * Machine list saga.
  * @param {*} username 
  */
-function* machineListSaga(username) {
+/*function* machineListSaga(username) {
   const channel = yield call(ownershipRequestChannel, username);
   try {
     const e = yield take(channel);
@@ -106,7 +107,7 @@ function* machineListSaga(username) {
       channel.close();
     }
   }
-}
+}*/
 
 /**
  * Auth saga.

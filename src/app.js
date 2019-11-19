@@ -5,10 +5,10 @@ import ConnectedNavbar from './navbar/connected-navbar';
 import ConnectedLoginForm from './login-form/connected-login-form';
 import RestrictedView from './restricted-view/restricted-view';
 
-export default function App({ username }) {
+export default function App({ username, currentMachine }) {
   function renderBody() {
     if (username) {
-      return <RestrictedView />
+      return <RestrictedView currentMachine={currentMachine} />
     } else {
       return <ConnectedLoginForm />;
     }

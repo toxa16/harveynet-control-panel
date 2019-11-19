@@ -3,6 +3,7 @@ import ActionType from './action-type.enum';
 const initialState = {
   username: null,
   machines: [],
+  currentMachine: null,
 };
 
 export default function appReducer(state = initialState, action) {
@@ -16,6 +17,7 @@ export default function appReducer(state = initialState, action) {
       return Object.assign({}, state, {
         username: null,
         machines: [],
+        currentMachine: null
       });
     }
     case ActionType.MACHINES_FETCH_SUCCESS: {

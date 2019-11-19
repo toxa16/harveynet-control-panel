@@ -40,12 +40,24 @@ export default function appReducer(state = initialState, action) {
       });
     }
     case ActionType.MACHINE_STATUS_CHANGE: {
+      const machines = state.machines.map(x => {
+        const { machineId, isOnline } = action.payload;
+        if (x.id === machineId) {
+          return {
+            id: x.id,
+            isOnline,
+          };
+        } else {
+          return x;
+        }
+      });
+
       let currentMachine = state.currentMachine;
       const { machineId, isOnline } = action.payload;
       if (state.currentMachine.id === machineId) {
         currentMachine = { id: machineId, isOnline };
       }
-      return Object.assign({}, state, { currentMachine });
+      return Object.assign({}, state, { currentMachine, machines });
     }
     default: return state;
   }

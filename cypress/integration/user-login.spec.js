@@ -30,7 +30,7 @@ describe('User Login', () => {
     cy.get('#restricted-page');
 
     // wait for ownership backend data
-    cy.wait(3000);
+    //cy.wait(3000);
 
     // find the logout button and see it contains the username
     // then click on it

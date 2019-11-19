@@ -1,8 +1,11 @@
 import { call, cancel, cancelled, fork, put, take } from 'redux-saga/effects';
-import { eventChannel } from 'redux-saga';
+import { eventChannel, END } from 'redux-saga';
 import qs from 'qs';
 
 import ActionType from './action-type.enum';
+
+const ownershipServerUrl = process.env.REACT_APP_OWNERSHIP_SERVER_URL ||
+  'https://harveynet-ownership-server.herokuapp.com';
 
 /**
  * Logout saga.
@@ -51,24 +54,40 @@ function* machineControl() {
   }
 }
 
-function timerChannel() {
+function ownershipRequestChannel(username) {
+  const url = `${ownershipServerUrl}/me/machines?username=${username}`;
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.send();
+
   return eventChannel(emit => {
-    let i = 0;
-    const iv = setInterval(() => {
-      emit(i);
-      i++
-    }, 1000);
+    function onLoad(e) {
+      const { response } = e.target;
+      const data = JSON.parse(response);
+      const machines = data.data;
+      emit(machines);
+      emit(END);
+    }
+    xhr.addEventListener('load', onLoad);
+
     return () => {
-      clearInterval(iv);
+      if (xhr.readyState !== XMLHttpRequest.DONE) {
+        xhr.abort();  // aborting if not completed
+      }
+      xhr.removeEventListener('load', onLoad);
     }
   });
 }
-function* machineListSaga() {
-  const channel = yield call(timerChannel);
+function* machineListSaga(username) {
+  const channel = yield call(ownershipRequestChannel, username);
   try {
     while (true) {
-      const i = yield take(channel);
-      console.log({ i });
+      const machines = yield take(channel);
+      console.log(machines);
+      yield put({
+        type: ActionType.MACHINES_FETCH_SUCCESS,
+        payload: { machines },
+      });
     }
   } finally {
     if (yield cancelled()) {
@@ -95,7 +114,7 @@ function* authSaga() {
     });
 
     // forking machine list saga
-    const machineListTask = yield fork(machineListSaga);
+    const machineListTask = yield fork(machineListSaga, username);
     
     // logging out
     yield take(ActionType.LOGOUT_REQUEST);

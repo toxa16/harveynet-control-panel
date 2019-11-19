@@ -39,6 +39,14 @@ export default function appReducer(state = initialState, action) {
         currentMachine: null,
       });
     }
+    case ActionType.MACHINE_STATUS_CHANGE: {
+      let currentMachine = state.currentMachine;
+      const { machineId, isOnline } = action.payload;
+      if (state.currentMachine.id === machineId) {
+        currentMachine = { id: machineId, isOnline };
+      }
+      return Object.assign({}, state, { currentMachine });
+    }
     default: return state;
   }
 }

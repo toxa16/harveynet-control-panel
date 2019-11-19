@@ -1,4 +1,4 @@
-import { call, cancelled, fork, take } from 'redux-saga/effects';
+import { call, cancelled, fork, put, take } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 
 import ActionType from './action-type.enum';
@@ -43,7 +43,7 @@ function controlServerChannel(username) {
 function* handleMessage(channel) {
   while (true) {
     const action  = yield take(channel);
-    console.log(action);
+    yield put(action);
   }
 }
 

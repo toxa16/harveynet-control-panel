@@ -1,10 +1,14 @@
-import { call, cancelled, take } from 'redux-saga/effects';
+import { call, cancelled, fork, take } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 
 import ActionType from './action-type.enum';
 
 const controlServerUrl = 'ws://localhost:5000'; // env
 
+/**
+ * Control Server websocket channel.
+ * @param {*} username 
+ */
 function controlServerChannel(username) {
   const url = `${controlServerUrl}/?controller=${username}`;
   const socket = new WebSocket(url);
@@ -17,8 +21,9 @@ function controlServerChannel(username) {
       console.error('Error occurred.');
       console.error(e);
     }
-    function handleMessage(data) {
-      console.log('message received: ', data);
+    function handleMessage(e) {
+      const action = JSON.parse(e.data);
+      emit(action);
     }
     function handleClose() {
       console.log('websocket closed.');
@@ -35,6 +40,17 @@ function controlServerChannel(username) {
   });
 }
 
+function* handleMessage(channel) {
+  while (true) {
+    const action  = yield take(channel);
+    console.log(action);
+  }
+}
+
+/**
+ * Machine control saga.
+ * @param {*} username 
+ */
 export default function* machineControlSaga(username) {
   let channel;
   try {
@@ -45,6 +61,8 @@ export default function* machineControlSaga(username) {
   
       // opening websocket channel
       channel = yield call(controlServerChannel, username);
+
+      yield fork(handleMessage, channel);
   
       yield take(ActionType.MACHINE_CONTROL_EXIT);
       channel.close();

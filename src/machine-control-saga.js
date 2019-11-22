@@ -3,7 +3,8 @@ import { eventChannel } from 'redux-saga';
 
 import ActionType from './action-type.enum';
 
-const controlServerUrl = 'ws://localhost:5000'; // env
+const controlServerUrl = process.env.REACT_APP_CONTROL_SERVER_URL ||
+  'wss://harveynet-control-server.herokuapp.com';
 
 /**
  * Control Server websocket channel.

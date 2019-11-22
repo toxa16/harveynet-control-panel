@@ -28,7 +28,7 @@ export default function MachineControl({ currentMachine, onExit }) {
 
       <h2>MachineControl</h2>
 
-      <div className="mt-5">
+      <div className="mt-5" data-cy="machine-status">
         <p>Machine ID: <b>{ currentMachine.id }</b></p>
         <p>Status: { renderMachineStatus() }</p>
       </div>

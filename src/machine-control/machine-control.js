@@ -26,7 +26,7 @@ export default function MachineControl({ currentMachine, onExit }) {
         </a>
       </div>
 
-      <h2>MachineControl</h2>
+      <h2>Machine Control</h2>
 
       <div className="mt-5" data-cy="machine-status">
         <p>Machine ID: <b>{ currentMachine.id }</b></p>
@@ -35,8 +35,29 @@ export default function MachineControl({ currentMachine, onExit }) {
 
       <div className="text-secondary mt-5">
         <p>
-          This is <b>machine control screen</b>. 
+          This is a <b>machine control screen</b>. The machine will be controlled from here.
         </p>
+        <p>
+          In current version you can see the machine connection status (online/offline), 
+          and how it changes in real time.
+        </p>
+        <p>To see how it works do the following:</p>
+        <ol>
+          <li>
+            Open the
+            {' '}
+            <a
+              href="https://harveynet-machine-simulator.herokuapp.com/"
+              target="_blank"
+            >
+              Machine Simulator
+            </a>.
+          </li>
+          <li>Connect as a "<b>{ currentMachine.id }</b>" machine.</li>
+          <li>See the status instantly changing to "<i>Online</i>".</li>
+          <li>Now disconnect the machine.</li>
+          <li>See the status is "<i>Offline</i>" again.</li>
+        </ol>
       </div>
     </div>
   );

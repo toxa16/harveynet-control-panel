@@ -35,7 +35,14 @@ export default function appReducer(state = initialState, action) {
       });
     }
     case ActionType.MACHINE_CONTROL_EXIT: {
+      const machines = state.machines.map(x => {
+        return {
+          id: x.id,
+          isOnline: false,
+        };
+      });
       return Object.assign({}, state, {
+        machines,
         currentMachine: null,
       });
     }

@@ -10,7 +10,7 @@ const controlServerUrl = 'ws://localhost:5000'; // env
  * @param {*} username 
  */
 function controlServerChannel(username) {
-  const url = `${controlServerUrl}/?controller=${username}`;
+  const url = `${controlServerUrl}/?username=${username}`;
   const socket = new WebSocket(url);
 
   return eventChannel(emit => {

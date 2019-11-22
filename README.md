@@ -1,10 +1,11 @@
 # harveynet-control-panel
 
-Control Panel version 0.0.1.
+HarveyNet Control Panel.
 
 ## Environment Variables
 
 - REACT_APP_OWNERSHIP_SERVER_URL (default: "https://harveynet-ownership-server.herokuapp.com")
+- REACT_APP_CONTROL_SERVER_URL (default: "wss://harveynet-control-server.herokuapp.com")
 
 ## tl;dr
 

@@ -19,7 +19,7 @@ export default function Navbar({ username, onLogout }) {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <span className="navbar-brand">
-          HarveyNet Control Panel v0.0.2
+          <b>HarveyNet</b> Control Panel (v0.0.3)
         </span>
         { renderLogoutButton() }
       </div>

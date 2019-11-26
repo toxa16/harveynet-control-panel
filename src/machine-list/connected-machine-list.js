@@ -12,10 +12,10 @@ function mapsStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     onMachineSelect: machine => {
-      dispatch({
+      /*dispatch({
         type: ActionType.MACHINE_SELECT,
         payload: { machine },
-      });
+      });*/
     },
   };
 }

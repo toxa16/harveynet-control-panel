@@ -53,7 +53,7 @@ export default function* machineListSaga(username) {
         payload: { machines },
       });
 
-      yield call(machineControlSaga, username);
+      //yield call(machineControlSaga, username);
     }
   } finally {
     if (yield cancelled()) {

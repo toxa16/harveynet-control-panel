@@ -49,6 +49,7 @@ export default function MachineControl({ currentMachine, onExit }) {
             <a
               href="https://harveynet-machine-simulator.herokuapp.com/"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Machine Simulator
             </a>.

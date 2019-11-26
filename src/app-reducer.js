@@ -66,6 +66,10 @@ export default function appReducer(state = initialState, action) {
       }
       return Object.assign({}, state, { currentMachine, machines });
     }
+    case ActionType.MACHINE_LIST_UPDATE: {
+      const { machines } = action.payload;
+      return Object.assign({}, state, { machines });
+    }
     default: return state;
   }
 }

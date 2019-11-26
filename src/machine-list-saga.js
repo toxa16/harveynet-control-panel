@@ -1,39 +1,61 @@
 import { call, cancelled, put, take } from 'redux-saga/effects';
 import { eventChannel, END } from 'redux-saga';
 
-import ActionType from './action-type.enum';
-import machineControlSaga from './machine-control-saga';
-
-const ownershipServerUrl = process.env.REACT_APP_OWNERSHIP_SERVER_URL ||
-  'https://harveynet-ownership-server.herokuapp.com';
+const controlServerUrl = process.env.REACT_APP_CONTROL_SERVER_URL ||
+  'wss://harveynet-control-server.herokuapp.com';
 
 /**
- * A channel of XHR request to the Ownership Server's
- * user machines endpoint.
- * @param {*} username 
+ * Control Server /list Endpoint WebSocket channel.
+ * @param {*} socket 
  */
-function ownershipRequestChannel(username) {
-  const url = `${ownershipServerUrl}/me/machines?username=${username}`;
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', url, true);
-  xhr.send();
-
+function listEndpointChannel(socket) {
   return eventChannel(emit => {
-    function handler(e) {
-      emit(e);
+    function handleOpen() {
+      console.log('DEV: websocket opened.');
+      //const action = { type: ActionType.CONNECT_SUCCESS };
+      //emit(action);
+    }
+    function handleError(e) {
+      console.error('Error occurred.');
+      console.error(e);
+    }
+    function handleMessage(e) {
+      const message = e.data;
+      console.log('DEV: websocket message received');
+      console.log(message);
+      const action = JSON.parse(e.data);
+      emit(action);
+    }
+    function handleClose() {
+      console.log('DEV: websocket closed.');
+      //const action = { type: ActionType.DISCONNECT_SUCCESS };
+      //emit(action);
       emit(END);
     }
-    xhr.addEventListener('load', handler);
-    xhr.addEventListener('error', handler);
+
+    socket.addEventListener('open', handleOpen);
+    socket.addEventListener('error', handleError);
+    socket.addEventListener('message', handleMessage);
+    socket.addEventListener('close', handleClose);
 
     return () => {
-      if (xhr.readyState !== XMLHttpRequest.DONE) {
-        xhr.abort();  // aborting if not completed
-      }
-      xhr.removeEventListener('load', handler);
-      xhr.removeEventListener('error', handler);
-    }
+      socket.removeEventListener('open', handleOpen);
+      socket.removeEventListener('error', handleError);
+      socket.removeEventListener('message', handleMessage);
+      socket.removeEventListener('close', handleClose);
+    };
   });
+}
+
+/**
+ * WebSocket channel event listener.
+ * @param {*} channel 
+ */
+function* handleChannelEmitter(channel) {
+  while (true) {
+    const action  = yield take(channel);
+    yield put(action);
+  }
 }
 
 /**
@@ -41,23 +63,14 @@ function ownershipRequestChannel(username) {
  * @param {*} username 
  */
 export default function* machineListSaga(username) {
-  const channel = yield call(ownershipRequestChannel, username);
+  const url = `${controlServerUrl}/list?username=${username}`;
+  const socket = new WebSocket(url);
+  const channel = yield call(listEndpointChannel, socket);
   try {
-    const e = yield take(channel);
-    if (e.type === 'error') {
-      console.error('Error occurred: ownership XHR returned error.');
-    } else if (e.type === 'load') {
-      const machines = (JSON.parse(e.target.response)).data;
-      yield put({
-        type: ActionType.MACHINES_FETCH_SUCCESS,
-        payload: { machines },
-      });
-
-      //yield call(machineControlSaga, username);
-    }
+    yield call(handleChannelEmitter, channel);
   } finally {
     if (yield cancelled()) {
-      channel.close();
+      socket.close();
     }
   }
 }

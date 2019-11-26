@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import MachineList from './machine-list';
-import ActionType from '../action-type.enum';
+//import ActionType from '../action-type.enum';
 
 function mapsStateToProps(state) {
   return {
@@ -12,10 +12,10 @@ function mapsStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     onMachineSelect: machine => {
-      dispatch({
+      /*dispatch({
         type: ActionType.MACHINE_SELECT,
         payload: { machine },
-      });
+      });*/
     },
   };
 }

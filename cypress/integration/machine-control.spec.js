@@ -1,7 +1,7 @@
 const defaultControlServerUrl =
   'wss://harveynet-control-server.herokuapp.com';
 
-describe('Machine Control', () => {
+describe.skip('Machine Control', () => {
   it('should open machine control screen', () => {
     // enter as alice
     cy.visit('/?username=alice');

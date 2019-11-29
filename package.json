@@ -19,6 +19,8 @@
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
+    "test:server": "jest ./server --watch",
+    "test:server:once": "jest ./server",
     "test:unit": "react-scripts test",
     "test:unit:once": "react-scripts test --watchAll=false",
     "test:e2e": "npm run cypress:open",
@@ -46,6 +48,7 @@
     "bootstrap": "^4.3.1",
     "cypress": "^3.6.1",
     "jest": "^24.9.0",
-    "start-server-and-test": "^1.10.6"
+    "start-server-and-test": "^1.10.6",
+    "supertest": "^4.0.2"
   }
 }

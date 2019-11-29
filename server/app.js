@@ -8,4 +8,8 @@ app.get('/', (req, res) => {
   res.sendFile('../build/index.html');
 });
 
+app.get('/login', (req, res) => {
+  res.status(200).end();
+});
+
 module.exports = app;

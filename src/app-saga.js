@@ -1,6 +1,8 @@
 import { call, put, take } from 'redux-saga/effects';
 import { eventChannel, END } from 'redux-saga';
 
+import sessionSaga from './session/saga';
+
 const controlServerUrl = process.env.REACT_APP_CONTROL_SERVER_URL ||
   'wss://harveynet-control-server.herokuapp.com';
 
@@ -60,9 +62,11 @@ function* handleChannelEmitter(channel) {
 export default function* appSaga() {
   console.log(document.cookie);
 
-  const url = `${controlServerUrl}/session`;
+  /*const url = `${controlServerUrl}/session`;
   const socket = new WebSocket(url);
   const channel = yield call(sessionEndpointChannel, socket);
 
-  yield call(handleChannelEmitter, channel);
+  yield call(handleChannelEmitter, channel);*/
+
+  yield call(sessionSaga);
 }

@@ -1,4 +1,4 @@
-describe('Machine List', () => {
+describe.skip('Machine List', () => {
   it('should render the user\'s machines', () => {
     // authenticate as user "alice"
     cy.setCookie('username', 'alice');

@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 
 const app = express();
@@ -9,7 +10,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.status(200).end();
+  res.sendFile(path.join(__dirname, './login.html'));
 });
 
 module.exports = app;

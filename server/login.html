@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Bootstrap -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+  >
+
+  <title>HarveyNet - Login</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <span class="navbar-brand">
+        <b>HarveyNet</b> Control Panel (v0.0.4)
+      </span>
+    </div>
+  </nav>
+
+  <main>
+    <section class="container pt-5">
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-4">
+          <form
+            method="post"
+            action="#"
+            id="login-form"
+          >
+            <h1>Login</h1>
+
+            <br />
+
+            <div class="form-group">
+              <label>Username:</label>
+              <input name="username" class="form-control" required />
+            </div>
+
+            <br />
+
+            <div>
+              <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-12 mt-5 text-secondary">
+          <p>This is a Control Panel login screen.</p>
+          <p>Available usernames:</p>
+          <ul>
+            <li>
+              <b>alice</b> - (owning 2 machines: "<i>machine1</i>" and "<i>machine2</i>");
+            </li>
+            <li>
+              <b>bob</b> - (owning 1 machine: "<i>machine3</i>").
+            </li>
+          </ul>
+          <p>Note: the usernames are case-sensitive, keep them lowercase.</p>
+          <p>
+            You can also use non-existing usernames (e.g. <i>charlie</i>), 
+            they will be treated as users owning zero machines.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

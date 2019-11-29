@@ -1,4 +1,4 @@
-describe('Machine List', () => {
+describe.skip('Machine List', () => {
   it('should render the user\'s machines', () => {
     // visit the app as alice
     cy.visit('/?username=alice');

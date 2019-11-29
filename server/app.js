@@ -42,4 +42,12 @@ app.post('/login', (req, res) => {
   res.redirect('/');
 });
 
+/**
+ * GET /logout
+ */
+app.get('/logout', (req, res) => {
+  res.clearCookie('username');
+  res.redirect('/login');
+});
+
 module.exports = app;

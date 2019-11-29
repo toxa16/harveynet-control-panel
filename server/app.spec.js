@@ -39,4 +39,20 @@ describe('Production Server', () => {
       },
     );
   });
+
+  describe('GET /logout', () => {
+    it(
+      'should unset the "username" cookie (if present)' +
+        ' and redirect to GET "/login"',
+      done => {
+        supertest(app)
+          .get('/logout')
+          .set('Cookie', 'username=charlie')
+          .expect(302)
+          .expect('Location', '/login')
+          .expect('Set-Cookie', /username=;/)
+          .end(done);
+      },
+    );
+  });
 });

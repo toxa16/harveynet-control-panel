@@ -1,20 +1,13 @@
+import authenticateUser from './authenticate-user';
+
 describe('Session', () => {
-  it.skip('should display user machines', () => {
+  it('should open a websocket session', () => {
     // authenticate as user "alice"
-    cy.setCookie('username', 'alice');
+    authenticateUser('alice');
     // visit the app home path
     cy.visit('/');
 
-    const machinesFixture = ['machine1', 'machine2'];  // fixture
-
-    // see machine list containing user machines
-    cy.get('[data-cy="machine-list"]')
-      .children()
-      .should('have.length', machinesFixture.length);
-
-    // the list should include first machine...
-    cy.get('[data-cy="machine-list"]').contains(machinesFixture[0]);
-    // ...and the second one as well
-    cy.get('[data-cy="machine-list"]').contains(machinesFixture[1]);
+    // see session open screen
+    cy.get('[data-cy="session-open-view"]');
   });
 });

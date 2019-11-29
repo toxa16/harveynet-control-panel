@@ -18,7 +18,7 @@ export default function LoginForm({ onSubmit }) {
           id="login-form"
           onSubmit={handleSubmit}
         >
-          <h1>Login</h1>
+          <h1>Login (Client)</h1>
 
           <br />
 

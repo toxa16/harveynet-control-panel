@@ -8,19 +8,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 /**
- * GET /
- */
-app.get('/', (req, res) => {
-  const { username } = req.cookies;
-  if (username) {
-    res.sendFile(path.join(__dirname, '../build/index.html'));
-  } else {
-    res.redirect('/login');
-  }
-});
-app.use(express.static('build'));
-
-/**
  * Stub (test) endpoint.
  */
 app.get('/foobar', (req, res) => res.end('foobar'));
@@ -53,5 +40,18 @@ app.get('/logout', (req, res) => {
   res.clearCookie('username');
   res.redirect('/login');
 });
+
+/**
+ * GET / & static files
+ */
+app.get('*', (req, res, next) => {
+  const { username } = req.cookies;
+  if (username) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+});
+app.get('*', express.static('build'));
 
 module.exports = app;

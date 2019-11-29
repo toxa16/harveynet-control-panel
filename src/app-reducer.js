@@ -2,8 +2,18 @@ import ActionType from './action-type.enum';
 
 const initialState = {
   username: null,
-  machines: [],
+  //machines: [],
   currentMachine: null,
+  machines: [
+    {
+      id: 'machine2',
+      isOnline: false,
+    },
+    {
+      id: 'machine1',
+      isOnline: true,
+    },
+  ],
 };
 
 export default function appReducer(state = initialState, action) {

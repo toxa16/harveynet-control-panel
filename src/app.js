@@ -18,7 +18,8 @@ export default function App({ username, currentMachine }) {
     <div>
       <ConnectedNavbar />
       <div className="container pt-5">
-        { renderBody() }
+        { /* renderBody() */ }
+        <h1>App</h1>
       </div>
     </div>
   );

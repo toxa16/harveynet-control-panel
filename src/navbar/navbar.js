@@ -21,7 +21,8 @@ export default function Navbar({ username, onLogout }) {
         <span className="navbar-brand">
           <b>HarveyNet</b> Control Panel (v0.0.4)
         </span>
-        { renderLogoutButton() }
+        { /* renderLogoutButton() */ }
+        <a href="/logout" className="text-white">Logout</a>
       </div>
     </nav>
   );

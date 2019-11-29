@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ConnectedNavbar from './navbar/connected-navbar';
 import ConnectedLoginForm from './login-form/connected-login-form';
 import RestrictedView from './restricted-view/restricted-view';
+import SessionView from './session/session-view';
 
 export default function App({ username, currentMachine }) {
   function renderBody() {
@@ -19,7 +20,7 @@ export default function App({ username, currentMachine }) {
       <ConnectedNavbar />
       <div className="container pt-5">
         { /* renderBody() */ }
-        <h1>App</h1>
+        <SessionView />
       </div>
     </div>
   );

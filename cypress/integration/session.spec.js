@@ -1,7 +1,7 @@
 describe('Session', () => {
   it('should display user machines', () => {
     // authenticate as user "alice"
-    //cy.setCookie('username', 'alice');
+    cy.setCookie('username', 'alice');
     // visit the app home path
     cy.visit('/');
 

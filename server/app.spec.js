@@ -4,7 +4,21 @@ const app = require('./app');
 
 describe('Production Server', () => {
   describe('GET /', () => {
-    it.todo('should redirect to "/login" on unauthenticated user');
+    it('should redirect to "/login" on unauthenticated user', done => {
+      supertest(app)
+        .get('/')
+        .expect(302)
+        .expect('Location', '/login')
+        .end(done);
+    });
+
+    it('should return 200 on authenticated user', done => {
+      supertest(app)
+        .get('/')
+        .set('Cookie', 'username=charlie')
+        .expect(200)
+        .end(done);
+    });
   });
 
   describe('GET /login', () => {

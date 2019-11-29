@@ -7,14 +7,18 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(express.static('build'));
-
 /**
  * GET /
  */
 app.get('/', (req, res) => {
-  res.sendFile('../build/index.html');
+  const { username } = req.cookies;
+  if (username) {
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+  } else {
+    res.redirect('/login');
+  }
 });
+app.use(express.static('build'));
 
 /**
  * Stub (test) endpoint.

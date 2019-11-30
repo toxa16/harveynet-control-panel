@@ -10,8 +10,13 @@ describe('Auth', () => {
 
     // submit the login form
     cy.get('[data-cy="login-form"]').submit();
-    
-    // see "main" view
-    cy.get('[data-cy="main"]');
+
+    // see "main" view and click the "logout" link
+    cy.get('[data-cy="main"]')
+      .find('[data-cy="logout-link"]')
+      .click();
+
+    // see the login form (i.e. "you've logged out")
+    cy.get('[data-cy="login-form"]');
   });
 });

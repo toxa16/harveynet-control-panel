@@ -10,7 +10,13 @@ export default function Navbar() {
         <span className="navbar-brand">
           <b>HarveyNet</b> Control Panel (v0.0.4)
         </span>
-        <a href="/logout" className="text-white" data-cy="logout">Logout</a>
+        <a
+          href="/logout"
+          className="text-white"
+          data-cy="logout-link"
+        >
+          Logout
+        </a>
       </div>
     </nav>
   );

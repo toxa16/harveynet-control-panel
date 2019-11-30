@@ -22,6 +22,7 @@
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
+    "test:main:integration": "cypress open --config-file ./cypress/main.config.json",
     "test:server": "jest ./server --watch",
     "test:server:once": "jest ./server",
     "test:unit": "react-scripts test",

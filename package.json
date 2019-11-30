@@ -26,7 +26,7 @@
     "test:server:once": "jest ./server",
     "test:unit": "react-scripts test",
     "test:unit:once": "react-scripts test --watchAll=false",
-    "test:e2e": "npm run cypress:open",
+    "test:e2e": "cypress open --config-file ./cypress/e2e.config.json",
     "test:e2e:once": "start-server-and-test start http://localhost:3000 cypress:run",
     "test": "npm run test:unit:once && npm run test:server:once && npm run test:e2e:once",
     "start": "node ./server/index.js",

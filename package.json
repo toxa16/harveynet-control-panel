@@ -15,7 +15,7 @@
     "serve": "^11.2.0"
   },
   "scripts": {
-    "dev:main": "parcel ./main/index.html --port 3000",
+    "dev:main": "parcel ./main/index-dev.html --out-dir ./build-dev --port 3000",
     "dev": "react-scripts start",
     "build:main": "parcel build ./main/index.html --out-dir ./build",
     "build": "react-scripts build",

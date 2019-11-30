@@ -1,5 +1,9 @@
 describe('Main', () => {
-  it('should just pass', () => {
-    expect(true).to.be.true;
-  })
+  it('should open control and close control', () => {
+    // visit homepath
+    cy.visit('/');
+
+    // see "session" view
+    cy.get('[data-cy="session"]');
+  });
 });

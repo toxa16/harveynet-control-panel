@@ -8,6 +8,9 @@ export default function Main() {
        
       <main className="container mt-5">
         <h1>Main Sub-App</h1>
+
+        <div data-cy="session"></div>
+
       </main>
     </div>
   );

@@ -7,14 +7,10 @@
 !control/
 !cypress/
 !main/
-!public/
 !server/
 !session/
-!src/
 !.gitignore
 !.travis.yml
-!cypress.json
 !package-lock.json
 !package.json
-Procfile
-README.md
+!README.md

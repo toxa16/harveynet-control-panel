@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Session() {
+export default function SessionStub() {
   return (
     <div data-cy="session">
-      <h1>Session</h1>
+      <h2>SessionStub</h2>
     </div>
   );
 }

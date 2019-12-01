@@ -2,8 +2,8 @@ import { createStore } from 'redux';
 
 import sessionReducer from './reducer';
 
-const store = createStore(
+const sessionStore = createStore(
   sessionReducer,
 );
 
-export default store;
+export default sessionStore;

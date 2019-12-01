@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import MachineList from './machine-list';
 import ControlContainer from './control-container';
 
-export default function Session() {
+export default function Session({ ControlComponent }) {
   const [isControlOpen, setControlOpen] = useState(false);
 
   function renderBody() {
     return isControlOpen ?
-      <ControlContainer onSessionClick={ () => setControlOpen(false) } /> :
+      <ControlContainer
+        onSessionClick={ () => setControlOpen(false) }
+        ControlComponent={ControlComponent}
+      /> :
       <MachineList onControlClick={ () => setControlOpen(true) } />;
   }
 

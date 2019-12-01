@@ -13,8 +13,10 @@ describe('Session-Control', () => {
       .click();
 
     // see the "control" view
+    cy.get('[data-cy="control"]');
+
     // click the back ("session") link
-    cy.get('[data-cy="control"]')
+    cy.get('[data-cy="session"]')
       .find('[data-cy="session-link"]')
       .click();
 

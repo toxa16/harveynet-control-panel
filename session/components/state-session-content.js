@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import SessionContent from './session-content';
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    isWebSocketOpen: state.isWebSocketOpen,
+  };
 }
 
 function mapDispatchToProps(dispatch) {

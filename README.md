@@ -9,7 +9,9 @@ HarveyNet Control Panel.
 
 ## Global Config
 
-- app build directory: "./build"
+- development & integration testing port: 3000
+- e2e testing port: 4000
+- app production build directory: "./build"
 
 ## tl;dr
 

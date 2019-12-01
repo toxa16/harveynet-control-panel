@@ -2,6 +2,7 @@
 /*
 
 # except
+!_src/
 !control/
 !cypress/
 !main/

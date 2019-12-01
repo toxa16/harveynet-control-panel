@@ -13,7 +13,10 @@ describe('Session', () => {
     // see the control container
     // click the back ("session") link
     cy.get('[data-cy="control-container"]')
-      //.find('[data-cy="session-link"]')
-      //.click();
+      .find('[data-cy="session-link"]')
+      .click();
+
+    // see the "machine list" again
+    cy.get('[data-cy="machine-list"]');
   });
 });

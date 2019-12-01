@@ -6,22 +6,9 @@ import ControlContainer from './control-container';
 export default function Session() {
   const [isControlOpen, setControlOpen] = useState(false);
 
-  function renderControl() {
-    return <div data-cy="control">
-      <h3>Control</h3>
-      <button
-        className="btn btn-primary"
-        data-cy="session-link"
-        onClick={ e => setControlOpen(false) }
-      >
-        Back To Session
-      </button>
-    </div>
-  }
-
   function renderBody() {
     return isControlOpen ?
-      <ControlContainer /> :
+      <ControlContainer onSessionClick={ () => setControlOpen(false) } /> :
       <MachineList onControlClick={ () => setControlOpen(true) } />;
   }
 

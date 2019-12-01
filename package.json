@@ -9,7 +9,6 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
-    "react-scripts": "3.2.0",
     "redux": "^4.0.4",
     "redux-saga": "^1.1.3",
     "regenerator-runtime": "^0.13.3"
@@ -28,6 +27,7 @@
     "test:e2e": "cypress open --config-file ./cypress/e2e.config.json",
     "test:e2e:once": "cypress run --config-file ./cypress/e2e.config.json",
     "test:e2e:auto": "PORT=4000 start-server-and-test start http://localhost:4000 test:e2e:once",
+    "pretest": "npm run build",
     "test": "npm run test:integration:auto && npm run test:e2e:auto",
     "start": "node ./server/index.js"
   },

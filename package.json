@@ -19,7 +19,6 @@
     "dev:main": "parcel ./main/index-dev.html --out-dir ./build-dev --port 3000",
     "dev:session": "parcel ./session/index-dev.html --out-dir ./build-dev --port 3000",
     "build:main": "parcel build ./main/index.html --out-dir ./build",
-    "test:main:integration": "cypress open --config-file ./cypress/main.config.json",
     "test:session:integration": "cypress open --config-file ./cypress/session.config.json",
     "test:e2e": "cypress open --config-file ./cypress/e2e.config.json",
 

@@ -11,9 +11,11 @@ describe('Auth', () => {
     // submit the login form
     cy.get('[data-cy="login-form"]').submit();
 
-    // see "main" view and click the "logout" link
-    cy.get('[data-cy="main"]')
-      .find('[data-cy="logout-link"]')
+    // see "session" view
+    cy.get('[data-cy="session"]');
+
+    // click the "logout" link
+    cy.get('[data-cy="logout-link"]')
       .click();
 
     // see the login form (i.e. "you've logged out")

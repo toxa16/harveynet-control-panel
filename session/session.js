@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 
 import MachineList from './machine-list';
 import ControlContainer from './control-container';
+import SessionConnecting from './components/session-connecting';
 
 export default function Session({ ControlComponent }) {
   const [isControlOpen, setControlOpen] = useState(false);
+  const [isWebSocketOpen, setWebSocketOpen] = useState(false);
+
+  function renderSessionContent() {}
 
   function renderBody() {
     return isControlOpen ?
@@ -12,7 +16,8 @@ export default function Session({ ControlComponent }) {
         onSessionClick={ () => setControlOpen(false) }
         ControlComponent={ControlComponent}
       /> :
-      <MachineList onControlClick={ () => setControlOpen(true) } />;
+      <SessionConnecting />;
+    // <MachineList onControlClick={ () => setControlOpen(true) } />
   }
 
   return (

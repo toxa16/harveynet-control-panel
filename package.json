@@ -1,6 +1,6 @@
 {
   "name": "harveynet-control-panel",
-  "version": "0.0.4",
+  "version": "0.1.0-draft",
   "private": true,
   "dependencies": {
     "body-parser": "^1.19.0",

@@ -8,7 +8,7 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <span className="navbar-brand">
-          <b>HarveyNet</b> Control Panel (v0.0.4)
+          <b>HarveyNet</b> Control Panel (v0.1.0-draft)
         </span>
         <a
           href="/logout"

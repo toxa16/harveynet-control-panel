@@ -3,10 +3,10 @@ import React from 'react';
 import SessionConnecting from './session-connecting';
 import SessionOpen from './session-open';
 
-export default function SessionContent({ isWebSocketOpen }) {
+export default function SessionContent({ isWebSocketOpen, ControlComponent }) {
   function renderBody() {
     return isWebSocketOpen ?
-      <SessionOpen /> :
+      <SessionOpen ControlComponent={ControlComponent} /> :
       <SessionConnecting /> ;
   }
 

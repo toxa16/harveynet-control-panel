@@ -1,7 +1,10 @@
+import authenticateUser from '../helpers/authenticate-user';
+
 describe('Session-Control', () => {
   it('should navigate from session machine list to control and back', () => {
     // authenticate as user "alice"
-    cy.setCookie('username', 'alice');
+    authenticateUser('alice');
+    //cy.setCookie('username', 'alice');
     // visit the app home path
     cy.visit('/');
 

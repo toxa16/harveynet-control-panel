@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import MachineList from './machine-list';
 import ControlContainer from './control-container';
 import SessionConnecting from './components/session-connecting';
+import SessionOpen from './components/session-open';
 
 export default function Session({ ControlComponent }) {
   const [isControlOpen, setControlOpen] = useState(false);
   const [isWebSocketOpen, setWebSocketOpen] = useState(false);
 
-  function renderSessionContent() {}
+  // simulating websocket "open" event
+  useEffect(() => {
+    setTimeout(() => {
+      setWebSocketOpen(true);
+    }, 500);
+  }, []);
+
+  function renderSessionContent() {
+    return isWebSocketOpen ?
+      <SessionOpen /> :
+      <SessionConnecting /> ;
+  }
 
   function renderBody() {
     return isControlOpen ?
@@ -16,7 +28,7 @@ export default function Session({ ControlComponent }) {
         onSessionClick={ () => setControlOpen(false) }
         ControlComponent={ControlComponent}
       /> :
-      <SessionConnecting />;
+      renderSessionContent();
     // <MachineList onControlClick={ () => setControlOpen(true) } />
   }
 

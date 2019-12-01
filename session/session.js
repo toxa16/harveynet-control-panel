@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+import MachineList from './machine-list';
+import ControlContainer from './control-container';
+
 export default function Session() {
   const [isControlOpen, setControlOpen] = useState(false);
 
@@ -16,21 +19,10 @@ export default function Session() {
     </div>
   }
 
-  function renderMachineList() {
-    return <div data-cy="machine-list">
-      <h3>Machine List</h3>
-      <button
-        className="btn btn-primary"
-        data-cy="control-link"
-        onClick={ e => setControlOpen(true) }
-      >
-        Open Control
-      </button>
-    </div>
-  }
-
   function renderBody() {
-    return isControlOpen ? renderControl() : renderMachineList();
+    return isControlOpen ?
+      <ControlContainer /> :
+      <MachineList onControlClick={ () => setControlOpen(true) } />;
   }
 
   return (

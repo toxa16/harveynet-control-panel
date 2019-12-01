@@ -6,6 +6,7 @@
 !main/
 !public/
 !server/
+!session/
 !src/
 !.gitignore
 !.travis.yml

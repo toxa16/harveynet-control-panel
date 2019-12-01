@@ -16,6 +16,7 @@
   },
   "scripts": {
     "dev:main": "parcel ./main/index-dev.html --out-dir ./build-dev --port 3000",
+    "dev:session": "parcel ./session/index-dev.html --out-dir ./build-dev --port 3000",
     "dev": "react-scripts start",
     "build:main": "parcel build ./main/index.html --out-dir ./build",
     "build": "react-scripts build",

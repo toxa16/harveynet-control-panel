@@ -1,8 +1,6 @@
 import React from 'react';
 
-import Session from './session';
-
-export default function DevLayout() {
+export default function DevLayout({ children }) {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">
@@ -14,7 +12,7 @@ export default function DevLayout() {
       </nav>
 
       <div className="container mt-5">
-        <Session />
+        { children }
       </div>
     </div>
   );

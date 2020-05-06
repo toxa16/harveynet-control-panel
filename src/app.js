@@ -1,13 +1,12 @@
 import React from 'react';
 
+import Main from './components/main';
+
 
 export default function App() {
   return (
     <div>
-      <div data-testid="login-page">
-        <h1>Login Page</h1>
-        <a href="/">Login</a>
-      </div>
+      <Main />
     </div>
   );
 }

@@ -1,24 +1,12 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-import ConnectedNavbar from './navbar/connected-navbar';
-import ConnectedLoginForm from './login-form/connected-login-form';
-import RestrictedView from './restricted-view/restricted-view';
 
-export default function App({ username, currentMachine }) {
-  function renderBody() {
-    if (username) {
-      return <RestrictedView currentMachine={currentMachine} />
-    } else {
-      return <ConnectedLoginForm />;
-    }
-  }
-
+export default function App() {
   return (
     <div>
-      <ConnectedNavbar />
-      <div className="container pt-5">
-        { renderBody() }
+      <div data-testid="login-page">
+        <h1>Login Page</h1>
+        <a href="/">Login</a>
       </div>
     </div>
   );

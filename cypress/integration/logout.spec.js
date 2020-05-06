@@ -1,4 +1,4 @@
-describe('Logout "/logout"', () => {
+describe.skip('Logout "/logout"', () => {
   it('should clear `access_token` cookie and redirect to "/login"', () => {
     cy.setCookie('access_token', 'STUB_ACCESS_TOKEN');
     cy.visit('/logout');

@@ -15,7 +15,10 @@ function getAccessToken() {
 export default function Main({ children }) {
   useEffect(() => {
     const cookies = document.cookie.split(';');
-    const tokenCookie = cookies.find(x => x.match(/^access_token=/));
+    if (process.env.NODE_ENV === 'development') {
+      console.log(cookies);   // LOGGING (dev)
+    }
+    const tokenCookie = cookies.find(x => x.trim().match(/^access_token=/));
     if (tokenCookie) {
       navigate('/panel');
     } else {

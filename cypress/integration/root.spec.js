@@ -19,7 +19,7 @@ describe('Root "/"', () => {
     it('should set `access_token` cookie and redirect to "/panel"', () => {
       const token = 'STUB_ACCESS_TOKEN';
       cy.visit(`/#access_token=${token}`);
-      cy.wait(100)
+      cy.wait(100);   // wait for detecting the document.cookie command
       cy.getCookie('access_token', { log: true })
         .should('have.property', 'value', token)
       cy.url().should('eq', Cypress.config().baseUrl + '/panel');

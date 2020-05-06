@@ -2,7 +2,7 @@ import React from 'react';
 import { Router } from '@reach/router';
 
 import Main from './components/main';
-import Panel from './components/panel';
+import Panel from './panel';
 import LoginPage from './components/login-page';
 import Navbar from './components/navbar';
 import Logout from './components/logout';

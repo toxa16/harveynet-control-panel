@@ -1,10 +1,12 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
 
 import Panel from '..';
 import panel from '../redux/reducer';
+import panelSaga from '../redux/saga';
 
 
 // fixture
@@ -18,7 +20,12 @@ const testMachines = [
 ];
 
 // init redux
-const store = createStore(combineReducers({ panel }));
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  combineReducers({ panel }),
+  applyMiddleware(sagaMiddleware),
+);
+sagaMiddleware.run(panelSaga);
 
 
 test('Rendering user machines', () => {

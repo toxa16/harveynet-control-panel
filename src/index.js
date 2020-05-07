@@ -7,7 +7,7 @@ import createSagaMiddleware from 'redux-saga';
 import './index.css';
 import appReducer from './app-reducer';
 import ConnectedApp from './connected-app';
-import appSaga from './app-saga';
+import appSaga from './saga';
 import App from './app';
 import auth from './auth/redux/reducer';
 import panel from './panel/redux/reducer';
@@ -23,7 +23,7 @@ const store = createStore(
   reducer,
   applyMiddleware(sagaMiddleware),
 );
-//sagaMiddleware.run(appSaga);
+sagaMiddleware.run(appSaga);
 
 
 ReactDOM.render(

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 
+// e2e test hard-code
 /*const machines0 = [
   {
     machineId: 'machine1',
@@ -12,15 +13,6 @@ import React, { useEffect, useState } from 'react';
     machineId: 'machine3',
   },
 ];*/
-
-const machines0 = [
-  {
-    machineId: 'test-machine-1',
-  },
-  {
-    machineId: 'test-machine-2',
-  },
-];
 
 
 const machineCardStyle = {

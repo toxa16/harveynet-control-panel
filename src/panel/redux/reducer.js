@@ -1,20 +1,17 @@
-const machines0 = [
-  {
-    machineId: 'test-machine-1',
-  },
-  {
-    machineId: 'test-machine-2',
-  },
-];
+import PanelAction from './action-type';
 
 
 const initialState = {
-  machines: machines0,
+  machines: [],
 };
 
 
 export default function panel(state = initialState, action) {
   switch (action.type) {
+    case PanelAction.SET_MACHINES: {
+      const { machines } = action.payload;
+      return { ...state, machines };
+    }
     default: return state;
   }
 }

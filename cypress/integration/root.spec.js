@@ -1,4 +1,4 @@
-describe('Root "/"', () => {
+describe.skip('Root "/"', () => {
   describe('by default', () => {
     it('should redirect to "/login"', () => {
       cy.visit('/');

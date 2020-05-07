@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Panel from '../../panel';
+
 
 export default function ImplicitPanelView({ accessToken }) {
   if (!accessToken) {
@@ -9,9 +11,5 @@ export default function ImplicitPanelView({ accessToken }) {
       </div>
     )
   }
-  return (
-    <div>
-      HERE PANEL WILL BE RENDERED
-    </div>
-  );
+  return <Panel />;
 }

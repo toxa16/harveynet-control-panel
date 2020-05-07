@@ -1,6 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
 
+const machines0 = [
+  {
+    machineId: 'machine1',
+  },
+  /*{
+    machineId: 'machine2',
+  },
+  {
+    machineId: 'machine3',
+  },*/
+];
+
+
 const machineCardStyle = {
   cursor: 'pointer',
 };
@@ -13,8 +26,8 @@ const ownershipServerUrl = process.env.REACT_APP_OWNERSHIP_SERVER_URL ||
 /**
  * Machine list page component. 
  */
-export default function MachineList({ onMachineSelect }) {
-  const [machines, setMachines] = useState([]);
+export default function MachineList({ machines = machines0, onMachineSelect }) {
+  /*const [machines, setMachines] = useState([]);
 
   useEffect(() => {
     console.log('loading machines...')
@@ -29,7 +42,7 @@ export default function MachineList({ onMachineSelect }) {
     })
       .then(res => res.json())
       .then(_machines => setMachines(_machines));
-  }, []);
+  }, []);*/
 
   function renderMachines() {
     return machines.map((x, i) => {
@@ -40,7 +53,7 @@ export default function MachineList({ onMachineSelect }) {
           style={machineCardStyle}
           onClick={ e => onMachineSelect(x) }
         >
-          <div className="card">
+          <div className="card" data-testid="machine-card">
             <div className="card-body">
               { x.machineId }
             </div>

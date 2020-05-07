@@ -1,4 +1,5 @@
 import { put } from 'redux-saga/effects';
+
 import PanelAction from './action-type';
 
 
@@ -13,6 +14,7 @@ const machines0 = [
 
 
 export default function* panelSaga() {
+  //console.log('panel saga running...')
   yield put({
     type: PanelAction.SET_MACHINES,
     payload: {

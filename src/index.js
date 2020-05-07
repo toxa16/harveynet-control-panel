@@ -10,11 +10,13 @@ import ConnectedApp from './connected-app';
 import appSaga from './app-saga';
 import App from './app';
 import auth from './auth/redux/reducer';
+import panel from './panel/redux/reducer';
 
 
 const reducer = combineReducers({
   auth,
-})
+  panel,
+});
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(

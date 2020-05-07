@@ -1,9 +1,13 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
 
 import Panel from '..';
+import panel from '../redux/reducer';
 
 
+// fixture
 const testMachines = [
   {
     machineId: 'test-machine-1',
@@ -13,9 +17,16 @@ const testMachines = [
   },
 ];
 
+// init redux
+const store = createStore(combineReducers({ panel }));
+
 
 test('Rendering user machines', () => {
-  const { getAllByTestId } = render(<Panel />);
+  const { getAllByTestId } = render(
+    <Provider store={store}>
+      <Panel />
+    </Provider>
+  );
   const machineCards = getAllByTestId('machine-card');
   const actualMachines = machineCards.map(x => {
     const machineId = x

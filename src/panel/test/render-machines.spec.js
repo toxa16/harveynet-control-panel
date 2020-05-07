@@ -19,13 +19,17 @@ const testMachines = [
   },
 ];
 
+const ownershipClientStub = {
+  getUserMachines: async () => testMachines,
+};
+
 // init redux
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   combineReducers({ panel }),
   applyMiddleware(sagaMiddleware),
 );
-sagaMiddleware.run(panelSaga);
+sagaMiddleware.run(panelSaga, ownershipClientStub);
 
 
 test('Rendering user machines', () => {

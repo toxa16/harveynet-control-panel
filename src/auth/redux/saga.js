@@ -4,7 +4,7 @@ import AuthAction from './action-type';
 import panelSaga from '../../panel/redux/saga';
 
 
-export default function* authSaga() {
+export default function* authSaga({ ownershipClient }) {
   yield take(AuthAction.AUTHENTICATE);
-  yield call(panelSaga);
+  yield call(panelSaga, ownershipClient);
 }

@@ -1,11 +1,20 @@
 describe('Panel scenario', () => {
-  it('authenticate, render user machines', () => {
-    const accessToken = 'ACCESS_TOKEN_STUB';
-    cy.visit(`/login#access_token=${accessToken}`);
+  beforeEach(() => {
+    cy.fixture('alice-machines.json').as('expectedMachines');
+  });
 
-    cy.get('[data-testid="machine-card"]');
+  it('authenticate, render user machines', function () {
+    const accessToken = 'ACCESS_TOKEN_STUB';  // alice's token
+    cy.visit(`/login#access_token=${accessToken}`); // simulating login
 
-    // reference
-    //expect(true).to.equal(false)
+    const actualMachines = [];
+    cy.get('[data-testid="machine-card"]')
+      .each($el => {
+        const machineId = $el[0].innerText;  // HACK
+        actualMachines.push({ machineId });
+      })
+      .then(() => {
+        expect(actualMachines).to.deep.equal(this.expectedMachines);
+      });
   });
 });

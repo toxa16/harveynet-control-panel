@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 
@@ -9,13 +9,20 @@ import appReducer from './app-reducer';
 import ConnectedApp from './connected-app';
 import appSaga from './app-saga';
 import App from './app';
+import auth from './auth/redux/reducer';
+
+
+const reducer = combineReducers({
+  auth,
+})
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-  appReducer,
+  reducer,
   applyMiddleware(sagaMiddleware),
 );
 //sagaMiddleware.run(appSaga);
+
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@reach/router';
 import qs from 'qs';
 
 
@@ -17,9 +18,9 @@ export default function LoginPage() {
       <h1 className="mb-5">Login</h1>
       
       <div>
-        <a href={loginUrl} className="btn btn-outline-primary">
+        <Link to="/panel" className="btn btn-outline-primary">
           Login
-        </a>
+        </Link>
       </div>
     </div>
   );

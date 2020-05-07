@@ -6,10 +6,24 @@ import Panel from './panel';
 import LoginPage from './components/login-page';
 import Navbar from './components/navbar';
 import Logout from './components/logout';
+import ImplicitPanel from './auth/implicit-panel';
 
 
 export default function App() {
   return (
+    <div>
+      <Navbar />
+
+      <div className="container mt-5">
+        <Router>
+          <LoginPage path="/" />
+          <ImplicitPanel path="/panel" />
+        </Router>
+      </div>
+    </div>
+  );
+
+  /*return (
     <div>
       <Navbar />
 
@@ -23,5 +37,5 @@ export default function App() {
         </Router>
       </div>
     </div>
-  );
+  );*/
 }

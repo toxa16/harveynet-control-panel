@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import LoginView from './view';
+import AuthAction from '../redux/action-type';
 
 
 function stp(s) {
@@ -8,7 +9,12 @@ function stp(s) {
 }
 
 function dtp(d) {
-  return {};
+  return {
+    onLogin: accessToken => d({
+      type: AuthAction.AUTHENTICATE,
+      payload: { accessToken },
+    }),
+  };
 }
 
 

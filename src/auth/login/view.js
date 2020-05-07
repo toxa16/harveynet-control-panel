@@ -18,16 +18,18 @@ function getFragmentAccessToken(fragment) {
  * Quasi-presentational component performing login logic.
  * @param {*} param0 
  */
-export default function LoginView({ loginRedirect, errorRedirect, location, navigate }) {
+export default function LoginView({
+  loginRedirect, errorRedirect, location, navigate, onLogin,
+}) {
   useEffect(() => {
-    const urlFragment = location.hash.substring(1);
+    const { hash } = location;
+    const urlFragment = hash ? hash.substring(1) : '';
     const token = getFragmentAccessToken(urlFragment);
-    console.log(token);
 
     if (token) {
+      onLogin(token);
       navigate(loginRedirect);
     } else {
-      console.log('not logged in')
       navigate(errorRedirect);
     }
   }, []);

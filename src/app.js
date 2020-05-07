@@ -19,6 +19,7 @@ export default function App() {
         <Router>
           <LoginPage default />
           <Login path="/login" loginRedirect="/panel" errorRedirect="/" />
+          <Logout path="/logout" />
           <ImplicitPanel path="/panel" />
         </Router>
       </div>

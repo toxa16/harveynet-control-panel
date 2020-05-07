@@ -1,20 +1,18 @@
-import { useEffect } from 'react';
 import qs from 'qs';
 
 
-const auth0url = 'https://dev-gltebumz.eu.auth0.com';   // env
-const client_id = 'DQ3X9tFT6PwzF6I2HR_qwy-Xe1WtKWLG';   // env
-const returnTo = 'http://localhost:3000';   // env
+const auth0url = process.env.REACT_APP_AUTH0_URL;
+const client_id = process.env.REACT_APP_AUTH0_CLIENT_ID;
+const returnTo = process.env.REACT_APP_BASE_URL;
 
 const query = qs.stringify({ client_id, returnTo });
 const logoutUrl = `${auth0url}/logout?${query}`;
 
 
+/**
+ * Quasi-component performing logout logic.
+ */
 export default function Logout() {
-  useEffect(() => {
-    document.cookie = 'access_token=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-    window.location.href = logoutUrl;
-  }, []);
-
+  window.location.href = logoutUrl;
   return null;
 }

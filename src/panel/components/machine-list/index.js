@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 
-const machines0 = [
+/*const machines0 = [
   {
     machineId: 'machine1',
   },
@@ -10,6 +10,15 @@ const machines0 = [
   },
   {
     machineId: 'machine3',
+  },
+];*/
+
+const machines0 = [
+  {
+    machineId: 'test-machine-1',
+  },
+  {
+    machineId: 'test-machine-2',
   },
 ];
 
@@ -55,7 +64,9 @@ export default function MachineList({ machines = machines0, onMachineSelect }) {
         >
           <div className="card" data-testid="machine-card">
             <div className="card-body">
-              { x.machineId }
+              <span data-testid="machine-card__machine-id">
+                { x.machineId }
+              </span>
             </div>
           </div>
         </li>

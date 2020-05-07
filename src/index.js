@@ -7,10 +7,10 @@ import createSagaMiddleware from 'redux-saga';
 import './index.css';
 import appReducer from './app-reducer';
 import ConnectedApp from './connected-app';
-import appSaga from './saga';
 import App from './app';
 import auth from './auth/redux/reducer';
 import panel from './panel/redux/reducer';
+import authSaga from './auth/redux/saga';
 
 
 const reducer = combineReducers({
@@ -23,7 +23,7 @@ const store = createStore(
   reducer,
   applyMiddleware(sagaMiddleware),
 );
-sagaMiddleware.run(appSaga);
+sagaMiddleware.run(authSaga);
 
 
 ReactDOM.render(

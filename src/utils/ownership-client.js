@@ -1,15 +1,9 @@
-const machines0 = [
-  {
-    machineId: 'test-machine-1',
-  },
-  {
-    machineId: 'test-machine-2',
-  },
-];
+const url = process.env.REACT_APP_OWNERSHIP_SERVER_URL;
 
 
 export default class OwnershipClient {
   getUserMachines = async () => {
-    return machines0;
+    const res = await fetch(`${url}/me/machines`);
+    return await res.json();
   }
 }

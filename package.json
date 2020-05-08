@@ -19,6 +19,7 @@
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
+    "db:seed": "node cypress/scripts/db-seed.js",
     "test:unit": "react-scripts test",
     "test:unit:once": "react-scripts test --watchAll=false",
     "test:e2e": "npm run cypress:open",
@@ -46,6 +47,8 @@
     "auth0": "^2.25.1",
     "bootstrap": "^4.3.1",
     "cypress": "^3.6.1",
+    "dotenv": "^8.2.0",
+    "mongodb": "^3.5.7",
     "start-server-and-test": "^1.10.6"
   }
 }

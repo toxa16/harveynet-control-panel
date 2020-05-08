@@ -1,11 +1,13 @@
 import auth0 from 'auth0';
 
 
+// auth0 params
 const domain = Cypress.env('AUTH0_DOMAIN');
 const clientId = Cypress.env('AUTH0_CLIENT_ID');
 const clientSecret = Cypress.env('AUTH0_CLIENT_SECRET');
 const realm = Cypress.env('AUTH0_REALM');
 
+// user "Alice" credentials
 const username = 'alice@email.com';
 const password = 'Alice1111$';
 
@@ -13,6 +15,12 @@ const password = 'Alice1111$';
 describe('Panel scenario', () => {
   let accessToken;
 
+  // seeding database
+  beforeEach(() => {
+    cy.exec('npm run db:seed');
+  });
+
+  // getting real access token for user "Alice"
   beforeEach(done => {
     // loading fixtures
     // TODO: simply `import` fixtures

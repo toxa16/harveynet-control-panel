@@ -24,7 +24,7 @@ const store = createStore(
   reducer,
   applyMiddleware(sagaMiddleware),
 );
-const ownershipClient = new OwnershipClient();
+const ownershipClient = new OwnershipClient(store);
 sagaMiddleware.run(authSaga, { ownershipClient });
 
 

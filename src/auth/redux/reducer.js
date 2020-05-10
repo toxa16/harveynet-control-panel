@@ -2,7 +2,6 @@ import AuthAction from './action-type';
 
 
 const initialState = {
-  accessToken: null,
   authenticated: false,
 };
 
@@ -10,8 +9,7 @@ const initialState = {
 export default function auth(state = initialState, action) {
   switch (action.type) {
     case AuthAction.AUTHENTICATE: {
-      const { accessToken } = action.payload;
-      return { ...state, accessToken, authenticated: true };
+      return { ...state, authenticated: true };
     }
     default: return state;
   }

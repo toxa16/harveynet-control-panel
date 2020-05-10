@@ -11,7 +11,6 @@ import App from './app';
 import auth from './auth/redux/reducer';
 import panel from './panel/redux/reducer';
 import authSaga from './auth/redux/saga';
-import OwnershipClient from './utils/ownership-client';
 
 
 const reducer = combineReducers({
@@ -24,8 +23,7 @@ const store = createStore(
   reducer,
   applyMiddleware(sagaMiddleware),
 );
-const ownershipClient = new OwnershipClient(store);
-sagaMiddleware.run(authSaga, { ownershipClient });
+sagaMiddleware.run(authSaga);
 
 
 ReactDOM.render(

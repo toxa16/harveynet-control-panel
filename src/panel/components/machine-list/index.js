@@ -6,6 +6,7 @@ import MachineListView from './view';
 function stp(s) {
   return {
     machines: s.panel.machines,
+    machinesError: s.panel.machinesError,
   };
 }
 

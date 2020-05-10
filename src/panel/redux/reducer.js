@@ -2,7 +2,8 @@ import PanelAction from './action-type';
 
 
 const initialState = {
-  machines: [],
+  machines: null,
+  machinesError: false,
 };
 
 

@@ -1,9 +1,9 @@
 import React from 'react';
 
 
-export default function NavbarView({ accessToken }) {
+export default function NavbarView({ authenticated }) {
   function renderLogoutLink() {
-    if (accessToken) {
+    if (authenticated) {
       return (
         <li className="nav-item">
           <a href="/logout" className="nav-link">Logout</a>

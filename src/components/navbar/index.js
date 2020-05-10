@@ -5,7 +5,7 @@ import NavbarView from './view';
 
 function stp(s) {
   return {
-    accessToken: s.auth.accessToken,
+    authenticated: s.auth.authenticated,
   };
 }
 

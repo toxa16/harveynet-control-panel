@@ -5,9 +5,13 @@ import getUserMachines from '../../utils/get-user-machines';
 
 
 export default function* panelSaga(accessToken) {
-  const machines = yield call(getUserMachines, accessToken);
-  yield put({
-    type: PanelAction.SET_MACHINES,
-    payload: { machines },
-  });
+  try {
+    const machines = yield call(getUserMachines, accessToken);
+    yield put({
+      type: PanelAction.SET_MACHINES,
+      payload: { machines },
+    });
+  } catch(err) {
+    yield put({ type: PanelAction.MACHINES_ERROR });
+  }
 }

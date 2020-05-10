@@ -13,6 +13,9 @@ export default function panel(state = initialState, action) {
       const { machines } = action.payload;
       return { ...state, machines };
     }
+    case PanelAction.MACHINES_ERROR: {
+      return { ...state, machinesError: true };
+    }
     default: return state;
   }
 }

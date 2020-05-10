@@ -32,7 +32,7 @@ const store = createStore(
 sagaMiddleware.run(panelSaga, ownershipClientStub);
 
 
-test('Rendering user machines', () => {
+test.skip('Rendering user machines', () => {
   const { getAllByTestId } = render(
     <Provider store={store}>
       <Panel />

@@ -9,8 +9,9 @@ const client_id = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const baseUrl = process.env.REACT_APP_BASE_URL;
 const redirect_uri = `${baseUrl}/login`;
 const response_type = 'token';
+const scope = 'openid';
 
-const query = qs.stringify({ response_type, client_id, redirect_uri });
+const query = qs.stringify({ response_type, client_id, redirect_uri, scope });
 const loginUrl = `${auth0url}/authorize?${query}`;
 
 

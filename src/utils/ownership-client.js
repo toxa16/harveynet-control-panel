@@ -8,6 +8,7 @@ export default class OwnershipClient {
 
   getUserMachines = async () => {
     const accessToken = this.store.getState().auth.accessToken;
+    //console.log(accessToken);
     const res = await fetch(`${url}/me/machines`, {
       headers: {
         authorization: `Bearer ${accessToken}`,

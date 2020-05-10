@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import MachineList from './machine-list';
-import ActionType from '../action-type.enum';
+import ActionType from '../_action-type.enum';
 
 function mapsStateToProps(state) {
   return {

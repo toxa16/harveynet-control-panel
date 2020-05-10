@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import Navbar from './navbar';
-import ActionType from '../action-type.enum';
+import ActionType from '../_action-type.enum';
 
 function mapStateToProps(state) {
   return {

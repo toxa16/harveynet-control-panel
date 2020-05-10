@@ -32,7 +32,7 @@ export default function LoginView({
     } else {
       navigate(errorRedirect);
     }
-  }, []);
+  });
 
   return null;
 }

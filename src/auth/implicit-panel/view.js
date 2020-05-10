@@ -15,8 +15,8 @@ const query = qs.stringify({ response_type, client_id, redirect_uri, scope });
 const loginUrl = `${auth0url}/authorize?${query}`;
 
 
-export default function ImplicitPanelView({ accessToken }) {
-  if (!accessToken) {
+export default function ImplicitPanelView({ authenticated }) {
+  if (!authenticated) {
     window.location.href = loginUrl;
     return null;
   }

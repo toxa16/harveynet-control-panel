@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import { navigate } from '@reach/router';
 
 
 function ErrorView() {
@@ -14,6 +14,44 @@ function LoadingView() {
   );
 }
 
+function MachineCard({ machineId }) {
+  return (
+    <div className="card" data-testid="machine-card">
+      <div className="card-body">
+        <div className="d-flex justify-content-between">
+          <b data-testid="machine-card__machine-id">
+            { machineId }
+          </b>
+          <span className="text-muted">
+            Offline
+          </span>
+          <b className="text-success d-none">
+            Online
+          </b>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MachineButton({ machine }) {
+  const style = {
+    display: 'block',
+    width: '100%',
+    border: 'none',
+    padding: 0,
+    background: 'none',
+  };
+  return (
+    <button
+      style={style}
+      onClick={ e => navigate(`/panel/machine/${machine.machineId}`) }
+    >
+      <MachineCard {...machine} />
+    </button>
+  );
+}
+
 
 /**
  * Machine list page component. 
@@ -22,18 +60,8 @@ export default function MachineListView({ machines }) {
   function renderMachines() {
     return machines.map((x, i) => {
       return (
-        <li
-          key={i}
-          className="mb-3"
-          style={{ cursor: 'pointer' }}
-        >
-          <Link to={`machine/${x.machineId}`} className="card" data-testid="machine-card">
-            <div className="card-body">
-              <span data-testid="machine-card__machine-id">
-                { x.machineId }
-              </span>
-            </div>
-          </Link>
+        <li key={i} className="mb-3">
+          <MachineButton machine={x} />
         </li>
       );
     });

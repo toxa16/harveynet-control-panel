@@ -1,11 +1,18 @@
 # harveynet-control-panel
 
-HarveyNet Control Panel v0.1.0.
+HarveyNet Control Panel v0.1.1.
 
 ## Environment Variables
 
+- REACT_APP_BASE_URL
 - REACT_APP_OWNERSHIP_SERVER_URL
-- REACT_APP_CONTROL_SERVER_URL (default: "wss://harveynet-control-server.herokuapp.com")
+
+- REACT_APP_AUTH0_URL
+- REACT_APP_AUTH0_CLIENT_ID
+
+- REACT_APP_PUSHER_APP_KEY
+- REACT_APP_PUSHER_CLUSTER (default: "eu")
+- REACT_APP_PUSHER_AUTH_ENDPOINT
 
 ## tl;dr
 

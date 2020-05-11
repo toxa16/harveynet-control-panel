@@ -1,4 +1,5 @@
-import { call, put } from 'redux-saga/effects';
+import { call, fork, put, take } from 'redux-saga/effects';
+import { eventChannel } from 'redux-saga';
 import Pusher from 'pusher-js';
 
 import PanelAction from './action-type';
@@ -10,18 +11,44 @@ const cluster = process.env.REACT_APP_PUSHER_CLUSTER || 'eu';
 const authEndpoint = process.env.REACT_APP_PUSHER_AUTH_ENDPOINT;
 
 
-function machineChannel(machine, pusher) {
+function createSagaChannel(machine, pusherChannel) {
   const { machineId } = machine;
-  const channel = pusher.subscribe(`presence-${machineId}`);
-  channel.bind('pusher:member_added', member => {
-    console.log(member);
+  return eventChannel(emit => {
+    pusherChannel.bind('pusher:member_added', member => {
+      if (member.id === machineId) {
+        emit({
+          type: PanelAction.SET_ONLINE,
+          payload: { machineId },
+        });
+      }
+    });
+    pusherChannel.bind('pusher:member_removed', member => {
+      if (member.id === machineId) {
+        emit({
+          type: PanelAction.SET_OFFLINE,
+          payload: { machineId },
+        });
+      }
+    });
+    /*pusherChannel.bind('client-my-event', function(data) {
+      console.log(JSON.stringify(data));
+    });*/
+
+    // unsubscribe
+    return () => {};
   });
-  channel.bind('pusher:member_removed', member => {
-    console.log(member);
-  });
-  /*channel.bind('client-my-event', function(data) {
-    console.log(JSON.stringify(data));
-  });*/
+}
+
+
+function* machineSaga(machine, pusher) {
+  const { machineId } = machine;
+  const pusherChannel = pusher.subscribe(`presence-${machineId}`);
+  const sagaChannel = yield call(createSagaChannel, machine, pusherChannel);
+  while (true) {
+    const action = yield take(sagaChannel);
+    console.log(action);
+    yield put(action);
+  }
 }
 
 
@@ -46,7 +73,7 @@ export default function* panelSaga(accessToken) {
       payload: { machines },
     });
     for (const machine of machines) {
-      yield call(machineChannel, machine, pusher);
+      yield fork(machineSaga, machine, pusher);
     }
   } catch(err) {
     if (process.env.NODE_ENV === 'development') {

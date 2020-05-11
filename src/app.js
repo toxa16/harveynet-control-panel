@@ -16,7 +16,7 @@ export default function App() {
       <div className="container mt-5">
         <Router>
           <LoginPage default />
-          <Login path="login" loginRedirect="/panel" errorRedirect="/" />
+          <Login path="login" />
           <Logout path="logout" />
           <ImplicitPanel path="panel/*" />
         </Router>

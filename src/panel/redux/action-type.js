@@ -1,6 +1,8 @@
 const PanelAction = {
   SET_MACHINES: 'panel__set-machines',
   MACHINES_ERROR: 'panel__machines-error',
+  SET_ONLINE: 'panel__set-online',
+  SET_OFFLINE: 'panel__set-offline',
 };
 
 export default PanelAction;

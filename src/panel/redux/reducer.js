@@ -1,21 +1,8 @@
-import PanelAction from './action-type';
+import { combineReducers } from 'redux';
+
+import machines from './machines';
 
 
-const initialState = {
-  machines: null,
-};
+const panel = combineReducers({ machines });
 
-
-export default function panel(state = initialState, action) {
-  switch (action.type) {
-    case PanelAction.SET_MACHINES: {
-      const { machines } = action.payload;
-      return { ...state, machines };
-    }
-    case PanelAction.MACHINES_ERROR: {
-      const { error } = action;
-      return { ...state, machines: error };
-    }
-    default: return state;
-  }
-}
+export default panel;

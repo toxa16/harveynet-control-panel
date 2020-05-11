@@ -14,7 +14,16 @@ function LoadingView() {
   );
 }
 
-function MachineCard({ machineId }) {
+function MachineCard(machine) {
+  const { machineId, state } = machine;
+
+  function renderStatus() {
+    if (state.online) {
+      return <b className="text-success">Online</b>;
+    }
+    return <span className="text-muted">Offline</span>;
+  }
+
   return (
     <div className="card" data-testid="machine-card">
       <div className="card-body">
@@ -22,12 +31,7 @@ function MachineCard({ machineId }) {
           <b data-testid="machine-card__machine-id">
             { machineId }
           </b>
-          <span className="text-muted">
-            Offline
-          </span>
-          <b className="text-success d-none">
-            Online
-          </b>
+          { renderStatus() }
         </div>
       </div>
     </div>

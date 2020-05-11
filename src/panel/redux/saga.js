@@ -46,7 +46,6 @@ function* machineSaga(machine, pusher) {
   const sagaChannel = yield call(createSagaChannel, machine, pusherChannel);
   while (true) {
     const action = yield take(sagaChannel);
-    console.log(action);
     yield put(action);
   }
 }

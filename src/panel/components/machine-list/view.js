@@ -1,4 +1,5 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 
 
 function ErrorView() {
@@ -25,7 +26,7 @@ export default function MachineListView({ machines, machinesError, onMachineSele
           key={i}
           className="mb-3"
           style={{ cursor: 'pointer' }}
-          onClick={ e => onMachineSelect(x) }
+          onClick={ /*e => onMachineSelect(x)*/ e => navigate('panel/machine')  }
         >
           <div className="card" data-testid="machine-card">
             <div className="card-body">

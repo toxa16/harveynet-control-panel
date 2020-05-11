@@ -16,27 +16,11 @@ export default function App() {
       <div className="container mt-5">
         <Router>
           <LoginPage default />
-          <Login path="/login" loginRedirect="/panel" errorRedirect="/" />
-          <Logout path="/logout" />
-          <ImplicitPanel path="/panel" />
+          <Login path="login" loginRedirect="/panel" errorRedirect="/" />
+          <Logout path="logout" />
+          <ImplicitPanel path="panel/*" />
         </Router>
       </div>
     </div>
   );
-
-  /*return (
-    <div>
-      <Navbar />
-
-      <div className="container mt-5">
-        <Router>
-          <Main path="/">
-            <LoginPage path="/login" />
-            <Panel path="/panel" />
-            <Logout path="/logout" />
-          </Main>
-        </Router>
-      </div>
-    </div>
-  );*/
 }

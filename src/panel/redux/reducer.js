@@ -3,7 +3,6 @@ import PanelAction from './action-type';
 
 const initialState = {
   machines: null,
-  machinesError: false,
 };
 
 
@@ -14,7 +13,8 @@ export default function panel(state = initialState, action) {
       return { ...state, machines };
     }
     case PanelAction.MACHINES_ERROR: {
-      return { ...state, machinesError: true };
+      const { error } = action;
+      return { ...state, machines: error };
     }
     default: return state;
   }

@@ -18,7 +18,7 @@ function LoadingView() {
 /**
  * Machine list page component. 
  */
-export default function MachineListView({ machines, machinesError }) {
+export default function MachineListView({ machines }) {
   function renderMachines() {
     return machines.map((x, i) => {
       return (
@@ -40,11 +40,11 @@ export default function MachineListView({ machines, machinesError }) {
   }
 
   function renderBody() {
-    if (machinesError) {
-      return <ErrorView />;
-    }
     if (!machines) {
       return <LoadingView />;
+    }
+    if (machines instanceof Error) {
+      return <ErrorView error={machines} />
     }
     return (
       <ul className="list-unstyled">

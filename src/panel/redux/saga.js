@@ -12,6 +12,12 @@ export default function* panelSaga(accessToken) {
       payload: { machines },
     });
   } catch(err) {
-    yield put({ type: PanelAction.MACHINES_ERROR });
+    if (process.env.NODE_ENV === 'development') {
+      console.error(err);
+    }
+    yield put({
+      type: PanelAction.MACHINES_ERROR,
+      error: err,
+    });
   }
 }

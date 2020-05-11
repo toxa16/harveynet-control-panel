@@ -9,7 +9,7 @@ export default function Panel() {
   return (
     <Router>
       <MachineList default onMachineSelect={ () => {} } />
-      <MachineControl path="machine" />
+      <MachineControl path="machine/:machineId" />
     </Router>
   );
 }

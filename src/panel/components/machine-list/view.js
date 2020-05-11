@@ -26,7 +26,7 @@ export default function MachineListView({ machines, machinesError, onMachineSele
           key={i}
           className="mb-3"
           style={{ cursor: 'pointer' }}
-          onClick={ /*e => onMachineSelect(x)*/ e => navigate('panel/machine')  }
+          onClick={ /*e => onMachineSelect(x)*/ e => navigate('panel/machine/machine1')  }
         >
           <div className="card" data-testid="machine-card">
             <div className="card-body">

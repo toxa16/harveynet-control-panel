@@ -6,10 +6,10 @@ export default function MachineControlView({ machineId }) {
   return (
     <div>
       <div className="mb-4">
-        <Link to='/panel'>Back to my machines</Link>
+        <Link to='/panel'>&lt; Back to my machines</Link>
       </div>
 
-      <h1 className="mb-4">MachineControlView</h1>
+      <h1 className="mb-4">{ machineId }</h1>
 
       <div>{ machineId }</div>
     </div>

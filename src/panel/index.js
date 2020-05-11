@@ -8,7 +8,7 @@ import MachineControl from './components/machine-control';
 export default function Panel() {
   return (
     <Router>
-      <MachineList default onMachineSelect={ () => {} } />
+      <MachineList default />
       <MachineControl path="machine/:machineId" />
     </Router>
   );

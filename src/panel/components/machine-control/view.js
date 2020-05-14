@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from '@reach/router';
 
+import ButtonsGrid from '../buttons-grid';
+
 
 export default function MachineControlView({ machineId, machines }) {
   const currentMachine = machines &&
@@ -21,9 +23,45 @@ export default function MachineControlView({ machineId, machines }) {
 
       <h1 className="mb-4">{ machineId }</h1>
 
-      <div>Status: { renderStatus() }</div>
+      <div className="mb-4">Status: { renderStatus() }</div>
 
-      <div className="text-secondary mt-5">
+      <div className="row">
+        <div className="col text-center">
+          <ButtonsGrid />
+        </div>
+
+        <div className="col">
+          <div className="mb-4">
+            <b className="mr-3">Coordinates:</b><br />
+            <span className="mr-3">
+              <span className="text-muted">x:</span>
+              {' '}
+              <span className="text-danger">0.765</span>
+            </span>
+            <span>
+              <span className="text-muted">y:</span>
+              {' '}
+              <span className="text-success">-1.033</span>
+            </span>
+          </div>
+
+          <div>
+            <b className="mb-2">Speed:</b>
+
+            <div className="mb-2">
+              <span>linear:</span>{' '}
+              <input type="number" min={0} step={0.1} defaultValue={0.5} />
+            </div>
+
+            <div>
+              <span>angular:</span>{' '}
+              <input type="number" min={0} step={0.1} defaultValue={1} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="d-none text-secondary mt-5">
         <p>
           This is a <b>machine control screen</b>. The machine will be controlled from here.
         </p>

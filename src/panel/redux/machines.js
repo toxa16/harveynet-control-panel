@@ -40,6 +40,17 @@ export default function machines(s = null, a) {
         return x;
       });
     }
+    case PanelAction.SET_COORDINATES: {
+      const { machineId, x, y } = a.payload;
+      return s.map(m => {
+        if (m.machineId === machineId) {
+          const { state } = m;
+          const newState = { ...state, x, y };
+          return { ...m, state: newState };
+        }
+        return m;
+      });
+    }
     default: return s;
   }
 }

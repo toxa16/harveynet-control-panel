@@ -48,6 +48,19 @@ function createSagaChannel(machine, pusher) {
       console.log(JSON.stringify(data));
     });*/
 
+    /*let x = 0;
+    let y = 0;
+    const dx = 0.2;
+    const dy = -0.05;
+    setInterval(() => {
+      emit({
+        type: PanelAction.SET_COORDINATES,
+        payload: { machineId, x, y },
+      });
+      x += dx;
+      y += dy;
+    }, 1000);*/
+
     // unsubscribe
     return () => {};
   });

@@ -44,9 +44,14 @@ function createSagaChannel(machine, pusher) {
         });
       }
     });
-    /*pusherChannel.bind('client-my-event', function(data) {
-      console.log(JSON.stringify(data));
-    });*/
+    // set coordinates
+    pusherChannel.bind('client-set-coordinates', function(msg) {
+      const { x, y } = msg;
+      emit({
+        type: PanelAction.SET_COORDINATES,
+        payload: { machineId, x, y },
+      });
+    });
 
     /*let x = 0;
     let y = 0;

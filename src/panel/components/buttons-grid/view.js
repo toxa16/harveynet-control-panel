@@ -65,7 +65,7 @@ export default function ButtonsGridView({ machineId, disabled, onMoveCommand }) 
 
       <DirectionalButton
         disabled={disabled}
-        onPress={ e => onMoveCommand({ machineId, l: -1, a: 1 }) }
+        onPress={ e => onMoveCommand({ machineId, l: -1, a: -1 }) }
         onRelease={handleRelease}
       >&#8601;</DirectionalButton>
 
@@ -77,7 +77,7 @@ export default function ButtonsGridView({ machineId, disabled, onMoveCommand }) 
 
       <DirectionalButton
         disabled={disabled}
-        onPress={ e => onMoveCommand({ machineId, l: -1, a: -1 }) }
+        onPress={ e => onMoveCommand({ machineId, l: -1, a: 1 }) }
         onRelease={handleRelease}
       >&#8600;</DirectionalButton>
     </div>

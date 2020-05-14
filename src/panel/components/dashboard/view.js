@@ -20,7 +20,7 @@ function Coordinates({ machine }) {
   }
   return (
     <div>
-      <h5>Coordinates:</h5>
+      <h5>Coordinates (odometry):</h5>
       <div>
         <span className="text-muted">x:</span>
         {' '}

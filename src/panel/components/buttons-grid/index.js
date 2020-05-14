@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import ButtonsGridView from './view';
+import PanelAction from '../../redux/action-type';
 
 
 function stp(s) {
@@ -9,7 +10,10 @@ function stp(s) {
 
 function dtp(d) {
   return {
-    onMoveCommand: command => {},
+    onMoveCommand: command => d({
+      type: `panel__move-command_${command.machineId}`,
+      payload: command,
+    }),
   };
 }
 

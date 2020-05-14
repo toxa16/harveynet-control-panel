@@ -1,9 +1,6 @@
 import React from 'react';
 
-const style = {
-  display: 'inline-grid',
-  gridTemplateColumns: '1fr 1fr 1fr',
-};
+
 
 function DirectionalButton({ children, disabled, onPress, onRelease }) {
   const style = {
@@ -27,6 +24,11 @@ export default function ButtonsGridView({ machineId, disabled, onMoveCommand }) 
   function handleRelease() {
     onMoveCommand({ machineId, l: 0, a: 0 })
   }
+
+  const style = {
+    display: 'inline-grid',
+    gridTemplateColumns: '1fr 1fr 1fr',
+  };
   return (
     <div style={style}>
       <DirectionalButton
@@ -34,29 +36,37 @@ export default function ButtonsGridView({ machineId, disabled, onMoveCommand }) 
         onPress={ e => onMoveCommand({ machineId, l: 1, a: 1 }) }
         onRelease={handleRelease}
       >&#8598;</DirectionalButton>
+
       <DirectionalButton
         disabled={disabled}
         onPress={ e => onMoveCommand({ machineId, l: 1, a: 0 }) }
         onRelease={handleRelease}
       >&uarr;</DirectionalButton>
+
       <DirectionalButton
         disabled={disabled}
       >&#8599;</DirectionalButton>
+
       <DirectionalButton
         disabled={disabled}
       >&larr;</DirectionalButton>
+
       <DirectionalButton disabled>x</DirectionalButton>
+
       <DirectionalButton
         disabled={disabled}
       >&rarr;</DirectionalButton>
+
       <DirectionalButton
         disabled={disabled}
       >&#8601;</DirectionalButton>
+
       <DirectionalButton
         disabled={disabled}
         onPress={ e => onMoveCommand({ machineId, l: -1, a: 0 }) }
         onRelease={handleRelease}
       >&darr;</DirectionalButton>
+
       <DirectionalButton
         disabled={disabled}
       >&#8600;</DirectionalButton>

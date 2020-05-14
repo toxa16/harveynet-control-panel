@@ -75,17 +75,20 @@ function* sagaChannelListener(sagaChannel) {
   }
 }
 
-/*function* moveCommandListener() {
+function* moveCommandListener(machineId, pusherChannel) {
   while (true) {
-    yield take();
+    const action = yield take(`panel__move-command_${machineId}`);
+    const command = action.payload;
+    console.log(command);
   }
-}*/
+}
 
 function* machineSaga(machine, pusher) {
   const { machineId } = machine;
   const pusherChannel = pusher.subscribe(`presence-${machineId}`);
   const sagaChannel = yield call(createSagaChannel, machineId, pusherChannel);
   yield fork(sagaChannelListener, sagaChannel);
+  yield fork(moveCommandListener, machineId, pusherChannel);
 }
 
 

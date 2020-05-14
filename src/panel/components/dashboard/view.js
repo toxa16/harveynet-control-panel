@@ -58,7 +58,7 @@ export default function DashboardView({ machine }) {
 
       <div className="row">
         <div className="col text-center mb-4">
-          <ButtonsGrid disabled={!online} />
+          <ButtonsGrid machineId={machine.machineId} disabled={!online} />
         </div>
 
         <div className="col mb-4">

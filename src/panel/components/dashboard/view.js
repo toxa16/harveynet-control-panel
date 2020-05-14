@@ -4,6 +4,38 @@ import { Link } from '@reach/router';
 import ButtonsGrid from '../buttons-grid';
 
 
+function Coordinates({ machine }) {
+  const { x, y } = machine.state;
+  function renderX() {
+    if (x === null) {
+      return <span className="text-muted">N/A</span>;
+    }
+    return <span className="text-danger">{ x }</span>;
+  }
+  function renderY() {
+    if (y === null) {
+      return <span className="text-muted">N/A</span>;
+    }
+    return <span className="text-success">{ y }</span>;
+  }
+  return (
+    <div>
+      <h5>Coordinates:</h5>
+      <div>
+        <span className="text-muted">x:</span>
+        {' '}
+        { renderX() }
+      </div>
+      <div>
+        <span className="text-muted">y:</span>
+        {' '}
+        { renderY() }
+      </div>
+    </div>
+  );
+}
+
+
 export default function DashboardView({ machine }) {
   function renderStatus() {
     if (machine.state.online) {
@@ -29,17 +61,7 @@ export default function DashboardView({ machine }) {
 
         <div className="col mb-4">
           <div className="mb-4">
-            <h5>Coordinates:</h5>
-            <div>
-              <span className="text-muted">x:</span>
-              {' '}
-              <span className="text-danger">0.765</span>
-            </div>
-            <div>
-              <span className="text-muted">y:</span>
-              {' '}
-              <span className="text-success">-1.033</span>
-            </div>
+            <Coordinates machine={machine} />
           </div>
 
           <div>

@@ -6,6 +6,7 @@ function DirectionalButton({ children, disabled, onPress, onRelease }) {
     width: '4rem',
     height: '4rem',
     fontSize: '1.5rem',
+    userSelect: 'none',
   };
   return (
     <button
@@ -13,6 +14,8 @@ function DirectionalButton({ children, disabled, onPress, onRelease }) {
       disabled={disabled}
       onMouseDown={ e => onPress() }
       onMouseUp={ e => onRelease() }
+      onTouchStart={ e => onPress() }
+      onTouchEnd={ e => onRelease() }
     >
       { children }
     </button>

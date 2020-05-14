@@ -5,31 +5,61 @@ const style = {
   gridTemplateColumns: '1fr 1fr 1fr',
 };
 
-function DirectionalButton({ children, disabled }) {
+function DirectionalButton({ children, disabled, onPress, onRelease }) {
   const style = {
     width: '4rem',
     height: '4rem',
     fontSize: '1.5rem',
   };
   return (
-    <button style={style} disabled={disabled}>
+    <button
+      style={style}
+      disabled={disabled}
+      onMouseDown={ e => onPress() }
+      onMouseUp={ e => onRelease() }
+    >
       { children }
     </button>
   );
 }
 
-export default function ButtonsGridView() {
+export default function ButtonsGridView({ machineId, disabled, onMoveCommand }) {
+  function handleRelease() {
+    onMoveCommand({ machineId, l: 0, a: 0 })
+  }
   return (
     <div style={style}>
-      <DirectionalButton>&#8598;</DirectionalButton>
-      <DirectionalButton>&uarr;</DirectionalButton>
-      <DirectionalButton>&#8599;</DirectionalButton>
-      <DirectionalButton>&larr;</DirectionalButton>
+      <DirectionalButton
+        disabled={disabled}
+        onPress={ e => onMoveCommand({ machineId, l: 1, a: 1 }) }
+        onRelease={handleRelease}
+      >&#8598;</DirectionalButton>
+      <DirectionalButton
+        disabled={disabled}
+        onPress={ e => onMoveCommand({ machineId, l: 1, a: 0 }) }
+        onRelease={handleRelease}
+      >&uarr;</DirectionalButton>
+      <DirectionalButton
+        disabled={disabled}
+      >&#8599;</DirectionalButton>
+      <DirectionalButton
+        disabled={disabled}
+      >&larr;</DirectionalButton>
       <DirectionalButton disabled>x</DirectionalButton>
-      <DirectionalButton>&rarr;</DirectionalButton>
-      <DirectionalButton>&#8601;</DirectionalButton>
-      <DirectionalButton>&darr;</DirectionalButton>
-      <DirectionalButton>	&#8600;</DirectionalButton>
+      <DirectionalButton
+        disabled={disabled}
+      >&rarr;</DirectionalButton>
+      <DirectionalButton
+        disabled={disabled}
+      >&#8601;</DirectionalButton>
+      <DirectionalButton
+        disabled={disabled}
+        onPress={ e => onMoveCommand({ machineId, l: -1, a: 0 }) }
+        onRelease={handleRelease}
+      >&darr;</DirectionalButton>
+      <DirectionalButton
+        disabled={disabled}
+      >&#8600;</DirectionalButton>
     </div>
   );
 }

@@ -11,10 +11,7 @@ const cluster = process.env.REACT_APP_PUSHER_CLUSTER || 'eu';
 const authEndpoint = process.env.REACT_APP_PUSHER_AUTH_ENDPOINT;
 
 
-function createSagaChannel(machine, pusher) {
-  const { machineId } = machine;
-  const pusherChannel = pusher.subscribe(`presence-${machineId}`);
-
+function createSagaChannel(machineId, pusherChannel) {
   return eventChannel(emit => {
     // checking whether the machine is already online
     pusherChannel.bind('pusher:subscription_succeeded', () => {
@@ -71,13 +68,24 @@ function createSagaChannel(machine, pusher) {
   });
 }
 
-
-function* machineSaga(machine, pusher) {
-  const sagaChannel = yield call(createSagaChannel, machine, pusher);
+function* sagaChannelListener(sagaChannel) {
   while (true) {
     const action = yield take(sagaChannel);
     yield put(action);
   }
+}
+
+/*function* moveCommandListener() {
+  while (true) {
+    yield take();
+  }
+}*/
+
+function* machineSaga(machine, pusher) {
+  const { machineId } = machine;
+  const pusherChannel = pusher.subscribe(`presence-${machineId}`);
+  const sagaChannel = yield call(createSagaChannel, machineId, pusherChannel);
+  yield fork(sagaChannelListener, sagaChannel);
 }
 
 

@@ -37,8 +37,10 @@ function Coordinates({ machine }) {
 
 
 export default function DashboardView({ machine }) {
+  const { online } = machine.state;
+
   function renderStatus() {
-    if (machine.state.online) {
+    if (online) {
       return <b className="text-success">Online</b>;
     }
     return <span className="text-muted">Offline</span>;
@@ -56,7 +58,7 @@ export default function DashboardView({ machine }) {
 
       <div className="row">
         <div className="col text-center mb-4">
-          <ButtonsGrid />
+          <ButtonsGrid disabled={!online} />
         </div>
 
         <div className="col mb-4">

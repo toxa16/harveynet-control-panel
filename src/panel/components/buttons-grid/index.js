@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 
 import ButtonsGridView from './view';
-import PanelAction from '../../redux/action-type';
 
 
 function stp(s) {

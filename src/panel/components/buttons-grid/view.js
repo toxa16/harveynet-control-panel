@@ -1,7 +1,6 @@
 import React from 'react';
 
 
-
 function DirectionalButton({ children, disabled, onPress, onRelease }) {
   const style = {
     width: '4rem',
@@ -19,6 +18,7 @@ function DirectionalButton({ children, disabled, onPress, onRelease }) {
     </button>
   );
 }
+
 
 export default function ButtonsGridView({ machineId, disabled, onMoveCommand }) {
   function handleRelease() {
@@ -45,20 +45,28 @@ export default function ButtonsGridView({ machineId, disabled, onMoveCommand }) 
 
       <DirectionalButton
         disabled={disabled}
+        onPress={ e => onMoveCommand({ machineId, l: 1, a: -1 }) }
+        onRelease={handleRelease}
       >&#8599;</DirectionalButton>
 
       <DirectionalButton
         disabled={disabled}
+        onPress={ e => onMoveCommand({ machineId, l: 0, a: 1 }) }
+        onRelease={handleRelease}
       >&larr;</DirectionalButton>
 
       <DirectionalButton disabled>x</DirectionalButton>
 
       <DirectionalButton
         disabled={disabled}
+        onPress={ e => onMoveCommand({ machineId, l: 0, a: -1 }) }
+        onRelease={handleRelease}
       >&rarr;</DirectionalButton>
 
       <DirectionalButton
         disabled={disabled}
+        onPress={ e => onMoveCommand({ machineId, l: -1, a: 1 }) }
+        onRelease={handleRelease}
       >&#8601;</DirectionalButton>
 
       <DirectionalButton
@@ -69,6 +77,8 @@ export default function ButtonsGridView({ machineId, disabled, onMoveCommand }) 
 
       <DirectionalButton
         disabled={disabled}
+        onPress={ e => onMoveCommand({ machineId, l: -1, a: -1 }) }
+        onRelease={handleRelease}
       >&#8600;</DirectionalButton>
     </div>
   );

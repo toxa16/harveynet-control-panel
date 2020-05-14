@@ -50,19 +50,6 @@ function createSagaChannel(machineId, pusherChannel) {
       });
     });
 
-    /*let x = 0;
-    let y = 0;
-    const dx = 0.2;
-    const dy = -0.05;
-    setInterval(() => {
-      emit({
-        type: PanelAction.SET_COORDINATES,
-        payload: { machineId, x, y },
-      });
-      x += dx;
-      y += dy;
-    }, 1000);*/
-
     // unsubscribe
     return () => {};
   });
@@ -79,7 +66,7 @@ function* moveCommandListener(machineId, pusherChannel) {
   while (true) {
     const action = yield take(`panel__move-command_${machineId}`);
     const command = action.payload;
-    console.log(command);
+    pusherChannel.trigger('client-move-command', command);
   }
 }
 

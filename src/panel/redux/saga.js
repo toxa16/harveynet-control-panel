@@ -11,6 +11,27 @@ const cluster = process.env.REACT_APP_PUSHER_CLUSTER || 'eu';
 const authEndpoint = process.env.REACT_APP_PUSHER_AUTH_ENDPOINT;
 
 
+// pusher message unchunking
+function bindWithChunking(channel, event, callback) {
+  channel.bind(event, callback); // Allow normal unchunked events.
+
+  // Now the chunked variation. Allows arbitrarily long messages.
+  var events = {};
+  channel.bind(event + '-chunked', data => {
+    if (!events.hasOwnProperty(data.id)) {
+      events[data.id] = { chunks: [], receivedFinal: false };
+    }
+    var ev = events[data.id];
+    ev.chunks[data.index] = data.chunk;
+    if (data.final) ev.receivedFinal = true;
+    if (ev.receivedFinal && ev.chunks.length === Object.keys(ev.chunks).length) {
+      callback(JSON.parse(ev.chunks.join("")));
+      delete events[data.id];
+    }
+  });
+}
+
+
 function createSagaChannel(machineId, pusherChannel) {
   return eventChannel(emit => {
     // checking whether the machine is already online
@@ -49,6 +70,14 @@ function createSagaChannel(machineId, pusherChannel) {
         payload: { machineId, x, y },
       });
     });
+    // set camera image
+    bindWithChunking(pusherChannel, 'client-set-camera-image', function(msg) {
+      const { image } = msg;
+      emit({
+        type: PanelAction.SET_CAMERA_IMAGE,
+        payload: { machineId, image },
+      });
+    })
 
     // unsubscribe
     return () => {};

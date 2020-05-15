@@ -4,6 +4,7 @@ const PanelAction = {
   SET_ONLINE: 'panel__set-online',
   SET_OFFLINE: 'panel__set-offline',
   SET_COORDINATES: 'pane_set-coords',
+  SET_CAMERA_IMAGE: 'panel__set-camera-image',
 };
 
 export default PanelAction;

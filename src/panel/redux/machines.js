@@ -52,6 +52,17 @@ export default function machines(s = null, a) {
         return m;
       });
     }
+    case PanelAction.SET_CAMERA_IMAGE: {
+      const { machineId, image } = a.payload;
+      return s.map(m => {
+        if (m.machineId === machineId) {
+          const { state } = m;
+          const newState = { ...state, cameraImage: image };
+          return { ...m, state: newState };
+        }
+        return m;
+      });
+    }
     default: return s;
   }
 }

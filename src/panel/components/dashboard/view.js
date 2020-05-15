@@ -36,6 +36,44 @@ function Coordinates({ machine }) {
 }
 
 
+function CameraImage({ machine }) {
+  const { cameraImage } = machine.state;
+  function renderImage() {
+    const imgStyle = {
+      width: '15rem',
+      height: '15rem',
+      objectFit: 'cover',
+    };
+    return (
+      <img
+        style={imgStyle}
+        src={cameraImage}
+        alt="camera"
+      />
+    );
+  }
+  function renderStub() {
+    const style = {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '15rem',
+      height: '15rem',
+      backgroundColor: 'lightgray',
+      color: 'gray',
+    }
+    return (
+      <div style={style}>camera off</div>
+    );
+  }
+  if (!cameraImage) {
+    return renderStub();
+  } else {
+    return renderImage();
+  }
+}
+
+
 export default function DashboardView({ machine }) {
   const { online } = machine.state;
 
@@ -59,6 +97,10 @@ export default function DashboardView({ machine }) {
       <div className="row">
         <div className="col text-center mb-4">
           <ButtonsGrid machineId={machine.machineId} disabled={!online} />
+        </div>
+
+        <div className="col">
+          <CameraImage machine={machine} />
         </div>
 
         <div className="col mb-4">

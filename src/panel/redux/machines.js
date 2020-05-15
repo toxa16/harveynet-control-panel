@@ -5,6 +5,7 @@ const defaultState = {
   online: false,
   x: null,
   y: null,
+  cameraImage: null,
 }
 
 

@@ -6,6 +6,7 @@ import MachineControlView from './view';
 function stp(s) {
   return {
     machines: s.panel.machines,
+    controlDisabled: s.panel.control.disabled,
   };
 }
 

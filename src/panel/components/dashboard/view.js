@@ -74,7 +74,7 @@ function CameraImage({ machine }) {
 }
 
 
-export default function DashboardView({ machine }) {
+export default function DashboardView({ machine, controlDisabled }) {
   const { online } = machine.state;
 
   function renderStatus() {
@@ -82,6 +82,19 @@ export default function DashboardView({ machine }) {
       return <b className="text-success">Online</b>;
     }
     return <span className="text-muted">Offline</span>;
+  }
+
+  function renderControlDisabled() {
+    if (controlDisabled) {
+      return (
+        <div className="mb-3">
+          <b className="text-warning">
+            Your machine is currently controlled from another panel. 
+            Viewing only.
+          </b>
+        </div>
+      );
+    }
   }
 
   return (
@@ -93,6 +106,10 @@ export default function DashboardView({ machine }) {
       <h1 className="mb-4">{ machine.machineId }</h1>
 
       <div className="mb-4">Status: { renderStatus() }</div>
+
+      <div>
+        { renderControlDisabled() }
+      </div>
 
       <div className="row">
         <div className="col text-center mb-4">

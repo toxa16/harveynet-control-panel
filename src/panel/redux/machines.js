@@ -6,6 +6,7 @@ const defaultState = {
   x: null,
   y: null,
   cameraImage: null,
+  controlEnabled: null,
 }
 
 

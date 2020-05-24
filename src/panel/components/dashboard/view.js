@@ -74,9 +74,9 @@ function CameraImage({ machine }) {
 }
 
 
-export default function DashboardView({ machine, controlDisabled }) {
-  const { online } = machine.state;
-  const buttonsDisabled = !online || controlDisabled;
+export default function DashboardView({ machine }) {
+  const { online, controlEnabled } = machine.state;
+  const buttonsDisabled = !online || !controlEnabled;
 
   function renderStatus() {
     if (online) {
@@ -86,7 +86,7 @@ export default function DashboardView({ machine, controlDisabled }) {
   }
 
   function renderControlDisabled() {
-    if (online && controlDisabled) {
+    if (online && controlEnabled === false) {   // explicit `false`
       return (
         <div className="mb-3">
           <b className="text-warning">

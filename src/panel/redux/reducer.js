@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux';
 
 import machines from './machines';
-import control from './control';
 
 
-const panel = combineReducers({ machines, control });
+const panel = combineReducers({ machines });
 
 export default panel;

@@ -91,10 +91,19 @@ function* sagaChannelListener(sagaChannel) {
   }
 }
 
-function createSagaControlChannel(controlChannel) {
+function createSagaControlChannel(controlChannel, machineId) {
   return eventChannel(emit => {
     controlChannel.bind('pusher:subscription_succeeded', () => {
-      console.log('CONTROL CHANNEL SUCCEDED');
+      emit({
+        type: PanelAction.ENABLE_CONTROL,
+        payload: { machineId, enabled: true },
+      });
+    });
+    controlChannel.bind('pusher:subscription_error', () => {
+      emit({
+        type: PanelAction.ENABLE_CONTROL,
+        payload: { machineId, enabled: false },
+      });
     });
     // unsubscribe
     return () => {};
@@ -118,7 +127,8 @@ function* machineSaga(machine, pusher) {
   // control channel
   // TODO: connect only from machine control dashboard
   const controlChannel = pusher.subscribe(`presence-control-${machineId}`);
-  const sagaControlChannel = yield call(createSagaControlChannel, controlChannel);
+  const sagaControlChannel = yield call(createSagaControlChannel, controlChannel, machineId);
+  yield fork(sagaChannelListener, sagaControlChannel);
   yield fork(moveCommandListener, machineId, controlChannel);
 }
 

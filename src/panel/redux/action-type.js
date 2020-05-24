@@ -5,6 +5,7 @@ const PanelAction = {
   SET_OFFLINE: 'panel__set-offline',
   SET_COORDINATES: 'pane_set-coords',
   SET_CAMERA_IMAGE: 'panel__set-camera-image',
+  ENABLE_CONTROL: 'panel__enable-control',
 };
 
 export default PanelAction;

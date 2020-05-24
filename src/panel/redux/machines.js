@@ -64,6 +64,17 @@ export default function machines(s = null, a) {
         return m;
       });
     }
+    case PanelAction.ENABLE_CONTROL: {
+      const { machineId, enabled } = a.payload;
+      return s.map(m => {
+        if (m.machineId === machineId) {
+          const { state } = m;
+          const newState = { ...state, controlEnabled: enabled };
+          return { ...m, state: newState };
+        }
+        return m;
+      });
+    }
     default: return s;
   }
 }

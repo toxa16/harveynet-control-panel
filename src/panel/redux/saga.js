@@ -91,11 +91,21 @@ function* sagaChannelListener(sagaChannel) {
   }
 }
 
-function* moveCommandListener(machineId, pusherChannel) {
+function createSagaControlChannel(controlChannel) {
+  return eventChannel(emit => {
+    controlChannel.bind('pusher:subscription_succeeded', () => {
+      console.log('CONTROL CHANNEL SUCCEDED');
+    });
+    // unsubscribe
+    return () => {};
+  });
+}
+
+function* moveCommandListener(machineId, controlChannel) {
   while (true) {
     const action = yield take(`panel__move-command_${machineId}`);
     const command = action.payload;
-    pusherChannel.trigger('client-move-command', command);
+    controlChannel.trigger('client-move-command', command);
   }
 }
 
@@ -104,7 +114,12 @@ function* machineSaga(machine, pusher) {
   const pusherChannel = pusher.subscribe(`presence-${machineId}`);
   const sagaChannel = yield call(createSagaChannel, machineId, pusherChannel);
   yield fork(sagaChannelListener, sagaChannel);
-  yield fork(moveCommandListener, machineId, pusherChannel);
+
+  // control channel
+  // TODO: connect only from machine control dashboard
+  const controlChannel = pusher.subscribe(`presence-control-${machineId}`);
+  const sagaControlChannel = yield call(createSagaControlChannel, controlChannel);
+  yield fork(moveCommandListener, machineId, controlChannel);
 }
 
 

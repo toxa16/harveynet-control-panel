@@ -76,6 +76,7 @@ function CameraImage({ machine }) {
 
 export default function DashboardView({ machine, controlDisabled }) {
   const { online } = machine.state;
+  const buttonsDisabled = !online || controlDisabled;
 
   function renderStatus() {
     if (online) {
@@ -85,7 +86,7 @@ export default function DashboardView({ machine, controlDisabled }) {
   }
 
   function renderControlDisabled() {
-    if (controlDisabled) {
+    if (online && controlDisabled) {
       return (
         <div className="mb-3">
           <b className="text-warning">
@@ -113,7 +114,7 @@ export default function DashboardView({ machine, controlDisabled }) {
 
       <div className="row">
         <div className="col text-center mb-4">
-          <ButtonsGrid machineId={machine.machineId} disabled={!online} />
+          <ButtonsGrid machineId={machine.machineId} disabled={buttonsDisabled} />
         </div>
 
         <div className="col">

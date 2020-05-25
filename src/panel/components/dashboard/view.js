@@ -74,6 +74,56 @@ function CameraImage({ machine }) {
 }
 
 
+function BaseMap({ x, y }) {
+  const coord = z => (z + 10) * 100 / 20;
+  const mapStyle = {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'gray',
+  };
+  const pointerStyle = {
+    position: 'absolute',
+    width: 5,
+    height: 5,
+    backgroundColor: 'lightgreen',
+    top: `${coord(x)}%`,
+    left: `${coord(y)}%`,
+  }
+  return (
+    <div style={mapStyle}>
+      <div style={pointerStyle}></div>
+    </div>
+  );
+}
+
+function MachineMap({ machine }) {
+  const { x, y } = machine.state;
+  //const x = 0;
+  //const y = 0;
+  const style = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '15rem',
+    height: '15rem',
+    backgroundColor: 'lightgray',
+    color: 'gray',
+  };
+  function renderBody() {
+    if (x === null || y === null) {   // explicit `null`
+      return <span>Map N/A</span>;
+    }
+    return <BaseMap x={x} y={y} />;
+  }
+  return (
+    <div style={style}>
+      { renderBody() }
+    </div>
+  );
+}
+
+
 export default function DashboardView({ machine }) {
   const { online, controlEnabled } = machine.state;
   const buttonsDisabled = !online || !controlEnabled;
@@ -119,6 +169,10 @@ export default function DashboardView({ machine }) {
 
         <div className="col">
           <CameraImage machine={machine} />
+        </div>
+
+        <div className="col">
+          <MachineMap machine={machine} />
         </div>
 
         <div className="col mb-4">

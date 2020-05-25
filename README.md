@@ -1,6 +1,6 @@
 # harveynet-control-panel
 
-HarveyNet Control Panel v0.1.3.
+HarveyNet Control Panel.
 
 ## Environment Variables
 

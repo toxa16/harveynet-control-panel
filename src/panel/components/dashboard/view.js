@@ -219,19 +219,15 @@ export default function DashboardView({ machine }) {
       </div>
 
       <div className="row">
-        <div className="col text-center mb-4">
+        <div className="col-6 col-lg order-1 text-center mb-4">
           <ButtonsGrid machineId={machine.machineId} disabled={buttonsDisabled} />
         </div>
 
-        <div className="col">
+        <div className="col-6 col-lg order-2 mb-4">
           <CameraImage machine={machine} />
         </div>
 
-        <div className="col">
-          <MachineMap machine={machine} />
-        </div>
-
-        <div className="col mb-4">
+        <div className="col-6 col-lg order-3 order-lg-4 mb-4">
           <div className="mb-4">
             <Coordinates machine={machine} />
           </div>
@@ -263,6 +259,10 @@ export default function DashboardView({ machine }) {
               />
             </div>
           </div>
+        </div>
+
+        <div className="col-6 col-lg order-4 order-lg-3 mb-4">
+          <MachineMap machine={machine} />
         </div>
       </div>
 

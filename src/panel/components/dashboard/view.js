@@ -6,17 +6,21 @@ import ButtonsGrid from '../buttons-grid';
 
 function Coordinates({ machine }) {
   const { x, y } = machine.state;
+  const formatNumber = n => n.toLocaleString('de-DE', {
+    minimumFractionDigits: 3,
+    maximumFractionDigits: 3,
+  });
   function renderX() {
     if (x === null) {
       return <span className="text-muted">N/A</span>;
     }
-    return <span className="text-danger">{ x }</span>;
+    return <span className="text-danger">{ formatNumber(x) }</span>;
   }
   function renderY() {
     if (y === null) {
       return <span className="text-muted">N/A</span>;
     }
-    return <span className="text-success">{ y }</span>;
+    return <span className="text-success">{ formatNumber(y) }</span>;
   }
   return (
     <div>
@@ -74,6 +78,39 @@ function CameraImage({ machine }) {
 }
 
 
+function Vline({ y }) {
+  const style = {
+    position: 'absolute',
+    left: `${y}%`,
+    width: 1,
+    height: '100%',
+    backgroundColor: '#9c9c9c',
+  };
+  return <div style={style}></div>
+}
+function Hline({ x }) {
+  const style = {
+    position: 'absolute',
+    top: `${x}%`,
+    width: '100%',
+    height: 1,
+    backgroundColor: '#9c9c9c',
+  };
+  return <div style={style}></div>
+}
+function MapPointer({ x, y }) {
+  const pointerStyle = {
+    position: 'absolute',
+    width: 7,
+    height: 7,
+    marginTop: -3,
+    marginLeft: -3,
+    backgroundColor: 'yellow',
+    top: `${x}%`,
+    left: `${y}%`,
+  }
+  return <div style={pointerStyle}></div>;
+}
 function BaseMap({ x, y }) {
   const coord = z => (z + 10) * 100 / 20;
   const mapStyle = {
@@ -82,43 +119,62 @@ function BaseMap({ x, y }) {
     height: '100%',
     backgroundColor: 'gray',
   };
-  const pointerStyle = {
-    position: 'absolute',
-    width: 5,
-    height: 5,
-    backgroundColor: 'lightgreen',
-    top: `${coord(x)}%`,
-    left: `${coord(y)}%`,
+  function renderPointer() {
+    if (x !== null || y !== null) {   // explicit `null`
+      return <MapPointer x={coord(x)} y={coord(y)} />;
+    }
   }
   return (
     <div style={mapStyle}>
-      <div style={pointerStyle}></div>
+      <Hline x={10}></Hline>
+      <Hline x={20}></Hline>
+      <Hline x={30}></Hline>
+      <Hline x={40}></Hline>
+      <Hline x={50}></Hline>
+      <Hline x={60}></Hline>
+      <Hline x={70}></Hline>
+      <Hline x={80}></Hline>
+      <Hline x={90}></Hline>
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        width: '50%',
+        height: 1,
+        backgroundColor: 'lightgreen',
+      }}></div>
+
+      <Vline y={10}></Vline>
+      <Vline y={20}></Vline>
+      <Vline y={30}></Vline>
+      <Vline y={40}></Vline>
+      <Vline y={50}></Vline>
+      <Vline y={60}></Vline>
+      <Vline y={70}></Vline>
+      <Vline y={80}></Vline>
+      <Vline y={90}></Vline>
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        width: 1,
+        height: '50%',
+        backgroundColor: 'red',
+      }}></div>
+      { renderPointer() }
     </div>
   );
 }
 
 function MachineMap({ machine }) {
   const { x, y } = machine.state;
-  //const x = 0;
-  //const y = 0;
   const style = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     width: '15rem',
     height: '15rem',
-    backgroundColor: 'lightgray',
-    color: 'gray',
   };
-  function renderBody() {
-    if (x === null || y === null) {   // explicit `null`
-      return <span>Map N/A</span>;
-    }
-    return <BaseMap x={x} y={y} />;
-  }
   return (
     <div style={style}>
-      { renderBody() }
+      <BaseMap x={x} y={y} />
     </div>
   );
 }

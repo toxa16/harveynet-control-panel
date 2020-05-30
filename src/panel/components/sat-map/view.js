@@ -9,15 +9,16 @@ import {Vector} from 'ol/layer';
 import VectorSource from 'ol/source/Vector';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
-import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
+import {Circle, Fill, Stroke, Style} from 'ol/style';
 
 
 export default function SatMapView() {
+  const zoom = 14.5;
   const lonLat = [29.973, 50.422];
   const webMercator = fromLonLat(lonLat);
   const view = new View({
     center: webMercator,
-    zoom: 14
+    zoom
   })
   const point = new Point(webMercator);
   var geoMarker = new Feature({
@@ -26,7 +27,7 @@ export default function SatMapView() {
   });
   var styles = {
     'geoMarker': new Style({
-      image: new CircleStyle({
+      image: new Circle({
         radius: 7,
         fill: new Fill({color: 'black'}),
         stroke: new Stroke({
@@ -39,13 +40,7 @@ export default function SatMapView() {
     source: new VectorSource({
       features: [geoMarker]
     }),
-    style: function(feature) {
-      // hide geoMarker if animation is active
-      /*if (animating && feature.get('type') === 'geoMarker') {
-        return null;
-      }*/
-      return styles[feature.get('type')];
-    }
+    style: feature => styles[feature.get('type')],
   });
 
   useEffect(() => {
@@ -75,12 +70,14 @@ export default function SatMapView() {
       point.setCoordinates(fromLonLat([lng, lat]))
     }, 100);
     clearInterval(interval)
-    /*setTimeout(() => {
-      point.setCoordinates(fromLonLat([29.973, 50.422]));
-    }, 1500);*/
   }, [])
 
   return (
-    <div id="map" style={{ width: '15rem', height: '15rem' }}></div>
+    <div id="map" style={{
+      width: '20rem',
+      height: '20rem',
+      backgroundColor: 'lightgray',
+      color: 'gray',
+    }}></div>
   );
 }

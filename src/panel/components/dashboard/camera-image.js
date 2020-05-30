@@ -5,8 +5,8 @@ export default function CameraImage({ machine }) {
   const { cameraImage } = machine.state;
   function renderImage() {
     const imgStyle = {
-      width: '15rem',
-      height: '15rem',
+      width: '20rem',
+      height: '20rem',
       objectFit: 'cover',
     };
     return (
@@ -22,8 +22,8 @@ export default function CameraImage({ machine }) {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '15rem',
-      height: '15rem',
+      width: '20rem',
+      height: '20rem',
       backgroundColor: 'lightgray',
       color: 'gray',
     }

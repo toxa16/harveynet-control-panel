@@ -5,6 +5,7 @@ import ButtonsGrid from '../buttons-grid';
 import MachineMap from '../machine-map';
 import Coords from './coords';
 import CameraImage from './camera-image';
+import SatMap from '../sat-map';
 
 
 export default function DashboardView({ machine }) {
@@ -46,50 +47,50 @@ export default function DashboardView({ machine }) {
       </div>
 
       <div className="row">
-        <div className="col-6 col-lg order-1 text-center mb-4">
+        <div className="col-6 col-lg text-center mb-4">
           <ButtonsGrid machineId={machine.machineId} disabled={buttonsDisabled} />
         </div>
 
-        <div className="col-6 col-lg order-2 mb-4">
+        <div className="col-6 col-lg mb-4">
           <CameraImage machine={machine} />
         </div>
 
-        <div className="col-6 col-lg order-3 order-lg-4 mb-4">
-          <div className="mb-4">
-            <Coords machine={machine} />
+        <div className="col-6 col-lg  mb-4">
+          <SatMap />
+        </div>
+      </div>
+
+      <div className="d-flex mb-4">
+        <div className="mb-4">
+          <Coords machine={machine} />
+        </div>
+
+        <div className="d-none">
+          <h5 className="mb-2">Speed:</h5>
+
+          <div className="mb-2">
+            <span className="mr-3">linear:</span>
+            <input
+              style={{ width: '4rem' }}
+              type="number"
+              min={0}
+              step={0.1}
+              defaultValue={0.5}
+              disabled
+            />
           </div>
 
           <div>
-            <h5 className="mb-2">Speed:</h5>
-
-            <div className="mb-2">
-              <span className="mr-3">linear:</span>
-              <input
-                style={{ width: '4rem' }}
-                type="number"
-                min={0}
-                step={0.1}
-                defaultValue={0.5}
-                disabled
-              />
-            </div>
-
-            <div>
-              <span className="mr-1">angular:</span>
-              <input
-                style={{ width: '4rem' }}
-                type="number"
-                min={0}
-                step={0.1}
-                defaultValue={1}
-                disabled
-              />
-            </div>
+            <span className="mr-1">angular:</span>
+            <input
+              style={{ width: '4rem' }}
+              type="number"
+              min={0}
+              step={0.1}
+              defaultValue={1}
+              disabled
+            />
           </div>
-        </div>
-
-        <div className="col-6 col-lg order-4 order-lg-3 mb-4">
-          <MachineMap machine={machine} />
         </div>
       </div>
 

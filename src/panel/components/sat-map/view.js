@@ -12,18 +12,20 @@ import Point from 'ol/geom/Point';
 import {Circle, Fill, Stroke, Style} from 'ol/style';
 
 
-export default function SatMapView() {
+export default function SatMapView({ machine }) {
+  const { latitude, longitude } = machine.state;
   const zoom = 14.5;
-  const lonLat = [29.973, 50.422];
-  const webMercator = fromLonLat(lonLat);
+  const baseLat = 50.422;
+  const baseLng = 29.973;
+  const baseCoords = fromLonLat([baseLng, baseLat])
   const view = new View({
-    center: webMercator,
+    center: baseCoords,
     zoom
   })
-  const point = new Point(webMercator);
+  //const point = new Point(baseCoords);
   var geoMarker = new Feature({
     type: 'geoMarker',
-    geometry: point
+    //geometry: point
   });
   var styles = {
     'geoMarker': new Style({
@@ -42,9 +44,11 @@ export default function SatMapView() {
     }),
     style: feature => styles[feature.get('type')],
   });
+  let map = null;
 
   useEffect(() => {
-    const map = new Map({
+    console.log('effect1')
+    map = new Map({
       target: 'map',
       layers: [
         new TileLayer({
@@ -54,8 +58,20 @@ export default function SatMapView() {
       ],
       view,
     });
+    //point.setCoordinates(fromLonLat([longitude, latitude]))
+  }, []);
 
-    const baseLat = 50.422;
+  useEffect(() => {
+    if (latitude && longitude) {
+      console.log({ latitude, longitude })
+      geoMarker.setGeometry(new Point(fromLonLat([longitude, latitude])))
+      //map.render();
+    }
+    //point.setCoordinates(fromLonLat([longitude, latitude]))
+  });
+
+  //useEffect(() => {
+    /*const baseLat = 50.422;
     const baseLng = 29.973;
     const mLat = 5 / 10;
     const mLng = 8 / 10;
@@ -69,8 +85,11 @@ export default function SatMapView() {
       const lng = baseLng + y * 0.001 * mLng
       point.setCoordinates(fromLonLat([lng, lat]))
     }, 100);
-    clearInterval(interval)
-  }, [])
+    clearInterval(interval)*/
+
+    //point.setCoordinates(fromLonLat([longitude, latitude]))
+    //console.log({ latitude, longitude })
+  //});
 
   return (
     <div id="map" style={{

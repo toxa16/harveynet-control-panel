@@ -5,6 +5,8 @@ const defaultState = {
   online: false,
   x: null,
   y: null,
+  latitude: null,
+  longitude: null,
   cameraImage: null,
   controlEnabled: null,
 }
@@ -48,6 +50,17 @@ export default function machines(s = null, a) {
         if (m.machineId === machineId) {
           const { state } = m;
           const newState = { ...state, x, y };
+          return { ...m, state: newState };
+        }
+        return m;
+      });
+    }
+    case PanelAction.SET_NAVSAT: {
+      const { machineId, latitude, longitude } = a.payload;
+      return s.map(m => {
+        if (m.machineId === machineId) {
+          const { state } = m;
+          const newState = { ...state, latitude, longitude };
           return { ...m, state: newState };
         }
         return m;

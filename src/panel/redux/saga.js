@@ -70,6 +70,14 @@ function createSagaChannel(machineId, pusherChannel) {
         payload: { machineId, x, y },
       });
     });
+    // set navsat
+    pusherChannel.bind('client-set-navsat', function(msg) {
+      const { latitude, longitude } = msg;
+      emit({
+        type: PanelAction.SET_NAVSAT,
+        payload: { machineId, latitude, longitude },
+      });
+    });
     // set camera image
     bindWithChunking(pusherChannel, 'client-set-camera-image', function(msg) {
       const { image } = msg;
@@ -134,9 +142,9 @@ function* machineSaga(machine, pusher) {
 
 
 export default function* panelSaga(accessToken) {
-  if (process.env.NODE_ENV === 'development') {
+  /*if (process.env.NODE_ENV === 'development') {
     Pusher.logToConsole = true;
-  }
+  }*/
   const pusher = new Pusher(appKey, {
     cluster,
     authEndpoint,

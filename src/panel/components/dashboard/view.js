@@ -56,7 +56,7 @@ export default function DashboardView({ machine }) {
         </div>
 
         <div className="col-6 col-lg  mb-4">
-          <SatMap />
+          <SatMap machine={machine} />
         </div>
       </div>
 

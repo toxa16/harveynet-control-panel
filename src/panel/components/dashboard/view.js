@@ -7,8 +7,9 @@ import CameraImage from './camera-image';
 import SatMap from '../sat-map';
 
 
-export default function DashboardView({ machine }) {
-  const { online, controlEnabled } = machine.state;
+export default function DashboardView({ machine, control }) {
+  const { online } = machine.state;
+  const controlEnabled = control === machine.machineId;
   const buttonsDisabled = !online || !controlEnabled;
 
   function renderStatus() {
@@ -19,7 +20,7 @@ export default function DashboardView({ machine }) {
   }
 
   function renderControlDisabled() {
-    if (online && controlEnabled === false) {   // explicit `false`
+    if (online && controlEnabled) {
       return (
         <div className="mb-3">
           <b className="text-warning">
@@ -61,7 +62,7 @@ export default function DashboardView({ machine }) {
 
       <div className="d-flex mb-4">
         <div className="mb-4">
-          { /* <Coords machine={machine} /> */ }
+          {  <Coords machine={machine} />  }
         </div>
 
         <div className="d-none">

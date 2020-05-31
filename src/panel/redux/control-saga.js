@@ -21,10 +21,10 @@ function* sagaChannelListener(sagaChannel) {
 function createSagaControlChannel(controlChannel, machineId) {
   return eventChannel(emit => {
     controlChannel.bind('pusher:subscription_succeeded', () => {
-      emit({
+      /*emit({
         type: PanelAction.ENABLE_CONTROL,
         payload: { machineId, enabled: true },
-      });
+      });*/
       emit({
         type: ControlAction.SET_MACHINE_ID,
         payload: { machineId },

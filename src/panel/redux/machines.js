@@ -8,7 +8,7 @@ const defaultState = {
   latitude: null,
   longitude: null,
   cameraImage: null,
-  controlEnabled: null,
+  //controlEnabled: null,
 }
 
 
@@ -77,7 +77,7 @@ export default function machines(s = null, a) {
         return m;
       });
     }
-    case PanelAction.ENABLE_CONTROL: {
+    /*case PanelAction.ENABLE_CONTROL: {
       const { machineId, enabled } = a.payload;
       return s.map(m => {
         if (m.machineId === machineId) {
@@ -87,7 +87,7 @@ export default function machines(s = null, a) {
         }
         return m;
       });
-    }
+    }*/
     default: return s;
   }
 }

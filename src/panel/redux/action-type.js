@@ -6,7 +6,7 @@ const PanelAction = {
   SET_COORDINATES: 'pane_set-coords',
   SET_NAVSAT: 'panel__set-navsat',
   SET_CAMERA_IMAGE: 'panel__set-camera-image',
-  ENABLE_CONTROL: 'panel__enable-control',
+  //ENABLE_CONTROL: 'panel__enable-control',
 };
 
 export default PanelAction;

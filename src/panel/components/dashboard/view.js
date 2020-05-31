@@ -11,7 +11,7 @@ export default function DashboardView({ machine, control }) {
   const { online } = machine.state;
   const controlEnabled = control === machine.machineId;
   const buttonsDisabled = !online || !controlEnabled;
-  console.log({controlEnabled})
+  //console.log({controlEnabled})
 
   function renderStatus() {
     if (online) {
@@ -21,7 +21,7 @@ export default function DashboardView({ machine, control }) {
   }
 
   function renderControlDisabled() {
-    if (online && controlEnabled) {
+    if (online && !controlEnabled) {
       return (
         <div className="mb-3">
           <b className="text-warning">

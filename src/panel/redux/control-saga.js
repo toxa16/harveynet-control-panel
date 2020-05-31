@@ -20,11 +20,20 @@ function* sagaChannelListener(sagaChannel) {
 
 function createSagaControlChannel(controlChannel, machineId) {
   return eventChannel(emit => {
-    controlChannel.bind('pusher:subscription_succeeded', () => {
+    controlChannel.bind('pusher:subscription_succeeded', (data) => {
+      console.log(data)
       emit({
         type: ControlAction.SET_MACHINE_ID,
         payload: { machineId },
-      })
+      });
+      if (process.env.NODE_ENV ==='development') {
+        console.log('Pusher subscription success.');  // LOGGING (dev)
+      }
+    });
+    controlChannel.bind('pusher:subscription_error', (status) => {
+      if (process.env.NODE_ENV ==='development') {
+        console.error(`Pusher subscription error: ${status}`);  // LOGGING (dev)
+      }
     });
     // unsubscribe
     return () => {};
@@ -41,7 +50,7 @@ function* moveCommandListener(machineId, controlChannel) {
     }
   } finally {
     if (process.env.NODE_ENV === 'development') {
-      console.log('moveCommandListener terminated.');
+      console.log('moveCommandListener terminated.'); // LOGGING (dev)
     }
   }
 }

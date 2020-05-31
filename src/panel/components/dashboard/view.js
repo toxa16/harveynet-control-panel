@@ -11,7 +11,6 @@ export default function DashboardView({ machine, control }) {
   const { online } = machine.state;
   const controlEnabled = control === machine.machineId;
   const buttonsDisabled = !online || !controlEnabled;
-  //console.log({controlEnabled})
 
   function renderStatus() {
     if (online) {
@@ -26,7 +25,7 @@ export default function DashboardView({ machine, control }) {
         <div className="mb-3">
           <b className="text-warning">
             Your machine is currently controlled from another panel. 
-            Viewing only.
+            Viewing only. <a href={window.location.href}>Reconnect</a>
           </b>
         </div>
       );

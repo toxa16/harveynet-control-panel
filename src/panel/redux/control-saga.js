@@ -25,6 +25,10 @@ function createSagaControlChannel(controlChannel, machineId) {
         type: PanelAction.ENABLE_CONTROL,
         payload: { machineId, enabled: true },
       });
+      emit({
+        type: ControlAction.SET_MACHINE_ID,
+        payload: { machineId },
+      })
     });
     controlChannel.bind('pusher:subscription_error', () => {
       emit({

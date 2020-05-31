@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from '@reach/router';
 
 import ButtonsGrid from '../buttons-grid';
-import MachineMap from '../machine-map';
 import Coords from './coords';
 import CameraImage from './camera-image';
 import SatMap from '../sat-map';

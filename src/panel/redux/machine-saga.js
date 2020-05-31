@@ -102,5 +102,5 @@ export default function* machineSaga(machine, pusher) {
 
   // control channel
   // TODO: connect only from machine control dashboard
-  yield fork(controlSaga, pusher, machineId);
+  //yield fork(controlSaga, pusher, machineId);
 }

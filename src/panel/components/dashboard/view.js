@@ -47,7 +47,7 @@ export default function DashboardView({ machine }) {
 
       <div className="row">
         <div className="col-6 col-lg text-center mb-4">
-          { <ButtonsGrid machineId={machine.machineId} disabled={buttonsDisabled} /> }
+          { /* <ButtonsGrid machineId={machine.machineId} disabled={buttonsDisabled} /> */ }
         </div>
 
         <div className="col-6 col-lg mb-4">

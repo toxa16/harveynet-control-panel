@@ -38,9 +38,13 @@ function* moveCommandListener(machineId, controlChannel) {
   }
 }
 
-export default function* controlSaga(pusher, machineId) {
+/*export default function* controlSaga(pusher, machineId) {
   const controlChannel = pusher.subscribe(`presence-control-${machineId}`);
   const sagaControlChannel = yield call(createSagaControlChannel, controlChannel, machineId);
   yield fork(sagaChannelListener, sagaControlChannel);
   yield fork(moveCommandListener, machineId, controlChannel);
+}*/
+
+export default function* controlSaga(pusher) {
+  console.log('control saga running...');
 }

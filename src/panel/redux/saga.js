@@ -5,6 +5,7 @@ import Pusher from 'pusher-js';
 import PanelAction from './action-type';
 import getUserMachines from '../../utils/get-user-machines';
 import machineSaga from './machine-saga';
+import controlSaga from './control-saga';
 
 
 const appKey = process.env.REACT_APP_PUSHER_APP_KEY;
@@ -33,6 +34,7 @@ export default function* panelSaga(accessToken) {
     for (const machine of machines) {
       yield fork(machineSaga, machine, pusher);
     }
+    yield fork(controlSaga, pusher);
   } catch(err) {
     if (process.env.NODE_ENV === 'development') {
       console.error(err);

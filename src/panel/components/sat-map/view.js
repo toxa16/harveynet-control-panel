@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import 'ol/ol.css';
 import {Map, View} from 'ol';
@@ -14,6 +14,7 @@ import {Circle, Fill, Stroke, Style} from 'ol/style';
 
 export default function SatMapView({ machine }) {
   const { latitude, longitude } = machine.state;
+
   const zoom = 14.5;
   const baseLat = 50.422;
   const baseLng = 29.973;
@@ -22,12 +23,14 @@ export default function SatMapView({ machine }) {
     center: baseCoords,
     zoom
   })
-  //const point = new Point(baseCoords);
-  var geoMarker = new Feature({
+
+  const point = new Point(baseCoords);
+  const [geoMarker] = useState(new Feature({
     type: 'geoMarker',
-    //geometry: point
-  });
-  var styles = {
+    geometry: point
+  }))
+
+  const styles = {
     'geoMarker': new Style({
       image: new Circle({
         radius: 7,
@@ -38,39 +41,37 @@ export default function SatMapView({ machine }) {
       })
     })
   };
-  var vectorLayer = new Vector({
+  const vectorLayer = new Vector({
     source: new VectorSource({
       features: [geoMarker]
     }),
     style: feature => styles[feature.get('type')],
   });
-  let map = null;
+
+  const [map] = useState(new Map({
+    target: null, // set this in `useEffect`
+    layers: [
+      new TileLayer({
+        source: new OSM()
+      }),
+      vectorLayer
+    ],
+    view,
+  }));
 
   useEffect(() => {
-    console.log('effect1')
-    map = new Map({
-      target: 'map',
-      layers: [
-        new TileLayer({
-          source: new OSM()
-        }),
-        vectorLayer
-      ],
-      view,
-    });
-    //point.setCoordinates(fromLonLat([longitude, latitude]))
+    map.setTarget('map');
   }, []);
+
 
   useEffect(() => {
     if (latitude && longitude) {
-      console.log({ latitude, longitude })
-      geoMarker.setGeometry(new Point(fromLonLat([longitude, latitude])))
-      //map.render();
+      console.log({latitude,longitude})
+      const geometry = geoMarker.getGeometry();
+      geometry.setCoordinates(fromLonLat([longitude, latitude]))
     }
-    //point.setCoordinates(fromLonLat([longitude, latitude]))
-  });
+    
 
-  //useEffect(() => {
     /*const baseLat = 50.422;
     const baseLng = 29.973;
     const mLat = 5 / 10;
@@ -83,13 +84,13 @@ export default function SatMapView({ machine }) {
       console.log({ x, y })
       const lat = baseLat + x * 0.001 * mLat
       const lng = baseLng + y * 0.001 * mLng
-      point.setCoordinates(fromLonLat([lng, lat]))
+      geoMarker.setGeometry(new Point(fromLonLat([lng, lat])))
     }, 100);
     clearInterval(interval)*/
 
-    //point.setCoordinates(fromLonLat([longitude, latitude]))
-    //console.log({ latitude, longitude })
-  //});
+    //geoMarker.setGeometry(new Point(fromLonLat([longitude, latitude])))
+    //geoMarker.setGeometry(new Point(fromLonLat([baseLng, baseLat])))
+  }, [latitude, longitude]);
 
   return (
     <div id="map" style={{

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import MachineControlView from './view';
+import ControlAction from '../../redux/control-action';
 
 
 function stp(s) {
@@ -10,7 +11,9 @@ function stp(s) {
 }
 
 function dtp(d) {
-  return {};
+  return {
+    onUnmount: () => d({ type: ControlAction.DISCONNECT }),
+  };
 }
 
 

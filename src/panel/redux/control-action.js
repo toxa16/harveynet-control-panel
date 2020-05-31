@@ -1,5 +1,6 @@
 const ControlAction = {
-  SET_ENABLED: 'control__set-enabled',
+  CONNECT: 'control__connect',
+  DISCONNECT: 'control__disconnect',
 };
 
 export default ControlAction;

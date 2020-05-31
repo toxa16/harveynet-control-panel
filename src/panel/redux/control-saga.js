@@ -2,6 +2,7 @@ import { call, fork, put, take } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 
 import PanelAction from './action-type';
+import ControlAction from './control-action';
 
 
 function* sagaChannelListener(sagaChannel) {
@@ -46,5 +47,12 @@ function* moveCommandListener(machineId, controlChannel) {
 }*/
 
 export default function* controlSaga(pusher) {
-  console.log('control saga running...');
+  while (true) {
+    const action = yield take(ControlAction.CONNECT);
+    const { machineId } = action.payload;
+    console.log(`control connecting: ${machineId}`);
+
+    yield take(ControlAction.DISCONNECT);
+    console.log(`control disconnecting...`);
+  }
 }

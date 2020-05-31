@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import MachineListView from './view';
+import ControlAction from '../../redux/control-action';
 
 
 function stp(s) {
@@ -10,7 +11,12 @@ function stp(s) {
 }
 
 function dtp(d) {
-  return {};
+  return {
+    onMachineSelect: machineId => d({
+      type: ControlAction.CONNECT,
+      payload: { machineId },
+    }),
+  };
 }
 
 

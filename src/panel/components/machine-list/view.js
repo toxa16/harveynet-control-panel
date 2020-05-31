@@ -38,7 +38,7 @@ function MachineCard(machine) {
   );
 }
 
-function MachineButton({ machine, onClick }) {
+function MachineButton({ machine }) {
   const style = {
     display: 'block',
     width: '100%',
@@ -49,7 +49,7 @@ function MachineButton({ machine, onClick }) {
   return (
     <button
       style={style}
-      onClick={ e => onClick(machine) }
+      onClick={ e => navigate(`/panel/machine/${machine.machineId}`) }
     >
       <MachineCard {...machine} />
     </button>
@@ -60,18 +60,12 @@ function MachineButton({ machine, onClick }) {
 /**
  * Machine list page component. 
  */
-export default function MachineListView({ machines, onMachineSelect }) {
-  function handleMachineButtonClick(machine) {
-    const { machineId } = machine;
-    onMachineSelect(machineId);
-    navigate(`/panel/machine/${machineId}`);
-  }
-
+export default function MachineListView({ machines }) {
   function renderMachines() {
     return machines.map((x, i) => {
       return (
         <li key={i} className="mb-3">
-          <MachineButton machine={x} onClick={handleMachineButtonClick} />
+          <MachineButton machine={x} />
         </li>
       );
     });

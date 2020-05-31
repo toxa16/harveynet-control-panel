@@ -1,7 +1,6 @@
 import { call, cancel, fork, put, take } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 
-import PanelAction from './action-type';
 import ControlAction from './control-action';
 
 
@@ -22,22 +21,11 @@ function* sagaChannelListener(sagaChannel) {
 function createSagaControlChannel(controlChannel, machineId) {
   return eventChannel(emit => {
     controlChannel.bind('pusher:subscription_succeeded', () => {
-      /*emit({
-        type: PanelAction.ENABLE_CONTROL,
-        payload: { machineId, enabled: true },
-      });*/
       emit({
         type: ControlAction.SET_MACHINE_ID,
         payload: { machineId },
       })
     });
-    /*controlChannel.bind('pusher:subscription_error', () => {
-      emit({
-        type: PanelAction.ENABLE_CONTROL,
-        payload: { machineId, enabled: false },
-      });
-    });*/
-
     // unsubscribe
     return () => {};
   });
@@ -57,14 +45,6 @@ function* moveCommandListener(machineId, controlChannel) {
     }
   }
 }
-
-
-/*export default function* controlSaga(pusher, machineId) {
-  const controlChannel = pusher.subscribe(`presence-control-${machineId}`);
-  const sagaControlChannel = yield call(createSagaControlChannel, controlChannel, machineId);
-  yield fork(sagaChannelListener, sagaControlChannel);
-  yield fork(moveCommandListener, machineId, controlChannel);
-}*/
 
 
 export default function* controlSaga(pusher) {

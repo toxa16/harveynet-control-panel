@@ -2,7 +2,6 @@ import { call, fork, put, take } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 
 import PanelAction from './action-type';
-import controlSaga from './control-saga';
 
 
 // pusher message unchunking
@@ -99,8 +98,4 @@ export default function* machineSaga(machine, pusher) {
   const pusherChannel = pusher.subscribe(`presence-${machineId}`);
   const sagaChannel = yield call(createSagaChannel, machineId, pusherChannel);
   yield fork(sagaChannelListener, sagaChannel);
-
-  // control channel
-  // TODO: connect only from machine control dashboard
-  //yield fork(controlSaga, pusher, machineId);
 }

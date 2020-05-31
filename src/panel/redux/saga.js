@@ -1,5 +1,4 @@
-import { call, fork, put, take } from 'redux-saga/effects';
-import { eventChannel } from 'redux-saga';
+import { call, fork, put } from 'redux-saga/effects';
 import Pusher from 'pusher-js';
 
 import PanelAction from './action-type';

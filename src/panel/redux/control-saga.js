@@ -1,4 +1,4 @@
-import { call, fork, put, take } from 'redux-saga/effects';
+import { call, cancel, fork, put, take } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 
 import PanelAction from './action-type';
@@ -6,9 +6,15 @@ import ControlAction from './control-action';
 
 
 function* sagaChannelListener(sagaChannel) {
-  while (true) {
-    const action = yield take(sagaChannel);
-    yield put(action);
+  try {
+    while (true) {
+      const action = yield take(sagaChannel);
+      yield put(action);
+    }
+  } finally {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('sagaChannelListener terminated.');
+    }
   }
 }
 
@@ -32,10 +38,16 @@ function createSagaControlChannel(controlChannel, machineId) {
 }
 
 function* moveCommandListener(machineId, controlChannel) {
-  while (true) {
-    const action = yield take(`panel__move-command_${machineId}`);
-    const command = action.payload;
-    controlChannel.trigger('client-move-command', command);
+  try {
+    while (true) {
+      const action = yield take(`panel__move-command_${machineId}`);
+      const command = action.payload;
+      controlChannel.trigger('client-move-command', command);
+    }
+  } finally {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('moveCommandListener terminated.');
+    }
   }
 }
 
@@ -50,9 +62,27 @@ export default function* controlSaga(pusher) {
   while (true) {
     const action = yield take(ControlAction.CONNECT);
     const { machineId } = action.payload;
-    console.log(`control connecting: ${machineId}`);
+    const controlChannelName = `presence-control-${machineId}`;
+    const controlChannel = pusher.subscribe(controlChannelName);
+    const sagaControlChannel = yield call(
+      createSagaControlChannel,
+      controlChannel,
+      machineId,
+    );
+    const channelListenerTask = yield fork(
+      sagaChannelListener,
+      sagaControlChannel,
+    );
+    const commandListenerTask = yield fork(
+      moveCommandListener,
+      machineId,
+      controlChannel,
+    );
 
     yield take(ControlAction.DISCONNECT);
-    console.log(`control disconnecting...`);
+    pusher.unsubscribe(controlChannelName);
+    sagaControlChannel.close();
+    yield cancel(channelListenerTask);
+    yield cancel(commandListenerTask);
   }
 }

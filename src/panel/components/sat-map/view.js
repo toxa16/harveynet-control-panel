@@ -13,9 +13,12 @@ import {Circle, Fill, Stroke, Style} from 'ol/style';
 
 
 export default function SatMapView({ machine }) {
-  const { latitude, longitude } = machine.state;
+  const { online, latitude, longitude } = machine.state;
 
-  const [geoMarker] = useState(new Feature({ type: 'geoMarker' }));
+  const [geoMarker] = useState(new Feature({
+    type: 'geoMarker',
+    geometry: new Point(fromLonLat([0, 90])),   // North Pole :-)
+  }));
 
   const styles = {
     'geoMarker': new Style({
@@ -33,55 +36,53 @@ export default function SatMapView({ machine }) {
     style: feature => styles[feature.get('type')],
   });
 
-  const [map] = useState(new Map({
-    target: null, // set this in `useEffect`
-    view: null,   // set this in `useEffect`
-    layers: [
-      new TileLayer({
-        source: new OSM()
-      }),
-      vectorLayer
-    ],
-  }));
+  const [map, setMap] = useState(null);
 
   useEffect(() => {
-    console.log('effect')
-    if (latitude === null || longitude === null) {
-      // disable map
-      map.setView(null)
-    } else {
-      if (map.getView() === null) {
-        const view = new View({
-          center: fromLonLat([longitude, latitude]),
+    if (online) {
+      setMap(new Map({
+        target: 'map',
+        view: new View({
           zoom: 14.5,
-        })
-        geoMarker.setGeometry(new Point(fromLonLat([longitude, latitude])));
-        map.setView(view);
-        map.setTarget('map');
-      }
-      const geometry = geoMarker.getGeometry();
-      geometry.setCoordinates(fromLonLat([longitude, latitude]))
+          center: fromLonLat([0, 90]),
+        }),
+        layers: [
+          new TileLayer({ source: new OSM() }),
+          vectorLayer,
+        ],
+      }))
+    } else {
+      map && map.dispose();
+      setMap(null);
     }
-  }, [latitude, longitude, geoMarker, map]);
+  }, [online]);
 
-  function renderMap() {
-    if (latitude === null || longitude === null) {
-      return <span>Map N/A</span>
-    }
-    return <div id="map" style={{ width: '100%', height: '100%' }}></div>
-  }
+  useEffect(() => {
+    map && map.getView().setCenter(fromLonLat([longitude, latitude]))
+    const geometry = geoMarker.getGeometry();
+    geometry.setCoordinates(fromLonLat([longitude, latitude]))
+  }, [latitude, longitude]);
 
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '20rem',
-      height: '20rem',
-      backgroundColor: 'lightgray',
-      color: 'gray',
-    }}>
-      { renderMap() }
+    <div style={{ position: 'relative', width: '20rem', height: '20rem' }}>
+      <div id="map" style={{
+        width: '100%',
+        height: '100%',
+      }}></div>
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        display: online ? 'none' : 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'lightgray',
+        color: 'gray',
+      }}>
+        <span>Map N/A</span>
+      </div>
     </div>
   );
 }

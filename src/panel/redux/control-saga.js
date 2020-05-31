@@ -18,6 +18,7 @@ function* sagaChannelListener(sagaChannel) {
   }
 }
 
+
 function createSagaControlChannel(controlChannel, machineId) {
   return eventChannel(emit => {
     controlChannel.bind('pusher:subscription_succeeded', () => {
@@ -30,16 +31,18 @@ function createSagaControlChannel(controlChannel, machineId) {
         payload: { machineId },
       })
     });
-    controlChannel.bind('pusher:subscription_error', () => {
+    /*controlChannel.bind('pusher:subscription_error', () => {
       emit({
         type: PanelAction.ENABLE_CONTROL,
         payload: { machineId, enabled: false },
       });
-    });
+    });*/
+
     // unsubscribe
     return () => {};
   });
 }
+
 
 function* moveCommandListener(machineId, controlChannel) {
   try {
@@ -55,12 +58,14 @@ function* moveCommandListener(machineId, controlChannel) {
   }
 }
 
+
 /*export default function* controlSaga(pusher, machineId) {
   const controlChannel = pusher.subscribe(`presence-control-${machineId}`);
   const sagaControlChannel = yield call(createSagaControlChannel, controlChannel, machineId);
   yield fork(sagaChannelListener, sagaControlChannel);
   yield fork(moveCommandListener, machineId, controlChannel);
 }*/
+
 
 export default function* controlSaga(pusher) {
   while (true) {

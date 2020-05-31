@@ -11,6 +11,7 @@ export default function DashboardView({ machine, control }) {
   const { online } = machine.state;
   const controlEnabled = control === machine.machineId;
   const buttonsDisabled = !online || !controlEnabled;
+  console.log({controlEnabled})
 
   function renderStatus() {
     if (online) {

@@ -12,10 +12,14 @@ function stp(s) {
 
 function dtp(d) {
   return {
-    onMachineSelect: machineId => d({
-      type: ControlAction.CONNECT,
-      payload: { machineId },
-    }),
+    onMachineSelect: machineId => {
+      /*
+      d({
+        type: ControlAction.CONNECT,
+        payload: { machineId },
+      })
+      */
+    },
   };
 }
 

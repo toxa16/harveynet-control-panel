@@ -12,6 +12,10 @@ function stp(s) {
 
 function dtp(d) {
   return {
+    onMount: machineId => d({
+      type: ControlAction.CONNECT,
+      payload: { machineId },
+    }),
     onUnmount: () => d({ type: ControlAction.DISCONNECT }),
   };
 }

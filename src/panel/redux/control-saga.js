@@ -55,9 +55,10 @@ function* moveCommandListener(machineId, controlChannel) {
 }
 
 
-function* streamSaga(topic) {
+function* streamSaga({ controlChannel, topic, value }) {
   while (true) {
-    console.log(topic, Date.now());
+    //console.log(topic, value, Date.now());
+    controlChannel.trigger(`client-tool-${topic}`, { value });
     yield delay(500);
   }
 }
@@ -66,10 +67,10 @@ function* streamSaga(topic) {
 function* toolCommandListener(controlChannel, topic) {
   try {
     while (true) {
-      const startAction = yield take(`${ControlAction.TOOL_COMMAND_START}_${topic}`);
-      const streamTask = yield fork(streamSaga, topic);
-      const stopAction = yield take(`${ControlAction.TOOL_COMMAND_STOP}_${topic}`);
-      console.log(`${topic} stream stopped.`);
+      const action = yield take(`${ControlAction.TOOL_COMMAND_START}_${topic}`);
+      const { value } = action.payload;
+      const streamTask = yield fork(streamSaga, { controlChannel, topic, value });
+      yield take(`${ControlAction.TOOL_COMMAND_STOP}_${topic}`);
       yield cancel(streamTask);
     }
   } finally {
@@ -77,6 +78,12 @@ function* toolCommandListener(controlChannel, topic) {
       console.log('toolCommandListener terminated.'); // LOGGING (dev)
     }
   }
+}
+
+
+function* toolControlSaga(controlChannel) {
+  yield fork(toolCommandListener, controlChannel, 'binary_0');
+  yield fork(toolCommandListener, controlChannel, 'binary_1');
 }
 
 
@@ -100,10 +107,9 @@ export default function* controlSaga(pusher) {
       machineId,    // TODO: the `machineId` may be redundant
       controlChannel,
     );
-    const toolCommandListenerTask1 = yield fork(
-      toolCommandListener,
+    const toolControlTask = yield fork(
+      toolControlSaga,
       controlChannel,
-      'binary_1',
     );
 
     yield take(ControlAction.DISCONNECT);
@@ -111,6 +117,6 @@ export default function* controlSaga(pusher) {
     sagaControlChannel.close();
     yield cancel(channelListenerTask);
     yield cancel(commandListenerTask);
-    yield cancel(toolCommandListenerTask1);
+    yield cancel(toolControlTask);
   }
 }

@@ -19,19 +19,22 @@ function BinaryButton({ label, disabled = false, onPress, onRelease }) {
 export default function ToolControlView({
   machineId, disabled, onCommandStart, onCommandStop,
 }) {
-  const makeCommandStart = topic => e => onCommandStart(machineId, topic);
-  const makeCommandStop = topic => e => onCommandStop(machineId, topic);
+  const makeCommandStart = (topic, value) =>
+    e => onCommandStart(machineId, topic, value);
+  const makeCommandStop = topic =>
+    e => onCommandStop(machineId, topic);
+
   return (
     <div>
       <h5>Tool Control</h5>
       <BinaryButton
         label="binary_0"
-        onPress={makeCommandStart('binary_0')}
+        onPress={makeCommandStart('binary_0', true)}
         onRelease={makeCommandStop('binary_0')}
       />
       <BinaryButton
         label="binary_1"
-        onPress={makeCommandStart('binary_1')}
+        onPress={makeCommandStart('binary_1', true)}
         onRelease={makeCommandStop('binary_1')}
       />
     </div>

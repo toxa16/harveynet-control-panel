@@ -1,4 +1,4 @@
-import { call, cancel, fork, put, take } from 'redux-saga/effects';
+import { call, cancel, delay, fork, put, take } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 
 import ControlAction from './control-action';
@@ -55,13 +55,22 @@ function* moveCommandListener(machineId, controlChannel) {
 }
 
 
-function* toolCommandListener(controlChannel) {
+function* streamSaga(topic) {
+  while (true) {
+    console.log(topic, Date.now());
+    yield delay(500);
+  }
+}
+
+
+function* toolCommandListener(controlChannel, topic) {
   try {
     while (true) {
-      const startAction = yield take(ControlAction.TOOL_COMMAND_START);
-      console.log(startAction);
-      const stopAction = yield take(ControlAction.TOOL_COMMAND_STOP);
-      console.log(stopAction);
+      const startAction = yield take(`${ControlAction.TOOL_COMMAND_START}_${topic}`);
+      const streamTask = yield fork(streamSaga, topic);
+      const stopAction = yield take(`${ControlAction.TOOL_COMMAND_STOP}_${topic}`);
+      console.log(`${topic} stream stopped.`);
+      yield cancel(streamTask);
     }
   } finally {
     if (process.env.NODE_ENV === 'development') {
@@ -91,9 +100,10 @@ export default function* controlSaga(pusher) {
       machineId,    // TODO: the `machineId` may be redundant
       controlChannel,
     );
-    const toolCommandListenerTask = yield fork(
+    const toolCommandListenerTask1 = yield fork(
       toolCommandListener,
       controlChannel,
+      'binary_1',
     );
 
     yield take(ControlAction.DISCONNECT);
@@ -101,6 +111,6 @@ export default function* controlSaga(pusher) {
     sagaControlChannel.close();
     yield cancel(channelListenerTask);
     yield cancel(commandListenerTask);
-    yield cancel(toolCommandListenerTask);
+    yield cancel(toolCommandListenerTask1);
   }
 }

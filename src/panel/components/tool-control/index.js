@@ -10,15 +10,11 @@ function stp(s) {
 
 function dtp(d) {
   return {
-    /*onCommand: command => d({
-      type: `${ControlAction.TOOL_COMMAND}_${command.machineId}`,
-      payload: command,
-    }),*/
     onCommandStart: (machineId, topic) => d({
-      type: ControlAction.TOOL_COMMAND_START,
+      type: `${ControlAction.TOOL_COMMAND_START}_${topic}`,
     }),
     onCommandStop: (machineId, topic) => d({
-      type: ControlAction.TOOL_COMMAND_STOP,
+      type: `${ControlAction.TOOL_COMMAND_STOP}_${topic}`,
     }),
   };
 }

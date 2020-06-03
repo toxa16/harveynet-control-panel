@@ -5,6 +5,7 @@ function BinaryButton({ label, disabled = false, onPress, onRelease }) {
   // TODO: on mouse leave => on release
   return (
     <button
+      style={{ userSelect: 'none' }}
       onMouseDown={onPress}
       onMouseUp={onRelease}
       onTouchStart={onPress}

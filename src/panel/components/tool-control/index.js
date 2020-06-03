@@ -14,12 +14,12 @@ function dtp(d) {
       type: `${ControlAction.TOOL_COMMAND}_${command.machineId}`,
       payload: command,
     }),*/
-    onCommandStart: (machineId, topic) => {
-      console.log('command start', topic, machineId);
-    },
-    onCommandStop: (machineId, topic) => {
-      console.log('command stop', topic, machineId);
-    },
+    onCommandStart: (machineId, topic) => d({
+      type: ControlAction.TOOL_COMMAND_START,
+    }),
+    onCommandStop: (machineId, topic) => d({
+      type: ControlAction.TOOL_COMMAND_STOP,
+    }),
   };
 }
 

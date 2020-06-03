@@ -55,6 +55,22 @@ function* moveCommandListener(machineId, controlChannel) {
 }
 
 
+function* toolCommandListener(controlChannel) {
+  try {
+    while (true) {
+      const startAction = yield take(ControlAction.TOOL_COMMAND_START);
+      console.log(startAction);
+      const stopAction = yield take(ControlAction.TOOL_COMMAND_STOP);
+      console.log(stopAction);
+    }
+  } finally {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('toolCommandListener terminated.'); // LOGGING (dev)
+    }
+  }
+}
+
+
 export default function* controlSaga(pusher) {
   while (true) {
     const action = yield take(ControlAction.CONNECT);
@@ -72,7 +88,11 @@ export default function* controlSaga(pusher) {
     );
     const commandListenerTask = yield fork(
       moveCommandListener,
-      machineId,
+      machineId,    // TODO: the `machineId` may be redundant
+      controlChannel,
+    );
+    const toolCommandListenerTask = yield fork(
+      toolCommandListener,
       controlChannel,
     );
 
@@ -81,5 +101,6 @@ export default function* controlSaga(pusher) {
     sagaControlChannel.close();
     yield cancel(channelListenerTask);
     yield cancel(commandListenerTask);
+    yield cancel(toolCommandListenerTask);
   }
 }

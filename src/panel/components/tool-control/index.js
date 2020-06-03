@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import BinaryButtonsView from './view';
+import ToolControlView from './view';
 import ControlAction from '../../redux/control-action';
 
 
@@ -24,9 +24,9 @@ function dtp(d) {
 }
 
 
-const BinaryButtons = connect(
+const ToolControl = connect(
   stp,
   dtp,
-)(BinaryButtonsView);
+)(ToolControlView);
 
-export default BinaryButtons;
+export default ToolControl;

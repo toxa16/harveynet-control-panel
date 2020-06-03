@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default function BinaryButtonsView({
+export default function ToolControlView({
   machineId, disabled, onCommandStart, onCommandStop,
 }) {
   const makeCommandStart = topic => e => onCommandStart(machineId, topic);

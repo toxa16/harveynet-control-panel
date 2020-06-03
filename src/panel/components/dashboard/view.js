@@ -5,7 +5,7 @@ import ButtonsGrid from '../buttons-grid';
 import Coords from './coords';
 import CameraImage from './camera-image';
 import SatMap from '../sat-map';
-import BinaryButtons from '../binary-buttons';
+import ToolControl from '../tool-control';
 
 
 export default function DashboardView({ machine, control }) {
@@ -97,7 +97,7 @@ export default function DashboardView({ machine, control }) {
       </div>
 
       <div className="mb-4">
-        <BinaryButtons machineId={machineId} disabled={buttonsDisabled} />
+        <ToolControl machineId={machineId} disabled={buttonsDisabled} />
       </div>
 
       <div className="d-none text-secondary mt-5">

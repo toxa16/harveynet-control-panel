@@ -12,7 +12,7 @@ export default function DashboardView({ machine, control }) {
   const { machineId } = machine;
   const { online } = machine.state;
   const controlEnabled = control === machineId;
-  const buttonsDisabled = !online || !controlEnabled;
+  const controlsDisabled = !online || !controlEnabled;
 
   function renderStatus() {
     if (online) {
@@ -50,7 +50,7 @@ export default function DashboardView({ machine, control }) {
 
       <div className="row">
         <div className="col-6 col-lg text-center mb-4">
-          <ButtonsGrid machineId={machineId} disabled={buttonsDisabled} />
+          <ButtonsGrid machineId={machineId} disabled={controlsDisabled} />
         </div>
 
         <div className="col-6 col-lg mb-4">
@@ -62,7 +62,7 @@ export default function DashboardView({ machine, control }) {
         </div>
       </div>
 
-      <div className="d-flex mb-4">
+      <div className="d-flex mb-5">
         <div className="mb-4">
           <Coords machine={machine} />
         </div>
@@ -97,7 +97,7 @@ export default function DashboardView({ machine, control }) {
       </div>
 
       <div className="mb-4">
-        <ToolControl machineId={machineId} disabled={buttonsDisabled} />
+        <ToolControl machineId={machineId} disabled={controlsDisabled} />
       </div>
 
       <div className="d-none text-secondary mt-5">

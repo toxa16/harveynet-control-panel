@@ -4,6 +4,10 @@ import { eventChannel } from 'redux-saga';
 import ControlAction from './control-action';
 
 
+// config
+const streamInterval = 200;   // miliseconds
+
+
 function* sagaChannelListener(sagaChannel) {
   try {
     while (true) {
@@ -59,7 +63,7 @@ function* streamSaga({ controlChannel, topic, value }) {
   while (true) {
     //console.log(topic, value, Date.now());
     controlChannel.trigger(`client-tool-${topic}`, { value });
-    yield delay(500);
+    yield delay(streamInterval);
   }
 }
 
@@ -82,8 +86,12 @@ function* toolCommandListener(controlChannel, topic) {
 
 
 function* toolControlSaga(controlChannel) {
-  yield fork(toolCommandListener, controlChannel, 'binary_0');
+  // setting declaratively
   yield fork(toolCommandListener, controlChannel, 'binary_1');
+  yield fork(toolCommandListener, controlChannel, 'binary_2');
+  yield fork(toolCommandListener, controlChannel, 'binary_3');
+  yield fork(toolCommandListener, controlChannel, 'binary_4');
+  yield fork(toolCommandListener, controlChannel, 'binary_5');
 }
 
 

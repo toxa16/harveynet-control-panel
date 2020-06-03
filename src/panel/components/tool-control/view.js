@@ -1,6 +1,20 @@
 import React from 'react';
 
 
+function BinaryButton({ label, disabled = false, onPress, onRelease }) {
+  // TODO: on mouse leave => on release
+  return (
+    <button
+      onMouseDown={onPress}
+      onMouseUp={onRelease}
+      onTouchStart={onPress}
+      onTouchEnd={onRelease}
+      disabled={disabled}
+    >{ label }</button>
+  );
+}
+
+
 export default function ToolControlView({
   machineId, disabled, onCommandStart, onCommandStop,
 }) {
@@ -9,18 +23,16 @@ export default function ToolControlView({
   return (
     <div>
       <h5>Tool Control</h5>
-      <button
-        onMouseDown={makeCommandStart('binary_0')}
-        onMouseUp={makeCommandStop('binary_0')}
-      >
-        binary_0
-      </button>
-      <button
-        onMouseDown={makeCommandStart('binary_1')}
-        onMouseUp={makeCommandStop('binary_1')}
-      >
-        binary_1
-      </button>
+      <BinaryButton
+        label="binary_0"
+        onPress={makeCommandStart('binary_0')}
+        onRelease={makeCommandStop('binary_0')}
+      />
+      <BinaryButton
+        label="binary_1"
+        onPress={makeCommandStart('binary_1')}
+        onRelease={makeCommandStop('binary_1')}
+      />
     </div>
   );
 }

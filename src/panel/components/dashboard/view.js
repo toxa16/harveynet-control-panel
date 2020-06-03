@@ -5,11 +5,13 @@ import ButtonsGrid from '../buttons-grid';
 import Coords from './coords';
 import CameraImage from './camera-image';
 import SatMap from '../sat-map';
+import BinaryButtons from '../binary-buttons';
 
 
 export default function DashboardView({ machine, control }) {
+  const { machineId } = machine;
   const { online } = machine.state;
-  const controlEnabled = control === machine.machineId;
+  const controlEnabled = control === machineId;
   const buttonsDisabled = !online || !controlEnabled;
 
   function renderStatus() {
@@ -38,7 +40,7 @@ export default function DashboardView({ machine, control }) {
         <Link to='/panel'>&lt; Back to my machines</Link>
       </div>
 
-      <h1 className="mb-4">{ machine.machineId }</h1>
+      <h1 className="mb-4">{ machineId }</h1>
 
       <div className="mb-4">Status: { renderStatus() }</div>
 
@@ -48,7 +50,7 @@ export default function DashboardView({ machine, control }) {
 
       <div className="row">
         <div className="col-6 col-lg text-center mb-4">
-          <ButtonsGrid machineId={machine.machineId} disabled={buttonsDisabled} />
+          <ButtonsGrid machineId={machineId} disabled={buttonsDisabled} />
         </div>
 
         <div className="col-6 col-lg mb-4">
@@ -92,6 +94,10 @@ export default function DashboardView({ machine, control }) {
             />
           </div>
         </div>
+      </div>
+
+      <div className="mb-4">
+        <BinaryButtons machineId={machineId} disabled={buttonsDisabled} />
       </div>
 
       <div className="d-none text-secondary mt-5">

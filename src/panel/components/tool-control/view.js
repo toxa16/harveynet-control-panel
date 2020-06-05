@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 function BinaryButton({ label, disabled = false, onPress, onRelease }) {
@@ -15,11 +15,25 @@ function BinaryButton({ label, disabled = false, onPress, onRelease }) {
   );
 }
 
-function BinaryToggler({ label, disabled = false, onOn = () => {}, onOff = () => {} }) {
-  const handleChange = e => e.target.checked ? onOn() : onOff();
+function BinaryToggler({
+  label,
+  disabled = false,
+  onOn = () => {},
+  onOff = () => {},
+}) {
+  const [on, setOn] = useState(false);
+  useEffect(() => { disabled && setOn(false) }, [disabled]);
+  useEffect(() => { on ? onOn() : onOff() }, [on]);
+  const handleChange = e => setOn(e.target.checked);
+
   return (
     <label>
-      <input type="checkbox" onChange={handleChange} disabled={disabled} />
+      <input
+        type="checkbox"
+        checked={on}
+        onChange={handleChange}
+        disabled={disabled}
+      />
       {' '}
       <span className={disabled ? 'text-muted' : ''}>{ label }</span>
     </label>

@@ -40,6 +40,40 @@ function BinaryToggler({
   );
 }
 
+function AnalogSlider({
+  label,
+  disabled = false,
+  onPositive = v => {},
+  onZero = () => {},
+}) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => { disabled && setValue(0) }, [disabled]);
+
+  function handleChange(e) {
+    const val = e.target.value;
+    setValue(val);
+    val > 0 ? onPositive(val) : onZero();
+  }
+
+  return (
+    <div className="d-flex align-items-center">
+      <label className={disabled ? 'text-muted' : ''}>
+        { label }
+      </label>
+      <input
+        className="ml-2"
+        type="range"
+        min={0}
+        max={100}
+        value={value}
+        onChange={handleChange}
+        disabled={disabled}
+      />
+    </div>
+  );
+}
+
 
 export default function ToolControlView({ disabled, onCommandStart, onCommandStop }) {
   const makeCommandStart = (topic, value) => e => onCommandStart(topic, value);
@@ -51,7 +85,7 @@ export default function ToolControlView({ disabled, onCommandStart, onCommandSto
 
       <div className="mb-4">
         <p className="text-muted mb-2">
-          Push-release buttons (data is streamed while a button is pressed).
+          Binary push-release buttons (data is streamed while a button is pressed).
         </p>
         <BinaryButton
           label="binary_1"
@@ -85,7 +119,7 @@ export default function ToolControlView({ disabled, onCommandStart, onCommandSto
         />
       </div>
 
-      <div>
+      <div className="mb-4">
         <p className="text-muted mb-2">
           Binary togglers, here in form of checkboxes 
           (data is streamed while a checkbox is checked).
@@ -122,6 +156,13 @@ export default function ToolControlView({ disabled, onCommandStart, onCommandSto
             disabled={disabled}
           />
         </span>
+      </div>
+
+      <div>
+        <AnalogSlider
+          label="analog_1"
+          disabled={disabled}
+        />
       </div>
     </div>
   );

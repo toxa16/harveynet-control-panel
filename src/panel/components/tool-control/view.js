@@ -52,7 +52,7 @@ function AnalogSlider({
   const handleChange = e => setValue(e.target.value);
 
   return (
-    <div className="d-flex align-items-center">
+    <div className="d-inline-flex align-items-center">
       <label className={disabled ? 'text-muted' : ''}>
         { label }
       </label>
@@ -161,12 +161,34 @@ export default function ToolControlView({ disabled, onCommandStart, onCommandSto
       </div>
 
       <div>
-        <AnalogSlider
-          label="analog_1"
-          onPositive={makeAnalogCommandStart('analog_1')}
-          onZero={ () => onCommandStop('analog_1') }
-          disabled={disabled}
-        />
+        <p className="text-muted">
+          Analog sliders, range from 0 to 100 
+          (data is streamed while a slider value is greater than 0).
+        </p>
+        <div className="mb-2">
+          <AnalogSlider
+            label="analog_1"
+            onPositive={makeAnalogCommandStart('analog_1')}
+            onZero={ () => onCommandStop('analog_1') }
+            disabled={disabled}
+          />
+        </div>
+        <div className="mb-2">
+          <AnalogSlider
+            label="analog_2"
+            onPositive={makeAnalogCommandStart('analog_2')}
+            onZero={ () => onCommandStop('analog_2') }
+            disabled={disabled}
+          />
+        </div>
+        <div>
+          <AnalogSlider
+            label="analog_3"
+            onPositive={makeAnalogCommandStart('analog_3')}
+            onZero={ () => onCommandStop('analog_3') }
+            disabled={disabled}
+          />
+        </div>
       </div>
     </div>
   );

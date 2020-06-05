@@ -5,7 +5,7 @@ import ControlAction from './control-action';
 
 
 // config
-const streamInterval = 700;   // miliseconds
+const streamInterval = 200;   // miliseconds
 
 
 function* sagaChannelListener(sagaChannel) {
@@ -61,9 +61,9 @@ function* moveCommandListener(machineId, controlChannel) {
 
 function* streamSaga({ controlChannel, topic, value }) {
   while (true) {
-    //console.log(topic, value, Date.now());
+    yield delay(50);  // blocking instant slider updates
     controlChannel.trigger(`client-tool-${topic}`, { value });
-    yield delay(streamInterval);
+    yield delay(streamInterval - 50);
   }
 }
 
@@ -86,7 +86,7 @@ function* toolCommandListener(controlChannel, topic) {
 
 
 function* toolControlSaga(controlChannel) {
-  // setting declaratively
+  // binary
   yield fork(toolCommandListener, controlChannel, 'binary_1');
   yield fork(toolCommandListener, controlChannel, 'binary_2');
   yield fork(toolCommandListener, controlChannel, 'binary_3');
@@ -96,8 +96,10 @@ function* toolControlSaga(controlChannel) {
   yield fork(toolCommandListener, controlChannel, 'binary_7');
   yield fork(toolCommandListener, controlChannel, 'binary_8');
   yield fork(toolCommandListener, controlChannel, 'binary_9');
-
+  // analog
   yield fork(toolCommandListener, controlChannel, 'analog_1');
+  yield fork(toolCommandListener, controlChannel, 'analog_2');
+  yield fork(toolCommandListener, controlChannel, 'analog_3');
 }
 
 

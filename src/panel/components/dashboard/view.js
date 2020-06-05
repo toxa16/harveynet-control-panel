@@ -97,7 +97,7 @@ export default function DashboardView({ machine, control }) {
       </div>
 
       <div className="mb-4">
-        <ToolControl machineId={machineId} disabled={controlsDisabled} />
+        <ToolControl disabled={controlsDisabled} />
       </div>
 
       <div className="d-none text-secondary mt-5">

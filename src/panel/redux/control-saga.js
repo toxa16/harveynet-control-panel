@@ -92,6 +92,10 @@ function* toolControlSaga(controlChannel) {
   yield fork(toolCommandListener, controlChannel, 'binary_3');
   yield fork(toolCommandListener, controlChannel, 'binary_4');
   yield fork(toolCommandListener, controlChannel, 'binary_5');
+  yield fork(toolCommandListener, controlChannel, 'binary_6');
+  yield fork(toolCommandListener, controlChannel, 'binary_7');
+  yield fork(toolCommandListener, controlChannel, 'binary_8');
+  yield fork(toolCommandListener, controlChannel, 'binary_9');
 }
 
 

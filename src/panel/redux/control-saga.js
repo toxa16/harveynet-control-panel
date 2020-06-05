@@ -5,7 +5,7 @@ import ControlAction from './control-action';
 
 
 // config
-const streamInterval = 200;   // miliseconds
+const streamInterval = 700;   // miliseconds
 
 
 function* sagaChannelListener(sagaChannel) {
@@ -96,6 +96,8 @@ function* toolControlSaga(controlChannel) {
   yield fork(toolCommandListener, controlChannel, 'binary_7');
   yield fork(toolCommandListener, controlChannel, 'binary_8');
   yield fork(toolCommandListener, controlChannel, 'binary_9');
+
+  yield fork(toolCommandListener, controlChannel, 'analog_1');
 }
 
 

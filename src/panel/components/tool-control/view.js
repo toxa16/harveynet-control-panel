@@ -47,14 +47,9 @@ function AnalogSlider({
   onZero = () => {},
 }) {
   const [value, setValue] = useState(0);
-
   useEffect(() => { disabled && setValue(0) }, [disabled]);
-
-  function handleChange(e) {
-    const val = e.target.value;
-    setValue(val);
-    val > 0 ? onPositive(val) : onZero();
-  }
+  useEffect(() => { value > 0 ? onPositive(value) : onZero() }, [value]);
+  const handleChange = e => setValue(e.target.value);
 
   return (
     <div className="d-flex align-items-center">
@@ -78,6 +73,13 @@ function AnalogSlider({
 export default function ToolControlView({ disabled, onCommandStart, onCommandStop }) {
   const makeCommandStart = (topic, value) => e => onCommandStart(topic, value);
   const makeCommandStop = topic => e => onCommandStop(topic);
+
+  function makeAnalogCommandStart(topic) {
+    return function(value) {
+      onCommandStop(topic);
+      onCommandStart(topic, value);
+    }
+  }
 
   return (
     <div>
@@ -161,6 +163,8 @@ export default function ToolControlView({ disabled, onCommandStart, onCommandSto
       <div>
         <AnalogSlider
           label="analog_1"
+          onPositive={makeAnalogCommandStart('analog_1')}
+          onZero={ () => onCommandStop('analog_1') }
           disabled={disabled}
         />
       </div>

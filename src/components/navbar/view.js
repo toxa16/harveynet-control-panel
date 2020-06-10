@@ -16,7 +16,7 @@ export default function NavbarView({ authenticated }) {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <span className="navbar-brand">
-          <b>HarveyNet</b> Control Panel (v0.1.6)
+          <b>HarveyNet</b> Control Panel (v0.1.7)
         </span>
 
         <ul className="navbar-nav">

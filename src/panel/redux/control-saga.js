@@ -69,8 +69,7 @@ function* moveCommandListener(machineId, controlChannel) {
  */
 function* moveStreamSaga({ controlChannel, command }) {
   while (true) {
-    console.log('streaming move command', command);
-    controlChannel.trigger(`client-move-command-stream`, { command });
+    controlChannel.trigger(`client-move-command-stream`, command);
     yield delay(moveStreamInterval);
   }
 }

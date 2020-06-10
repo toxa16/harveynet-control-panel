@@ -119,6 +119,24 @@ export default function ToolControlView({ disabled, onCommandStart, onCommandSto
           onRelease={makeCommandStop('binary_5')}
           disabled={disabled}
         />
+        <BinaryButton
+          label="binary_6"
+          onPress={makeCommandStart('binary_6', true)}
+          onRelease={makeCommandStop('binary_6')}
+          disabled={disabled}
+        />
+        <BinaryButton
+          label="binary_7"
+          onPress={makeCommandStart('binary_7', true)}
+          onRelease={makeCommandStop('binary_7')}
+          disabled={disabled}
+        />
+        <BinaryButton
+          label="binary_8"
+          onPress={makeCommandStart('binary_8', true)}
+          onRelease={makeCommandStop('binary_8')}
+          disabled={disabled}
+        />
       </div>
 
       <div className="mb-4">
@@ -126,30 +144,6 @@ export default function ToolControlView({ disabled, onCommandStart, onCommandSto
           Binary togglers, here in form of checkboxes 
           (data is streamed while a checkbox is checked).
         </p>
-        <span className="mr-4">
-          <BinaryToggler
-            label="binary_6"
-            onOn={makeCommandStart('binary_6', true)}
-            onOff={makeCommandStop('binary_6')}
-            disabled={disabled}
-          />
-        </span>
-        <span className="mr-4">
-          <BinaryToggler
-            label="binary_7"
-            onOn={makeCommandStart('binary_7', true)}
-            onOff={makeCommandStop('binary_7')}
-            disabled={disabled}
-          />
-        </span>
-        <span className="mr-4">
-          <BinaryToggler
-            label="binary_8"
-            onOn={makeCommandStart('binary_8', true)}
-            onOff={makeCommandStop('binary_8')}
-            disabled={disabled}
-          />
-        </span>
         <span>
           <BinaryToggler
             label="binary_9"

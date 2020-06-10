@@ -6,7 +6,7 @@ import DirectionalButton from './directional-button';
 export default function ButtonsGridView({ machineId, disabled, onMoveCommandStart, onMoveCommandStop
  }) {
   function handleRelease() {
-    onMoveCommandStart({ l: 0, a: 0 })
+    onMoveCommandStop({ l: 0, a: 0 })
   }
 
   const style = {

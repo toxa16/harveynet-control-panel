@@ -5,7 +5,8 @@ import ControlAction from './control-action';
 
 
 // config
-const streamInterval = 200;   // miliseconds
+const moveStreamInterval = 200;   // miliseconds
+const toolStreamInterval = 200;   // miliseconds
 
 
 function* sagaChannelListener(sagaChannel) {
@@ -58,12 +59,35 @@ function* moveCommandListener(machineId, controlChannel) {
   }
 }
 
+function* moveStreamSaga({ controlChannel, command }) {
+  while (true) {
+    console.log('streaming move command', command);
+    //controlChannel.trigger(`client-tool-${topic}`, { command });
+    yield delay(moveStreamInterval);
+  }
+}
+function* moveStreamCommandListener(controlChannel) {
+  try {
+    while (true) {
+      const action = yield take(ControlAction.MOVE_COMMAND_START);
+      const command = action.payload;
+      const streamTask = yield fork(moveStreamSaga, { controlChannel, command });
+      yield take(ControlAction.MOVE_COMMAND_STOP);
+      yield cancel(streamTask);
+    }
+  } finally {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('moveStreamCommandListener terminated.'); // LOGGING (dev)
+    }
+  }
+}
+
 
 function* streamSaga({ controlChannel, topic, value }) {
   while (true) {
     yield delay(50);  // blocking instant slider updates
     controlChannel.trigger(`client-tool-${topic}`, { value });
-    yield delay(streamInterval - 50);
+    yield delay(toolStreamInterval - 50);
   }
 }
 
@@ -123,6 +147,10 @@ export default function* controlSaga(pusher) {
       machineId,    // TODO: the `machineId` may be redundant
       controlChannel,
     );
+    const moveStreamControlTask = yield fork(
+      moveStreamCommandListener,
+      controlChannel,
+    );
     const toolControlTask = yield fork(
       toolControlSaga,
       controlChannel,
@@ -133,6 +161,7 @@ export default function* controlSaga(pusher) {
     sagaControlChannel.close();
     yield cancel(channelListenerTask);
     yield cancel(commandListenerTask);
+    yield cancel(moveStreamControlTask);
     yield cancel(toolControlTask);
   }
 }

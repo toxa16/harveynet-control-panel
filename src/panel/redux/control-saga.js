@@ -44,13 +44,17 @@ function createSagaControlChannel(controlChannel, machineId) {
   });
 }
 
-
+/**
+ * Turtlebot movement control saga.
+ * @param {*} machineId UNNECESSARY (probably)
+ * @param {*} controlChannel 
+ */
 function* moveCommandListener(machineId, controlChannel) {
   try {
     while (true) {
       const action = yield take(`panel__move-command_${machineId}`);
       const command = action.payload;
-      controlChannel.trigger('client-move-command', command);
+      controlChannel.trigger('client-move-command-turtlebot', command);
     }
   } finally {
     if (process.env.NODE_ENV === 'development') {
@@ -59,6 +63,10 @@ function* moveCommandListener(machineId, controlChannel) {
   }
 }
 
+
+/**
+ * Streamed movement control.
+ */
 function* moveStreamSaga({ controlChannel, command }) {
   while (true) {
     console.log('streaming move command', command);
@@ -83,6 +91,9 @@ function* moveStreamCommandListener(controlChannel) {
 }
 
 
+/**
+ * Streamed tool control.
+ */
 function* streamSaga({ controlChannel, topic, value }) {
   while (true) {
     yield delay(50);  // blocking instant slider updates
@@ -90,8 +101,6 @@ function* streamSaga({ controlChannel, topic, value }) {
     yield delay(toolStreamInterval - 50);
   }
 }
-
-
 function* toolCommandListener(controlChannel, topic) {
   try {
     while (true) {

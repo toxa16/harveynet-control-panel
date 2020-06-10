@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-//import ButtonsGridView from './view';
-import ButtonsGridView from './view-stream';
+import ButtonsGridView from './view';   // turtlebot
+//import ButtonsGridView from './view-stream';
 import ControlAction from '../../redux/control-action';
 
 

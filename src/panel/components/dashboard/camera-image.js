@@ -7,7 +7,7 @@ export default function CameraImage({ machine }) {
     const imgStyle = {
       width: '20rem',
       height: '20rem',
-      objectFit: 'cover',
+      objectFit: 'contain',
     };
     return (
       <img

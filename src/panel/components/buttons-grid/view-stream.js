@@ -39,7 +39,11 @@ export default function ButtonsGridView({ machineId, disabled, onMoveCommandStar
         onRelease={handleRelease}
       >&larr;</DirectionalButton>
 
-      <DirectionalButton disabled>x</DirectionalButton>
+      <DirectionalButton
+        disabled={disabled}
+        onPress={ e => onMoveCommandStart({ l: 0, a: 0 }) }
+        onRelease={handleRelease}
+      >x</DirectionalButton>
 
       <DirectionalButton
         disabled={disabled}

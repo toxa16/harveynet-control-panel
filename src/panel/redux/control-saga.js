@@ -135,11 +135,29 @@ function* toolControlSaga(controlChannel) {
 }
 
 
+async function controlAuthCheck(channel_name, accessToken) {
+  const baseUrl = process.env.REACT_APP_OWNERSHIP_SERVER_URL;
+  const url = `${baseUrl}/control-auth-check`;
+  const headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+  const res = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ channel_name }),
+  });
+  return res.ok;
+}
+
+
 export default function* controlSaga(pusher) {
   while (true) {
     const action = yield take(ControlAction.CONNECT);
     const { machineId } = action.payload;
     const controlChannelName = `presence-control-${machineId}`;
+    const authAllowed = yield call(controlAuthCheck, controlChannelName);
+    if (!authAllowed) {
+      continue;
+    }
     const controlChannel = pusher.subscribe(controlChannelName);
     const sagaControlChannel = yield call(
       createSagaControlChannel,

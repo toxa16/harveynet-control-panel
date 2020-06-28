@@ -1,4 +1,4 @@
-import { call, cancel, delay, fork, put, take } from 'redux-saga/effects';
+import { call, cancel, delay, fork, put, select, take } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 
 import ControlAction from './control-action';
@@ -155,8 +155,22 @@ async function controlAuthCheck(channel_name, accessToken) {
 /**
  * Joystick control
  */
+function* linearStreamSaga(controlChannel) {
+  while (true) {
+    const linear = yield select(s => s.panel.control.linear);
+    const command = { l: linear, a: 0 };
+    controlChannel.trigger(`client-move-command-stream`, command);
+    yield delay(moveStreamInterval);
+  }
+}
 function* linearJoystickSaga(controlChannel) {
-  console.log('linear joystick saga running...'); // LOGGING
+  while (true) {
+    yield take(ControlAction.MOVE_LINEAR);
+    const streamTask = yield fork(linearStreamSaga, controlChannel);
+    yield take(ControlAction.STOP_LINEAR);
+    yield cancel(streamTask);
+    controlChannel.trigger(`client-move-command-stream`, { l: 0, a: 0 });
+  }
 }
 function* joystickControlSaga(controlChannel) {
   yield fork(linearJoystickSaga, controlChannel);

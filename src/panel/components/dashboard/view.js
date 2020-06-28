@@ -6,8 +6,8 @@ import Coords from './coords';
 import CameraImage from './camera-image';
 import SatMap from '../sat-map';
 import ToolControl from '../tool-control';
-import JoyLinear from '../joy-linear/joy-linear';
-import JoyAngular from '../joy-angular/joy-angular';
+import JoyLinear from '../joy-linear';
+import JoyAngular from '../joy-angular';
 
 
 export default function DashboardView({ machine, control }) {

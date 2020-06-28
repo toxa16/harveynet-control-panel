@@ -5,7 +5,11 @@ const ControlAction = {
   MOVE_COMMAND_START: 'control__move-command-start',
   MOVE_COMMAND_STOP: 'control__move-command-stop',
   TOOL_COMMAND_START: 'control__tool-command-start',
-  TOOL_COMMAND_STOP: 'control__tool-command-stop',
+  TOOL_COMMAND_STOP: 'control__tool-command-stop', 
+  MOVE_LINEAR: 'control__move-linear',
+  STOP_LINEAR: 'control__stop-linear',
+  MOVE_ANGULAR: 'control__move-angular',
+  STOP_ANGULAR: 'control__stop-angular',
 };
 
 export default ControlAction;

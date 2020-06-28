@@ -5,7 +5,7 @@ import DashboardView from './view';
 
 function stp(s) {
   return {
-    control: s.panel.control,
+    control: s.panel.control.machineId,
   }
 }
 

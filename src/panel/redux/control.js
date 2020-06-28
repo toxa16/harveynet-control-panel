@@ -1,13 +1,17 @@
 import ControlAction from './control-action';
 
+const initialState = {
+  machineId: null,
+};
 
-export default function control(s = null, a) {
+export default function control(s = initialState, a) {
   switch (a.type) {
     case ControlAction.SET_MACHINE_ID: {
-      return a.payload.machineId;
+      const { machineId } = a.payload;
+      return { ...s, machineId };
     }
     case ControlAction.DISCONNECT: {
-      return null;
+      return initialState;
     }
     default: return s;
   }

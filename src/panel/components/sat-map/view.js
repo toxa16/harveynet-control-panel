@@ -64,7 +64,7 @@ export default function SatMapView({ machine }) {
   }, [latitude, longitude]);
 
   return (
-    <div style={{ position: 'relative', width: '20rem', height: '20rem' }}>
+    <div style={{ position: 'relative', width: '100%', height: '20rem' }}>
       <div id="map" style={{
         width: '100%',
         height: '100%',

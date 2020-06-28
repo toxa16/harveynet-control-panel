@@ -23,7 +23,14 @@ export default function JoyLinear({ disabled }) {
         padding: '.25rem .5rem',
         background: 'rgba(255, 255, 255, .5)',
       }}>
-        <span className={ disabled ? 'text-muted' : '' }>Linear: {value}</span>
+        <span className={ disabled ? 'text-muted' : '' }>
+          <span>Linear:</span>
+          {' '}
+          <span style={{
+            display: 'inline-block',
+            width: '1.5rem',
+          }}>{value}</span>
+        </span>
       </div>
 
       <Joystick

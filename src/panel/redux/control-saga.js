@@ -115,8 +115,6 @@ function* toolCommandListener(controlChannel, topic) {
     }
   }
 }
-
-
 function* toolControlSaga(controlChannel) {
   // binary
   yield fork(toolCommandListener, controlChannel, 'binary_1');
@@ -135,6 +133,11 @@ function* toolControlSaga(controlChannel) {
 }
 
 
+/**
+ * Auth check.
+ * @param {*} channel_name 
+ * @param {*} accessToken 
+ */
 async function controlAuthCheck(channel_name, accessToken) {
   const baseUrl = process.env.REACT_APP_OWNERSHIP_SERVER_URL;
   const url = `${baseUrl}/control-auth-check`;
@@ -149,6 +152,21 @@ async function controlAuthCheck(channel_name, accessToken) {
 }
 
 
+/**
+ * Joystick control
+ */
+function* linearJoystickSaga(controlChannel) {
+  console.log('linear joystick saga running...'); // LOGGING
+}
+function* joystickControlSaga(controlChannel) {
+  yield fork(linearJoystickSaga, controlChannel);
+}
+
+
+/**
+ * Cockpit control root saga.
+ * @param {*} pusher Pusher instance
+ */
 export default function* controlSaga(pusher) {
   while (true) {
     const action = yield take(ControlAction.CONNECT);
@@ -181,6 +199,7 @@ export default function* controlSaga(pusher) {
       toolControlSaga,
       controlChannel,
     );
+    const joystickTask = yield fork(joystickControlSaga, controlChannel);
 
     yield take(ControlAction.DISCONNECT);
     pusher.unsubscribe(controlChannelName);
@@ -189,5 +208,6 @@ export default function* controlSaga(pusher) {
     yield cancel(commandListenerTask);
     yield cancel(moveStreamControlTask);
     yield cancel(toolControlTask);
+    yield cancel(joystickTask);
   }
 }

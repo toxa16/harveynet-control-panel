@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Joystick } from 'react-joystick-component';
 
 
-export default function JoyAngular() {
+export default function JoyAngular({ disabled }) {
   const [value, setValue] = useState(0);
 
   function handleStart(e) {
@@ -23,16 +23,17 @@ export default function JoyAngular() {
         padding: '.25rem .5rem',
         background: 'rgba(255, 255, 255, .5)',
       }}>
-        Angular: {value}
+        <span className={ disabled ? 'text-muted' : '' }>Angular: {value}</span>
       </div>
 
       <Joystick
         size={100}
-        baseColor="red"
-        stickColor="blue"
+        baseColor={ disabled ? 'lightgray' : 'red' }
+        stickColor={ disabled ? 'gray' : 'blue' }
         start={handleStart}
         move={handleMove}
         stop={handleStop}
+        disabled={disabled}
       ></Joystick>
     </div>
   );

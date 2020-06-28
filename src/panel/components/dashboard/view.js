@@ -130,8 +130,8 @@ export default function DashboardView({ machine, control }) {
         </ol>
       </div>
 
-      <JoyLinear />
-      <JoyAngular />
+      <JoyLinear disabled={controlsDisabled} />
+      <JoyAngular disabled={controlsDisabled} />
     </div>
   );
 }

@@ -51,20 +51,20 @@ export default function DashboardView({ machine, control }) {
       </div>
 
       <div className="row">
-        <div className="col-6 col-lg text-center mb-4">
+        <div className="d-none col-6 col-lg text-center mb-4">
           <ButtonsGrid machineId={machineId} disabled={controlsDisabled} />
         </div>
 
-        <div className="col-6 col-lg mb-4">
+        <div className="text-center col-12 col-lg mb-4">
           <CameraImage machine={machine} />
         </div>
 
-        <div className="col-6 col-lg  mb-4">
+        <div className="text-center col-12 col-lg mb-4">
           <SatMap machine={machine} />
         </div>
       </div>
 
-      <div className="d-flex mb-5">
+      <div className="text-center mb-5">
         <div className="mb-4">
           <Coords machine={machine} />
         </div>

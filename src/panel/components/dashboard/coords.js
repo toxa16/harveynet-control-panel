@@ -20,14 +20,14 @@ export default function Coords({ machine }) {
     return <span className="text-success">{ formatNumber(y) }</span>;
   }
   return (
-    <div>
+    <div className="d-inline-block text-left">
       <h5>Coordinates (odometry):</h5>
-      <div>
+      <div className="ml-3">
         <span className="text-muted">x:</span>
         {' '}
         { renderX() }
       </div>
-      <div>
+      <div className="ml-3">
         <span className="text-muted">y:</span>
         {' '}
         { renderY() }

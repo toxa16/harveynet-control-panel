@@ -3,6 +3,9 @@ import { Joystick } from 'react-joystick-component';
 
 
 export default function JoyAngular({ angular, disabled, onMove, onStop }) {
+  const size = 150;
+  const coeff = 100 * 2 / size;
+
   return (
     <div style={{ position: 'fixed', right: '3rem', bottom: '3rem', textAlign: 'center' }}>
       <div className="mb-2" style={{
@@ -21,10 +24,10 @@ export default function JoyAngular({ angular, disabled, onMove, onStop }) {
       </div>
 
       <Joystick
-        size={100}
-        baseColor={ disabled ? 'lightgray' : 'red' }
-        stickColor={ disabled ? 'gray' : 'blue' }
-        move={e => onMove(-e.x)}
+        size={size}
+        baseColor={ disabled ? 'lightgray' : '#EF9A9A' }
+        stickColor={ disabled ? 'gray' : '#B71C1C' }
+        move={e => onMove(-e.x * coeff)}
         stop={e => onStop()}
         disabled={disabled}
       ></Joystick>

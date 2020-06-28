@@ -6,6 +6,8 @@ import Coords from './coords';
 import CameraImage from './camera-image';
 import SatMap from '../sat-map';
 import ToolControl from '../tool-control';
+import JoyLinear from '../joy-linear/joy-linear';
+import JoyAngular from '../joy-angular/joy-angular';
 
 
 export default function DashboardView({ machine, control }) {
@@ -127,6 +129,9 @@ export default function DashboardView({ machine, control }) {
           <li>See the status is "<i>Offline</i>" again.</li>
         </ol>
       </div>
+
+      <JoyLinear />
+      <JoyAngular />
     </div>
   );
 }

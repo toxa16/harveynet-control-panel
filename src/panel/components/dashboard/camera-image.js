@@ -5,9 +5,10 @@ export default function CameraImage({ machine }) {
   const { cameraImage } = machine.state;
   function renderImage() {
     const imgStyle = {
-      width: '20rem',
+      width: '100%',
       height: '20rem',
       objectFit: 'contain',
+      backgroundColor: 'black',
     };
     return (
       <img
@@ -22,7 +23,7 @@ export default function CameraImage({ machine }) {
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '20rem',
+      width: '100%',
       height: '20rem',
       backgroundColor: 'lightgray',
       color: 'gray',

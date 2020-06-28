@@ -1,3 +1,15 @@
-const { default: JoyAngular } = require("./joy-angular");
+import { connect } from 'react-redux';
 
-export default JoyAngular;
+import JoyAngular from './joy-angular';
+
+
+function stp(s) {
+  return {};
+}
+
+function dtp(d) {
+  return {};
+}
+
+
+export default connect(stp, dtp)(JoyAngular);

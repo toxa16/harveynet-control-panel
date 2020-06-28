@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from '@reach/router';
 
 import ButtonsGrid from '../buttons-grid';
@@ -11,10 +11,15 @@ import JoyAngular from '../joy-angular';
 
 
 export default function DashboardView({ machine, control }) {
+  const [allowRenderDisabled, setAllowRenderDisabled] = useState(false);
   const { machineId } = machine;
   const { online } = machine.state;
   const controlEnabled = control === machineId;
   const controlsDisabled = !online || !controlEnabled;
+
+  useEffect(() => {
+    setTimeout(() => setAllowRenderDisabled(true), 1000);
+  }, []);
 
   function renderStatus() {
     if (online) {
@@ -24,7 +29,7 @@ export default function DashboardView({ machine, control }) {
   }
 
   function renderControlDisabled() {
-    if (online && !controlEnabled) {
+    if (allowRenderDisabled && online && !controlEnabled) {
       return (
         <div className="mb-3">
           <b className="text-warning">

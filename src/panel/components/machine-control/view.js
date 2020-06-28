@@ -6,8 +6,8 @@ import Dashboard from '../dashboard';
 export default function MachineControlView({ machineId, machines, onMount, onUnmount }) {
   // component mount & unmount hook
   useEffect(() => {
-    //setTimeout(() => onMount(machineId), 500);  // delaying onMount
-    onMount(machineId);
+    setTimeout(() => onMount(machineId), 500);  // delaying onMount
+    //onMount(machineId);
     return () => onUnmount();
   }, []);
 

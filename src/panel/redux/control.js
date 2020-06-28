@@ -19,6 +19,13 @@ export default function control(s = initialState, a) {
     case ControlAction.STOP_LINEAR: {
       return { ...s, linear: 0 };
     }
+    case ControlAction.MOVE_ANGULAR: {
+      const { angular } = a.payload;
+      return { ...s, angular };
+    }
+    case ControlAction.STOP_ANGULAR: {
+      return { ...s, angular: 0 };
+    }
     case ControlAction.DISCONNECT: {
       return initialState;
     }

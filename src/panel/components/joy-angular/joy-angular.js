@@ -1,21 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Joystick } from 'react-joystick-component';
 
 
-export default function JoyAngular({ disabled }) {
-  const [value, setValue] = useState(0);
-
-  function handleStart(e) {
-    console.log(e);
-  }
-  function handleStop(e) {
-    console.log(e);
-    setValue(0);
-  }
-  function handleMove(e) {
-    setValue(Math.round(e.x));
-  }
-
+export default function JoyAngular({ angular, disabled, onMove, onStop }) {
   return (
     <div style={{ position: 'fixed', right: '3rem', bottom: '3rem', textAlign: 'center' }}>
       <div className="mb-2" style={{
@@ -29,7 +16,7 @@ export default function JoyAngular({ disabled }) {
           <span style={{
             display: 'inline-block',
             width: '1.5rem',
-          }}>{value}</span>
+          }}>{Math.round(angular)}</span>
         </span>
       </div>
 
@@ -37,9 +24,8 @@ export default function JoyAngular({ disabled }) {
         size={100}
         baseColor={ disabled ? 'lightgray' : 'red' }
         stickColor={ disabled ? 'gray' : 'blue' }
-        start={handleStart}
-        move={handleMove}
-        stop={handleStop}
+        move={e => onMove(-e.x)}
+        stop={e => onStop()}
         disabled={disabled}
       ></Joystick>
     </div>

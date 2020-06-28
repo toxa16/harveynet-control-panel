@@ -172,8 +172,26 @@ function* linearJoystickSaga(controlChannel) {
     controlChannel.trigger(`client-move-command-stream`, { l: 0, a: 0 });
   }
 }
+function* angularStreamSaga(controlChannel) {
+  while (true) {
+    const angular = yield select(s => s.panel.control.angular);
+    const command = { l: 0, a: angular };
+    controlChannel.trigger(`client-move-command-stream`, command);
+    yield delay(moveStreamInterval);
+  }
+}
+function* angularJoystickSaga(controlChannel) {
+  while (true) {
+    yield take(ControlAction.MOVE_ANGULAR);
+    const streamTask = yield fork(angularStreamSaga, controlChannel);
+    yield take(ControlAction.STOP_ANGULAR);
+    yield cancel(streamTask);
+    controlChannel.trigger(`client-move-command-stream`, { l: 0, a: 0 });
+  }
+}
 function* joystickControlSaga(controlChannel) {
   yield fork(linearJoystickSaga, controlChannel);
+  yield fork(angularJoystickSaga, controlChannel);
 }
 
 

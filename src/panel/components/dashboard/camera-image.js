@@ -19,7 +19,7 @@ export default function CameraImage({ machine }) {
   }
   function renderStub() {
     const style = {
-      display: 'flex',
+      display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
       width: '20rem',

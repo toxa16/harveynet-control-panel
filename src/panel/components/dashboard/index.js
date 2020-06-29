@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import DashboardView from './view';
+import ControlAction from '../../redux/control-action';
 
 
 function stp(s) {
@@ -10,7 +11,10 @@ function stp(s) {
 }
 
 function dtp(d) {
-  return {}
+  return {
+    onSelectClick: () => d({ type: ControlAction.SELECT_CLICK }),
+    onStartClick: () => d({ type: ControlAction.START_CLICK }),
+  }
 }
 
 

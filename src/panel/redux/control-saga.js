@@ -189,9 +189,23 @@ function* angularJoystickSaga(controlChannel) {
     controlChannel.trigger(`client-move-command-stream`, { l: 0, a: 0 });
   }
 }
+function* selectClickSaga(controlChannel) {
+  while (true) {
+    yield take(ControlAction.SELECT_CLICK);
+    controlChannel.trigger(`client-select-click`, {});
+  }
+}
+function* startClickSaga(controlChannel) {
+  while (true) {
+    yield take(ControlAction.START_CLICK);
+    controlChannel.trigger(`client-start-click`, {});
+  }
+}
 function* joystickControlSaga(controlChannel) {
   yield fork(linearJoystickSaga, controlChannel);
   yield fork(angularJoystickSaga, controlChannel);
+  yield fork(selectClickSaga, controlChannel);
+  yield fork(startClickSaga, controlChannel);
 }
 
 

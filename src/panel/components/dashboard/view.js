@@ -10,7 +10,7 @@ import JoyLinear from '../joy-linear';
 import JoyAngular from '../joy-angular';
 
 
-export default function DashboardView({ machine, control }) {
+export default function DashboardView({ machine, control, onSelectClick, onStartClick }) {
   const [allowRenderDisabled, setAllowRenderDisabled] = useState(false);
   const { machineId } = machine;
   const { online } = machine.state;
@@ -53,6 +53,19 @@ export default function DashboardView({ machine, control }) {
 
       <div>
         { renderControlDisabled() }
+      </div>
+
+      <div className="mb-4">
+        <button
+          className="btn btn-primary mr-2"
+          onClick={onSelectClick}
+          disabled={controlsDisabled}
+        >Select</button>
+        <button
+          className="btn btn-success"
+          onClick={onStartClick}
+          disabled={controlsDisabled}
+        >Start</button>
       </div>
 
       <div className="row">

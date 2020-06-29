@@ -10,6 +10,8 @@ const ControlAction = {
   STOP_LINEAR: 'control__stop-linear',
   MOVE_ANGULAR: 'control__move-angular',
   STOP_ANGULAR: 'control__stop-angular',
+  SELECT_CLICK: 'control__select-click',
+  START_CLICK: 'control__start-click',
 };
 
 export default ControlAction;
